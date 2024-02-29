@@ -22,17 +22,18 @@ steps = [
         """
         CREATE TABLE games (
             id SERIAL PRIMARY KEY NOT NULL,
+            name VARCHAR NOT NULL,
             year_published INTEGER NOT NULL,
-            number_of_players TEXT NOT NULL,
-            playing_time TEXT NOT NULL,
-            age TEXT NOT NULL,
+            number_of_players VARCHAR NOT NULL,
+            playing_time VARCHAR NOT NULL,
+            age VARCHAR NOT NULL,
             description TEXT NOT NULL,
-            image TEXT NOT NULL,
+            picture VARCHAR NOT NULL,
             video TEXT NOT NULL,
-            complexity_level TEXT NOT NULL,
-            category TEXT NOT NULL check(category = 'Abstract Strategy' or category = 'Family' or category = 'Party' or category = 'Cards' or category = 'Dice' or category = 'Deduction' or category = 'Campaign'),
-            status TEXT NOT NULL check(status = 'Own' or status = 'Want To Play' or status = 'Favorite'),
-            rating INTEGER NOT NULL check(rating = 1 or rating = 2 or rating = 3 or rating = 4 or rating = 5)
+            complexity_level TEXT NOT NULL CHECK(complexity_level IN ('Easy', 'Medium', 'Difficult', 'Very Difficult')),
+            category TEXT NOT NULL CHECK(category IN ('Abstract Strategy', 'Family', 'Party', 'Cards', 'Dice', 'Deduction', 'Campaign')),
+            status TEXT NOT NULL CHECK(status IN ('Own', 'Want To Play', 'Favorite')),
+            rating INTEGER NOT NULL CHECK(rating BETWEEN 1 AND 5)
         );
         """,
         # "Down" SQL statement
