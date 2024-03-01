@@ -124,7 +124,7 @@ steps = [
         """
         CREATE TABLE member_events (member_id INTEGER REFERENCES event(id),
         event_id INTEGER REFERENCES member(id),
-        CONSTRAINT members_events_pk PRIMARY KEY(memeber_id, event_id)
+        CONSTRAINT members_events_pk PRIMARY KEY(member_id, event_id)
         );
         """,
         # "Down" SQL statement
