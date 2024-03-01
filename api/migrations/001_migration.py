@@ -2,6 +2,42 @@ steps = [
     [
         # "Up" SQL statement
         """
+        CREATE TABLE locations (
+            id SERIAL PRIMARY KEY NOT NULL,
+            city VARCHAR(100) NOT NULL,
+            state VARCHAR(100) NOT NULL,
+            state_abbrev VARCHAR(2) NOT NULL,
+            weather VARCHAR(1000)
+        );
+        """,
+        # "Down" SQL statement
+        """
+        DROP TABLE locations;
+        """
+    ],
+    [
+        # "Up" SQL statement
+        """
+        CREATE TABLE venues (
+            id SERIAL PRIMARY KEY NOT NULL,
+            venue_name VARCHAR(1000) NOT NULL,
+            online BOOLEAN NOT NULL,
+            online_platform VARCHAR(100) NOT NULL,
+            location_id INT REFERENCES locations (id),
+            hours_operation VARCHAR(50) NOT NULL,
+            phone_number VARCHAR(50),
+            venue_type VARCHAR(100),
+            reservation_req BOOLEAN NOT NULL
+        );
+        """,
+        # "Down" SQL statement
+        """
+        DROP TABLE venues;
+        """
+    ],
+    [
+        # "Up" SQL statement
+        """
         CREATE TABLE members (
             id SERIAL PRIMARY KEY NOT NULL,
             first_name VARCHAR(50) NOT NULL,
@@ -118,41 +154,5 @@ steps = [
         """
         DROP TABLE game_events;
         """,
-    ],
-    [
-        # "Up" SQL statement
-        """
-        CREATE TABLE venues (
-            id SERIAL PRIMARY KEY NOT NULL,
-            venue_name VARCHAR(1000) NOT NULL,
-            online BOOLEAN NOT NULL,
-            online_platform VARCHAR(100) NOT NULL,
-            location_id INT REFERENCES locations (id),
-            hours_operation VARCHAR(50) NOT NULL,
-            phone_number VARCHAR(50),
-            venue_type VARCHAR(100),
-            reservation_req BOOLEAN NOT NULL
-        );
-        """,
-        # "Down" SQL statement
-        """
-        DROP TABLE venues;
-        """
-    ],
-    [
-        # "Up" SQL statement
-        """
-        CREATE TABLE locations (
-            id SERIAL PRIMARY KEY NOT NULL,
-            city VARCHAR(100) NOT NULL,
-            state VARCHAR(100) NOT NULL,
-            state_abbrev VARCHAR(2) NOT NULL,
-            weather VARCHAR(1000)
-        );
-        """,
-        # "Down" SQL statement
-        """
-        DROP TABLE locations;
-        """
     ]
 ]
