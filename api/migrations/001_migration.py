@@ -105,14 +105,9 @@ steps = [
     [
         # "Up" SQL statement
         """
-        CREATE TABLE member_games (
-            id SERIAL PRIMARY KEY NOT NULL,
-            required_limited_text VARCHAR(1000) NOT NULL,
-            required_unlimited_text TEXT NOT NULL,
-            required_date_time TIMESTAMP NOT NULL,
-            automatically_set_date_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            required_integer INTEGER NOT NULL,
-            required_money MONEY NOT NULL
+        CREATE TABLE games_members(game_id INTEGER REFERENCES members(id),
+            member_id INTEGER REFERENCES games(id),
+            CONSTRAINTS games_members_pk PRIMARY KEY(game_id, member_id)
         );
         """,
         # "Down" SQL statement
@@ -125,7 +120,7 @@ steps = [
         """
         CREATE TABLE member_events (member_id INTEGER REFERENCES event(id),
         event_id INTEGER REFERENCES member(id),
-        CONSTRAINT members_events_pk PRIMARY KEY(memeber_id, event_id)
+        CONSTRAINT members_events_pk PRIMARY KEY(member_id, event_id)
         );
         """,
         # "Down" SQL statement
@@ -136,14 +131,9 @@ steps = [
     [
         # "Up" SQL statement
         """
-        CREATE TABLE game_events (
-            id SERIAL PRIMARY KEY NOT NULL,
-            required_limited_text VARCHAR(1000) NOT NULL,
-            required_unlimited_text TEXT NOT NULL,
-            required_date_time TIMESTAMP NOT NULL,
-            automatically_set_date_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            required_integer INTEGER NOT NULL,
-            required_money MONEY NOT NULL
+        CREATE TABLE games_events(game_id INTEGER REFERENCES events(id),
+            event_id INTEGER REFERENCES games(id),
+            CONSTRAINTS games_events_pk PRIMARY KEY(game_id, event_id)
         );
         """,
         # "Down" SQL statement
