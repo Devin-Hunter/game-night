@@ -13,7 +13,7 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE locations;
-        """
+        """,
     ],
     [
         # "Up" SQL statement
@@ -33,7 +33,7 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE venues;
-        """
+        """,
     ],
     [
         # "Up" SQL statement
@@ -63,18 +63,19 @@ steps = [
         """
         CREATE TABLE games (
             id SERIAL PRIMARY KEY NOT NULL,
-            name VARCHAR NOT NULL,
-            year_published INTEGER NOT NULL,
-            number_of_players VARCHAR NOT NULL,
-            playing_time VARCHAR NOT NULL,
-            age VARCHAR NOT NULL,
-            description TEXT NOT NULL,
-            picture VARCHAR NOT NULL,
-            video TEXT NOT NULL,
-            complexity_level TEXT NOT NULL CHECK(complexity_level IN ('Easy', 'Medium', 'Difficult', 'Very Difficult')),
-            category TEXT NOT NULL CHECK(category IN ('Abstract Strategy', 'Family', 'Party', 'Cards', 'Dice', 'Deduction', 'Campaign')),
-            status TEXT NOT NULL CHECK(status IN ('Own', 'Want To Play', 'Favorite')),
-            rating INTEGER NOT NULL CHECK(rating BETWEEN 1 AND 5)
+            title VARCHAR(200) NOT NULL,
+            year INT,
+            min_players INT,
+            max_players INT,
+            play_time VARCHAR(50),
+            age VARCHAR(20),
+            description TEXT,
+            rules TEXT,
+            picture VARCHAR (300),
+            video TEXT,
+            complexity VARCHAR(200),
+            category VARCHAR(200),
+            rating INT
         );
         """,
         # "Down" SQL statement
@@ -104,14 +105,9 @@ steps = [
     [
         # "Up" SQL statement
         """
-        CREATE TABLE member_games (
-            id SERIAL PRIMARY KEY NOT NULL,
-            required_limited_text VARCHAR(1000) NOT NULL,
-            required_unlimited_text TEXT NOT NULL,
-            required_date_time TIMESTAMP NOT NULL,
-            automatically_set_date_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            required_integer INTEGER NOT NULL,
-            required_money MONEY NOT NULL
+        CREATE TABLE games_members(game_id INTEGER REFERENCES members(id),
+            member_id INTEGER REFERENCES games(id),
+            CONSTRAINTS games_members_pk PRIMARY KEY(game_id, member_id)
         );
         """,
         # "Down" SQL statement
@@ -135,19 +131,14 @@ steps = [
     [
         # "Up" SQL statement
         """
-        CREATE TABLE game_events (
-            id SERIAL PRIMARY KEY NOT NULL,
-            required_limited_text VARCHAR(1000) NOT NULL,
-            required_unlimited_text TEXT NOT NULL,
-            required_date_time TIMESTAMP NOT NULL,
-            automatically_set_date_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            required_integer INTEGER NOT NULL,
-            required_money MONEY NOT NULL
+        CREATE TABLE games_events(game_id INTEGER REFERENCES events(id),
+            event_id INTEGER REFERENCES games(id),
+            CONSTRAINTS games_events_pk PRIMARY KEY(game_id, event_id)
         );
         """,
         # "Down" SQL statement
         """
         DROP TABLE game_events;
         """,
-    ]
+    ],
 ]
