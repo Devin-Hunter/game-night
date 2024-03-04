@@ -22,4 +22,10 @@ Accomplished:
 
 2/29/24
 -Submitted merge request for issue #27
--Started Members base model(issue #24)
+-Started Members base model(issue #24),
+-Members table will need revision
+-Drafted endpoints for members
+
+## Week 15
+3/04/24
+-fixed migration syntax issue
