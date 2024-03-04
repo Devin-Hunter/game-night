@@ -13,7 +13,7 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE locations;
-        """,
+        """
     ],
     [
         # "Up" SQL statement
@@ -33,7 +33,7 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE venues;
-        """,
+        """
     ],
     [
         # "Up" SQL statement
@@ -48,15 +48,13 @@ steps = [
             avatar TEXT NOT NULL,
             about TEXT,
             member_since DATE NOT NULL DEFAULT CURRENT_DATE,
-            location SMALLINT NOT NULL,
-            games_list integer[] NOT NULL,
-            events_list integer[] NOT NULL
+            location SMALLINT NOT NULL
         );
         """,
         # "Down" SQL statement
         """
         DROP TABLE members;
-        """,
+        """
     ],
     [
         # "Up" SQL statement
@@ -81,7 +79,7 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE games;
-        """,
+        """
     ],
     [
         # "Up" SQL statement
@@ -100,33 +98,35 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE events;
-        """,
+        """
     ],
     [
         # "Up" SQL statement
         """
-        CREATE TABLE games_members(game_id INTEGER REFERENCES members(id),
-            member_id INTEGER REFERENCES games(id),
-            CONSTRAINTS games_members_pk PRIMARY KEY(game_id, member_id)
+        CREATE TABLE games_members(
+            game_id INTEGER NOT NULL REFERENCES members(id),
+            member_id INTEGER NOT NULL REFERENCES games(id),
+            CONSTRAINTS games_members PRIMARY KEY(game_id, member_id)
         );
         """,
         # "Down" SQL statement
         """
-        DROP TABLE member_games;
-        """,
+        DROP TABLE games_members;
+        """
     ],
     [
         # "Up" SQL statement
         """
-        CREATE TABLE member_events (member_id INTEGER REFERENCES event(id),
-        event_id INTEGER REFERENCES member(id),
-        CONSTRAINT members_events_pk PRIMARY KEY(member_id, event_id)
+        CREATE TABLE member_events (
+            member_id INTEGER NOT NULL REFERENCES event(id),
+            event_id INTEGER NOT NULL REFERENCES member(id),
+            CONSTRAINT members_events_pk PRIMARY KEY(member_id, event_id)
         );
         """,
         # "Down" SQL statement
         """
         DROP TABLE member_events;
-        """,
+        """
     ],
     [
         # "Up" SQL statement
@@ -139,6 +139,6 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE game_events;
-        """,
+        """
     ],
 ]
