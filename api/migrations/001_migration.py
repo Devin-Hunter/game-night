@@ -13,8 +13,8 @@ steps = [
             about TEXT,
             member_since DATE NOT NULL DEFAULT CURRENT_DATE,
             location SMALLINT NOT NULL,
-            games_list TEXT NOT NULL,
-            events_list TEXT NOT NULL
+            games_list integer[] NOT NULL,
+            events_list integer[] NOT NULL
         );
         """,
         # "Down" SQL statement
