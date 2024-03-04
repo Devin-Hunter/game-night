@@ -6,18 +6,36 @@ class Error(BaseModel):
     message: str
 
 class MemberIn(BaseModel):
-    pass
+    first_name,
+    last_name,
+    username,
+    age,
+    skill_level,
+    about,
+    location,
 
 
 class MemberOut(BaseModel):
-    pass
+    id,
+    first_name,
+    last_name,
+    username,
+    age,
+    skill_level,
+    about,
+    location, 
+    member_since,
 
 class MemberRepo:
     def new_member(self, member: MemberIn) -> MemberOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    pass
+                    result = db.execute(
+                        """
+                        INSERT INTO
+                        """
+                    )
         except Exception as e:
             print(e)
             return {'message': 'Could not create new member'}
