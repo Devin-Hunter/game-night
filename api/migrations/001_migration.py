@@ -106,7 +106,7 @@ steps = [
         CREATE TABLE games_members(
             game_id INTEGER NOT NULL REFERENCES members(id),
             member_id INTEGER NOT NULL REFERENCES games(id),
-            CONSTRAINTS games_members PRIMARY KEY(game_id, member_id)
+            CONSTRAINT games_members_pk PRIMARY KEY(game_id, member_id)
         );
         """,
         # "Down" SQL statement
@@ -118,8 +118,8 @@ steps = [
         # "Up" SQL statement
         """
         CREATE TABLE member_events (
-            member_id INTEGER NOT NULL REFERENCES event(id),
-            event_id INTEGER NOT NULL REFERENCES member(id),
+            member_id INTEGER NOT NULL REFERENCES events(id),
+            event_id INTEGER NOT NULL REFERENCES members(id),
             CONSTRAINT members_events_pk PRIMARY KEY(member_id, event_id)
         );
         """,
@@ -133,7 +133,7 @@ steps = [
         """
         CREATE TABLE games_events(game_id INTEGER REFERENCES events(id),
             event_id INTEGER REFERENCES games(id),
-            CONSTRAINTS games_events_pk PRIMARY KEY(game_id, event_id)
+            CONSTRAINT games_events_pk PRIMARY KEY(game_id, event_id)
         );
         """,
         # "Down" SQL statement
