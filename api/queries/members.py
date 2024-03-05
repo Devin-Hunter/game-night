@@ -1,8 +1,7 @@
 from pydantic import BaseModel
-from typing import Optional, List, Union
+from typing import List, Union
 from .pool import pool
 from datetime import date
-
 
 class Error(BaseModel):
     message: str
@@ -16,9 +15,6 @@ class MemberIn(BaseModel):
     avatar: str
     about: str
     location_id: int
-    
-    
-
 
 class MemberOut(BaseModel):
     id: int
@@ -31,7 +27,6 @@ class MemberOut(BaseModel):
     about: str
     location_id: int
     member_since: date
-    
 
 class MemberOutWithPassword(MemberOut):
     hashed_password: str
@@ -111,11 +106,9 @@ class MemberRepo:
                          member.location_id
                          ]
                     )
-                    print(result)
                     id = result.fetchone()[0]
                     reg_date = date.today()
                     old_data = member.dict()
-                    
                     return MemberOut(id=id, member_since = reg_date, **old_data)
         except Exception as e:
             print(e)

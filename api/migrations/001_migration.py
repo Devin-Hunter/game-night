@@ -42,13 +42,14 @@ steps = [
             id SERIAL PRIMARY KEY NOT NULL,
             first_name VARCHAR(50) NOT NULL,
             last_name VARCHAR(50) NOT NULL,
-            username VARCHAR(20) NOT NULL,
+            username VARCHAR(20) UNIQUE NOT NULL,
             age SMALLINT NOT NULL,
             skill_level TEXT NOT NULL,
             avatar TEXT NOT NULL,
             about TEXT,
             member_since DATE NOT NULL DEFAULT CURRENT_DATE,
-            location_id INT REFERENCES locations (id)
+            location_id INT REFERENCES locations (id),
+            password VARCHAR(15)
         );
         """,
         # "Down" SQL statement
@@ -145,5 +146,5 @@ steps = [
         """
         DROP TABLE game_events;
         """
-    ],
+    ]
 ]
