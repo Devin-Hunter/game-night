@@ -1,18 +1,20 @@
 from fastapi import APIRouter, Depends
 from queries.members import MemberIn, MemberOut, MemberRepo, Error
 from typing import List, Union
-# from authenticator import authenticator
+from authenticator import authenticator
 
 router = APIRouter()
 
 
 # --------------------------------EDIT AUTH ROUTER-----------------------------
-# @router.post('/api/users', response_model= AccountToken | HttpError)
-# async def create_token(
-#     #account_data: dict = Depends(authenticator.get_account_data),
-# ):
-    # pass
+@router.post('/api/users', response_model= AccountToken | HttpError)
+async def create_token(
+    account_data: dict = Depends(authenticator.get_account_data),
+):
+    pass
 # --------------------------------EDIT AUTH ROUTER-----------------------------
+
+
 @router.get('/users', response_model=Union[List[MemberOut], Error])
 def get_all_members(
     repo: MemberRepo = Depends(),

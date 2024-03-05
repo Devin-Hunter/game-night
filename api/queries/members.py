@@ -86,10 +86,10 @@ class MemberRepo:
                     result = db.execute(
                         """
                         INSERT INTO members
-                            (first_name, 
-                            last_name, 
-                            username, 
-                            age, 
+                            (first_name,
+                            last_name,
+                            username,
+                            age,
                             skill_level,
                             avatar,
                             about,

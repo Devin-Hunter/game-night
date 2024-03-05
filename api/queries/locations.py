@@ -3,7 +3,6 @@ from typing import List, Union
 from .pool import pool
 
 
-
 class Error(BaseModel):
     message: str
 
