@@ -18,3 +18,8 @@ Accomplished:
 -Got database up and running 
 -Started building relational Model Diagram
 -Submitted merge request for issue #7
+
+2/29/24
+-Got main tables built, members will need revision
+-Started building the members model
+-Drafted endpoints for members
