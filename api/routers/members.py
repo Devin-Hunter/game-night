@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from queries.members import MemberIn, MemberOut, MemberRepo, Error
 from typing import List, Union
-from authenticator import authenticator
+# from authenticator import authenticator
 
 router = APIRouter()
 
