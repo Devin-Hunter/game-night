@@ -28,4 +28,5 @@ Accomplished:
 
 ## Week 15
 3/04/24
--fixed migration syntax issue
+-Fixed migration syntax issue
+-Auth
