@@ -42,7 +42,7 @@ steps = [
             id SERIAL PRIMARY KEY NOT NULL,
             first_name VARCHAR(50) NOT NULL,
             last_name VARCHAR(50) NOT NULL,
-            username VARCHAR(20) UNIQUE NOT NULL,
+            username VARCHAR(20) NOT NULL,
             age SMALLINT NOT NULL,
             skill_level TEXT NOT NULL,
             avatar TEXT NOT NULL,
@@ -106,6 +106,8 @@ steps = [
         CREATE TABLE games_members(
             game_id INTEGER NOT NULL REFERENCES members(id),
             member_id INTEGER NOT NULL REFERENCES games(id),
+            member_game_list VARCHAR(50) NOT NULL,
+            CONSTRAINT game_sort CHECK (member_game_list in ('favorites', 'wishlist')),
             CONSTRAINT games_members_pk PRIMARY KEY(game_id, member_id)
         );
         """,
@@ -117,21 +119,24 @@ steps = [
     [
         # "Up" SQL statement
         """
-        CREATE TABLE member_events (
+        CREATE TABLE members_events (
             member_id INTEGER NOT NULL REFERENCES events(id),
             event_id INTEGER NOT NULL REFERENCES members(id),
+            attendee_type VARCHAR(50) NOT NULL,
+            CONSTRAINT attendee_sort CHECK (attendee_type in ('player', 'spectator')),
             CONSTRAINT members_events_pk PRIMARY KEY(member_id, event_id)
         );
         """,
         # "Down" SQL statement
         """
-        DROP TABLE member_events;
+        DROP TABLE members_events;
         """
     ],
     [
         # "Up" SQL statement
         """
-        CREATE TABLE games_events(game_id INTEGER REFERENCES events(id),
+        CREATE TABLE games_events(
+            game_id INTEGER REFERENCES events(id),
             event_id INTEGER REFERENCES games(id),
             CONSTRAINT games_events_pk PRIMARY KEY(game_id, event_id)
         );
