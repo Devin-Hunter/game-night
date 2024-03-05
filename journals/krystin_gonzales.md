@@ -1,11 +1,9 @@
-## Week 13
-Accomplished:
--Wireframes completed
--API endpoints planned
--Repo forked and cloned to local computer.
--Docker containers up and running.
--Functioning properly for local ports 5173 and 8000/docs
--MVP form
+## Week 15
+3/04/24
+-Fixed migration syntax issue
+-Auth started
+-Completed get and create queries and routers for members
+-Made create and get query and router for locations (temporary)
 
 ## Week 14
 2/27/24
@@ -26,7 +24,11 @@ Accomplished:
 -Members table will need revision
 -Drafted endpoints for members
 
-## Week 15
-3/04/24
--Fixed migration syntax issue
--Auth
+## Week 13
+Accomplished:
+-Wireframes completed
+-API endpoints planned
+-Repo forked and cloned to local computer.
+-Docker containers up and running.
+-Functioning properly for local ports 5173 and 8000/docs
+-MVP form

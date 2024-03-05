@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends
-from queries.members import MemberIn, MemberOut, MemberRepo
+from queries.members import MemberIn, MemberOut, MemberRepo, Error
+from typing import List, Union
 from datetime import date
 #from authenticator import authenticator
 
@@ -12,18 +13,21 @@ router = APIRouter()
 # ):
     # pass
 #--------------------------------EDIT AUTH ROUTER-----------------------------
-# @router.get('/users')
-# def get_all_members()
+@router.get('/users', response_model= Union[List[MemberOut], Error])
+def get_all_members(
+    repo: MemberRepo = Depends(),
+):
+    return repo.get_all()
 
-@router.post('/user')
+@router.post('/user', response_model=Union[MemberOut, Error])
 def create_member(
     member: MemberIn,
     repo: MemberRepo = Depends()
 ):
     print('member:', member)
     print('repo:', repo)
-    repo.new_member(member)
-    return member
+    return repo.new_member(member)
+    
     
 
 @router.get('/user/{user_id}')
