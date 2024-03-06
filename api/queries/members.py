@@ -101,15 +101,15 @@ class MemberRepo:
                     result = db.execute(
                         """
                         SELECT 
-                        id: int
-                        first_name: str
-                        last_name: str
-                        username: str
-                        age: int
-                        skill_level: str
-                        avatar: str
-                        about: str
-                        location_id: int
+                        id,
+                        first_name,
+                        last_name,
+                        username,
+                        age,
+                        skill_level,
+                        avatar,
+                        about,
+                        location_id
                         FROM members
                         WHERE username = %s
                         """,
@@ -164,9 +164,9 @@ class MemberRepo:
                     print('user', member.username)
                     print('age', member.age)
                     print('skill', member.skill_level, 'avatar', member.avatar, 'about', member.about,'location_id', member.location_id )
-                    old_data = member.dict()
+                    old_data = result.dict()
                     print('old data:', old_data)
-                    return MemberOutWithPassword(id=id,hashed_password=hashed_password,**old_data)
+                    return MemberOutWithPassword(id=id,**old_data)
         except Exception as e:
             print(e) #NoneType object not subscriptable
             return {'message': 'Could not create new member'} #this gets thrown

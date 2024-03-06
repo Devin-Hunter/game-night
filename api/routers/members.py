@@ -59,8 +59,8 @@ async def create_member(
     except DuplicateAccountError:
         print('exception block')
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail='username already exists, please try another'
+            status_code=status.HTTP_400_BAD_REQUEST, #prints INFO: "POST /user HTTP/1.1" 401 Unauthorized
+            detail='username already exists, please try another' 
         )
     form = AccountForm(username=info.username, password=info.password)
     token= await authenticator.login(response, request, form, repo)
