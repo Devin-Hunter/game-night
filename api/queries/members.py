@@ -132,12 +132,12 @@ class MemberRepo:
                             (first_name,
                             last_name,
                             username,
-                            hashed_password,
                             age,
                             skill_level,
                             avatar,
                             about,
-                            location_id
+                            location_id,
+                            hashed_password
                             )
                         VALUES
                             (%s, %s, %s, %s, %s, %s, %s, %s, %s)
@@ -148,25 +148,34 @@ class MemberRepo:
                          member.first_name,
                          member.last_name,
                          member.username,
-                         hashed_password,
                          member.age,
                          member.skill_level,
                          member.avatar,
                          member.about,
-                         member.location_id
+                         member.location_id,
+                         hashed_password
                         ]
                     )
                     print('new_member result:', result.fetchone())#this prints, nothing below here does
-                    id = result.fetchone()[0]
-                    print('id', id) 
-                    print('first', member.first_name)
-                    print('last', member.last_name)
-                    print('user', member.username)
-                    print('age', member.age)
-                    print('skill', member.skill_level, 'avatar', member.avatar, 'about', member.about,'location_id', member.location_id )
-                    old_data = result.dict()
-                    print('old data:', old_data)
-                    return MemberOutWithPassword(id=id,**old_data)
+                    test = result.fetchone()
+                    if test:
+                        id = test[0]
+                    #old_data = member.dict()
+                    #print('old data:', old_data)
+                        return MemberOutWithPassword(
+                            id=id,
+                            first_name=member.first_name[1],
+                            last_name=member.last_name[2],
+                            username=member.username[3],
+                            age=member.age[4],
+                            skill_level=member.skill_level[5],
+                            avatar=member.avatar[6],
+                            about=member.about[7],
+                            location_id=member.location_id[8],
+                            hashed_password=hashed_password[9]
+                            )
+                    else:
+                        return {'nope': 'not working'}
         except Exception as e:
             print(e) #NoneType object not subscriptable
             return {'message': 'Could not create new member'} #this gets thrown

@@ -48,8 +48,7 @@ steps = [
             skill_level TEXT NOT NULL,
             avatar TEXT NOT NULL,
             about TEXT,
-            location_id INT REFERENCES locations (id),
-            password VARCHAR(15)
+            location_id INT REFERENCES locations (id)
         );
         """,
         # "Down" SQL statement
