@@ -5,7 +5,7 @@ import os
 from authenticator import authenticator
 
 app = FastAPI()
-app.include_router(games.router)
+#app.include_router(games.router)
 app.include_router(members.router)
 app.include_router(locations.router)
 app.include_router(authenticator.router)

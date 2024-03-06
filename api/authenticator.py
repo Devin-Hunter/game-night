@@ -8,11 +8,11 @@ class MemberAuthenticator(Authenticator):
     async def get_account_data(
         self,
         username: str,
-        members: MemberRepo,
+        member: MemberRepo,
     ):
         # Use your repo to get the member based on the
         # username (which could be an email)
-        return members.get(username)
+        return member.get(username)
 
     def get_account_getter(
         self,
@@ -23,10 +23,11 @@ class MemberAuthenticator(Authenticator):
 
     def get_hashed_password(self, member: MemberOutWithPassword):
         # Return the encrypted password value from your
-        # account object
-        return member.hashed_password
+        # Member object
+        print('dict:', member)
+        return member.__getitem__('hashed_password')
 
-    def get_account_data_for_cookie(self, member: MemberOut):
+    def get_member_data_for_cookie(self, member: MemberOut):
         # Return the username and the data for the cookie.
         # You must return TWO values from this method.
         return member.username, MemberOut(**member.dict())
