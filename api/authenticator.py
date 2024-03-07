@@ -25,4 +25,5 @@ class MemberAuthenticator(Authenticator):
     def get_account_data_for_cookie(self, member: MemberOut):
         return member.username, MemberOut(**member.dict())
 
+
 authenticator = MemberAuthenticator(os.environ["SIGNING_KEY"])

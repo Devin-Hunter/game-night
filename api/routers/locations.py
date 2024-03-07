@@ -11,6 +11,7 @@ def get_all_locations(
 ):
     return repo.get_all()
 
+
 @router.post('/locations', response_model=Union[LocationOut, Error])
 def create_location(
     location: LocationIn,

@@ -10,6 +10,7 @@ class Error(BaseModel):
 class DuplicateAccountError(ValueError):
     pass
 
+
 class MemberIn(BaseModel):
     first_name: str
     last_name: str
@@ -40,26 +41,26 @@ class MemberOutWithPassword(MemberOut):
 
 class MemberRepo:
     def record_to_member_out(self, record) -> MemberOutWithPassword:
-        return MemberOutWithPassword (
-            id = record[0],
-            first_name = record[1],
-            last_name  = record[2],
-            username = record[3],
-            hashed_password = record[4],
-            age = record[5],
-            skill_level = record[6],
-            avatar = record[7],
-            about = record[8],
-            location_id = record[9],
+        return MemberOutWithPassword(
+            id=record[0],
+            first_name=record[1],
+            last_name=record[2],
+            username=record[3],
+            hashed_password=record[4],
+            age=record[5],
+            skill_level=record[6],
+            avatar=record[7],
+            about=record[8],
+            location_id=record[9],
         )
-        
+
     def get_all(self) -> Union[List[MemberOut], Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT 
+                        SELECT
                             id,
                             first_name,
                             last_name,
@@ -97,7 +98,7 @@ class MemberRepo:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT 
+                        SELECT
                         *
                         FROM members
                         WHERE username = %s;
@@ -107,13 +108,17 @@ class MemberRepo:
                     record = result.fetchone()
                     if record is None:
                         return None
-                    member_data= self.record_to_member_out(record).dict()
+                    member_data = self.record_to_member_out(record).dict()
                     return MemberOutWithPassword(**member_data)
         except Exception as e:
             print(str(e))
             return {'message': 'Could not retrieve member'}
 
-    def new_member(self, member: MemberIn, hashed_password: str) -> MemberOutWithPassword:
+    def new_member(
+            self,
+            member: MemberIn,
+            hashed_password: str
+            ) -> MemberOutWithPassword:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:

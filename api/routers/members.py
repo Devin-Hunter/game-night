@@ -56,10 +56,10 @@ async def create_member(
     except DuplicateAccountError:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail='username already exists, please try another' 
+            detail='username already exists, please try another'
         )
     form = AccountForm(username=info.username, password=info.password)
-    token= await authenticator.login(response, request, form, repo)
+    token = await authenticator.login(response, request, form, repo)
     return AccountToken(account=member, **token.dict())
 
 # @router.post('/token')
