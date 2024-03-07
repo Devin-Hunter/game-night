@@ -108,7 +108,7 @@ class MemberRepo:
                     record = result.fetchone()
                     if record is None:
                         return None
-                    member_data = self.record_to_member_out(record).dict()
+                    member_data = self.record_to_member_out(record)
                     return MemberOutWithPassword(**member_data)
         except Exception as e:
             print(str(e))

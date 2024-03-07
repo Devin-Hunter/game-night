@@ -5,6 +5,20 @@
 -Completed get and create queries and routers for members
 -Made create and get query and router for locations (temporary)
 
+3/05/24
+-Worked on Auth
+
+3/06/24
+-Completed Auth
+-Adjusted Members table
+-Secured create and get all routers for members endpoints
+
+3/07/24
+-Completed secured get single user router
+-Updated member_events table
+-Started update member info (put) router for members
+
+
 ## Week 14
 2/27/24
 -Outlined db table relationships & junctions

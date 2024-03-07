@@ -33,7 +33,7 @@ class AccountToken(Token):
 class HttpError(BaseModel):
     detail: str
 
-
+#----------------------------SAMPLE SECURED ROUTERS--------------------------
 @router.get('/api/protected', response_model=bool)
 async def get_token(request: Request, account_data: dict = Depends(authenticator.get_current_account_data)):
     return True
@@ -50,7 +50,7 @@ async def get_token(
           'type': 'Bearer',
           'account': account,
         }
-
+#----------------------------------------------------------------------------
 
 @router.get('/users', response_model=Union[List[MemberOut], Error])
 def get_all_members(
@@ -62,6 +62,19 @@ def get_all_members(
         return repo.get_all()
     
 
+@router.get('/user/{user_id}')
+def member_details(
+    user_id: int,
+    request: Request,
+    repo: MemberRepo = Depends(),
+    account_data: MemberOut = Depends(authenticator.try_get_current_account_data)
+) ->MemberOut:
+    print(account_data)
+    if account_data and authenticator.cookie_name in request.cookies:
+        user_id = account_data['id']
+        return repo.get(user_id)
+    else:
+        return 'Not logged in. Please log in to view member details.'
 
 
 @router.post('/user',  response_model=AccountToken | HttpError)
@@ -86,19 +99,7 @@ async def create_member(
     return AccountToken(account=member, **token.dict())
 
 
-@router.get('/user/{user_id}')
-def member_details(
-    user_id: int,
-    request: Request,
-    repo: MemberRepo = Depends(),
-    account_data: MemberOut = Depends(authenticator.try_get_current_account_data)
-) ->MemberOut:
-    print(account_data)
-    if account_data and authenticator.cookie_name in request.cookies:
-        user_id = account_data['id']
-        return repo.get(user_id)
-    else:
-        return 'Not logged in. Please log in to view member details.'
+
 
 
 # @router.put('/user/{user_id}')
