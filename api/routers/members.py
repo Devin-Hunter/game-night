@@ -62,13 +62,6 @@ async def create_member(
     token = await authenticator.login(response, request, form, repo)
     return AccountToken(account=member, **token.dict())
 
-# @router.post('/token')
-# def login():
-#   pass
-
-# @router.delete('/token')
-# def logout():
-#   pass
 
 # @router.get('/user/{user_id}')
 # def member_details():
