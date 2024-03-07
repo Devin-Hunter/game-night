@@ -13,7 +13,7 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE locations;
-        """
+        """,
     ],
     [
         # "Up" SQL statement
@@ -33,7 +33,7 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE venues;
-        """
+        """,
     ],
     [
         # "Up" SQL statement
@@ -54,37 +54,37 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE members;
-        """
+        """,
     ],
     [
         # "Up" SQL statement
         """
         CREATE TABLE games (
             id SERIAL PRIMARY KEY NOT NULL,
-            title VARCHAR(200) NOT NULL,
-            year INT,
-            min_players INT,
-            max_players INT,
-            play_time VARCHAR(50),
-            age VARCHAR(20),
-            description TEXT,
-            rules TEXT,
-            picture VARCHAR (300),
+            title VARCHAR(255) NOT NULL,
+            year INT NOT NULL,
+            min_players INT NOT NULL,
+            max_players INT NOT NULL,
+            play_time VARCHAR(50) NOT NULL,
+            age VARCHAR(20) NOT NULL,
+            description TEXT NOT NULL,
+            rules TEXT NOT NULL,
+            picture VARCHAR (300) NOT NULL,
             video TEXT,
-            complexity VARCHAR(200),
-            category VARCHAR(200),
+            complexity VARCHAR(100) NOT NULL,
+            category VARCHAR(255) NOT NULL,
             rating INT
         );
         """,
         # "Down" SQL statement
         """
         DROP TABLE games;
-        """
+        """,
     ],
     [
         # "Up" SQL statement
         """
-        CREATE TABLE events (
+       CREATE TABLE events (
             id SERIAL PRIMARY KEY NOT NULL,
             game VARCHAR(100) NOT NULL,
             venue INT REFERENCES venues (id),
@@ -98,24 +98,49 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE events;
-        """
+        """,
     ],
     [
         # "Up" SQL statement
         """
-        CREATE TABLE games_members(
-            id SERIAL NOT NULL,
-            game_id INTEGER NOT NULL REFERENCES members(id),
-            member_id INTEGER NOT NULL REFERENCES games(id),
-            member_game_list VARCHAR(50) NOT NULL,
-            CONSTRAINT game_sort CHECK (member_game_list in ('favorites', 'wishlist')),
-            CONSTRAINT games_members_pk PRIMARY KEY(game_id, member_id)
+        CREATE TABLE owned_games (
+            id SERIAL NOT NULL UNIQUE,
+            member_id INTEGER NOT NULL REFERENCES members(id),
+            game_id INTEGER NOT NULL REFERENCES games(id)
         );
         """,
         # "Down" SQL statement
         """
-        DROP TABLE games_members;
+        DROP TABLE owned_games;
+        """,
+    ],
+    [
+        # "Up" SQL statement
         """
+        CREATE TABLE favorite_games (
+            id SERIAL NOT NULL UNIQUE,
+            member_id INTEGER NOT NULL REFERENCES members(id),
+            game_id INTEGER NOT NULL REFERENCES games(id)
+        );
+        """,
+        # "Down" SQL statement
+        """
+        DROP TABLE favorite_games;
+        """,
+    ],
+    [
+        # "Up" SQL statement
+        """
+        CREATE TABLE wishlist_games (
+            id SERIAL NOT NULL UNIQUE,
+            member_id INTEGER NOT NULL REFERENCES members(id),
+            game_id INTEGER NOT NULL REFERENCES games(id)
+        );
+        """,
+        # "Down" SQL statement
+        """
+        DROP TABLE wishlist_games;
+        """,
     ],
     [
         # "Up" SQL statement
@@ -132,7 +157,7 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE members_events;
-        """
+        """,
     ],
     [
         # "Up" SQL statement
@@ -147,6 +172,6 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE game_events;
-        """
-    ]
+        """,
+    ],
 ]
