@@ -41,19 +41,20 @@ class MemberOutWithPassword(MemberOut):
 
 class MemberRepo:
     def record_to_member_out(self, record) -> MemberOutWithPassword:
-        member_dict = {
-            'id': record[0],
-            'first_name': record[1],
-            'last_name': record[2],
-            'username': record[3],
-            'hashed_password': record[4],
-            'age': record[5],
-            'skill_level': record[6],
-            'avatar': record[7],
-            'about': record[8],
-            'location_id': record[9],
-        }
-        return member_dict
+        print('record to out', record)
+        return MemberOutWithPassword (
+            id = record[0],
+            first_name = record[1],
+            last_name  = record[2],
+            username = record[3],
+            hashed_password = record[4],
+            age = record[5],
+            skill_level = record[6],
+            avatar = record[7],
+            about = record[8],
+            location_id = record[9],
+        )
+        
 
     def get_all(self) -> Union[List[MemberOut], Error]:
         try:
@@ -101,31 +102,29 @@ class MemberRepo:
                     result = db.execute(
                         """
                         SELECT 
-                        id,
-                        first_name,
-                        last_name,
-                        username,
-                        age,
-                        skill_level,
-                        avatar,
-                        about,
-                        location_id
+                        *
                         FROM members
-                        WHERE username = %s
+                        WHERE username = %s;
                         """,
                         [username]
                     )
                     record = result.fetchone()
+                    print('RECORD',record)
                     if record is None:
                         return None
-                    return self.record_to_member_out(record)
-        except Exception:
+                    member_data= self.record_to_member_out(record).dict()
+                    print('MEMBER DATA:', member_data)
+                    return MemberOutWithPassword(**member_data)
+        except Exception as e:
+            print(str(e))
             return {'message': 'Could not retrieve member'}
 
     def new_member(self, member: MemberIn, hashed_password: str) -> MemberOutWithPassword:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
+                    print('new_member result:', member)#this prints, nothing below here does
+                    print('hashed pw', hashed_password)
                     result = db.execute(
                         """
                         INSERT INTO members
@@ -142,7 +141,7 @@ class MemberRepo:
                         VALUES
                             (%s, %s, %s, %s, %s, %s, %s, %s, %s)
                         RETURNING
-                            id;
+                            *;
                         """,
                         [
                          member.first_name,
@@ -156,23 +155,15 @@ class MemberRepo:
                          hashed_password
                         ]
                     )
-                    print('new_member result:', result.fetchone())#this prints, nothing below here does
-                    test = result.fetchone()
-                    if test:
-                        id = test[0]
+                    record = result.fetchone()
+                    if record:
+                        id = record[0]
                     #old_data = member.dict()
                     #print('old data:', old_data)
+                        data = self.record_to_member_out(record).dict()
+                        print(data)
                         return MemberOutWithPassword(
-                            id=id,
-                            first_name=member.first_name[1],
-                            last_name=member.last_name[2],
-                            username=member.username[3],
-                            age=member.age[4],
-                            skill_level=member.skill_level[5],
-                            avatar=member.avatar[6],
-                            about=member.about[7],
-                            location_id=member.location_id[8],
-                            hashed_password=hashed_password[9]
+                            **data
                             )
                     else:
                         return {'nope': 'not working'}

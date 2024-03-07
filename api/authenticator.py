@@ -25,9 +25,9 @@ class MemberAuthenticator(Authenticator):
         # Return the encrypted password value from your
         # Member object
         print('dict:', member)
-        return member.__getitem__('hashed_password')
+        return member.hashed_password
 
-    def get_member_data_for_cookie(self, member: MemberOut):
+    def get_account_data_for_cookie(self, member: MemberOut):
         # Return the username and the data for the cookie.
         # You must return TWO values from this method.
         return member.username, MemberOut(**member.dict())

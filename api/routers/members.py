@@ -48,16 +48,15 @@ async def create_member(
     response: Response,
     repo: MemberRepo = Depends()
 ):
-    print('password:', info.password)
+    
     hashed_password = authenticator.hash_password(info.password)
-    print('hashed password:', hashed_password) # this works
+    
     try:
-        print('try block start') #this works
         member = repo.new_member(info, hashed_password)
-        print('account from create method:', member) #prints {'message': 'Could not create new member'}
-        print('end try block') #prints
-    except DuplicateAccountError:
-        print('exception block')
+        print(member)
+        
+    except Exception as e:
+        print('exception block', str(e))
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, #prints INFO: "POST /user HTTP/1.1" 401 Unauthorized
             detail='username already exists, please try another' 
