@@ -10,26 +10,19 @@ class MemberAuthenticator(Authenticator):
         username: str,
         member: MemberRepo,
     ):
-        # Use your repo to get the member based on the
-        # username (which could be an email)
         return member.get(username)
 
     def get_account_getter(
         self,
         members: MemberRepo = Depends(),
     ):
-        # Return the members. That's it.
         return members
 
     def get_hashed_password(self, member: MemberOutWithPassword):
-        # Return the encrypted password value from your
-        # Member object
         print('dict:', member)
         return member.hashed_password
 
     def get_account_data_for_cookie(self, member: MemberOut):
-        # Return the username and the data for the cookie.
-        # You must return TWO values from this method.
         return member.username, MemberOut(**member.dict())
 
 authenticator = MemberAuthenticator(os.environ["SIGNING_KEY"])

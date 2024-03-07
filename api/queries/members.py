@@ -64,7 +64,6 @@ class MemberRepo:
                             first_name,
                             last_name,
                             username,
-                            password,
                             age,
                             skill_level,
                             avatar,
