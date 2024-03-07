@@ -7,10 +7,10 @@ from queries.members import MemberOut, MemberRepo, MemberOutWithPassword
 class MemberAuthenticator(Authenticator):
     async def get_account_data(
         self,
-        id: int,
+        username: str,
         member: MemberRepo,
     ):
-        return member.get(id)
+        return member.get(username)
 
     def get_account_getter(
         self,

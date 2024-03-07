@@ -92,7 +92,7 @@ class MemberRepo:
             print(e)
             return {'message': 'could not retrieve all members'}
 
-    def get(self, id: int) -> MemberOutWithPassword:
+    def get(self, username: str) -> MemberOutWithPassword:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -101,14 +101,14 @@ class MemberRepo:
                         SELECT
                         *
                         FROM members
-                        WHERE id = %s;
+                        WHERE username = %s;
                         """,
-                        [id]
+                        [username]
                     )
                     record = result.fetchone()
                     if record is None:
                         return None
-                    member_data = self.record_to_member_out(record)
+                    member_data = self.record_to_member_out(record).dict()
                     return MemberOutWithPassword(**member_data)
         except Exception as e:
             print(str(e))
