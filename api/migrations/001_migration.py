@@ -4,9 +4,10 @@ steps = [
         """
         CREATE TABLE locations (
             id SERIAL PRIMARY KEY NOT NULL,
+            online BOOLEAN NOT NULL,
             city VARCHAR(100) NOT NULL,
             state VARCHAR(100) NOT NULL,
-            state_abbrev VARCHAR(2) NOT NULL,
+            state_abbrev VARCHAR(3) NOT NULL,
             weather VARCHAR(1000)
         );
         """,
@@ -21,8 +22,7 @@ steps = [
         CREATE TABLE venues (
             id SERIAL PRIMARY KEY NOT NULL,
             venue_name VARCHAR(1000) NOT NULL,
-            online BOOLEAN NOT NULL,
-            online_platform VARCHAR(100) NOT NULL,
+            online_link VARCHAR(100) NOT NULL,
             location_id INT REFERENCES locations (id),
             hours_operation VARCHAR(50) NOT NULL,
             phone_number VARCHAR(50),

@@ -1,4 +1,4 @@
-### Journals
+## Journals
 
 Please keep all of your individual journals in this directory.
 
@@ -6,7 +6,7 @@ Each team member is required to keep a development journal, which should be a si
 
 ## Week 15
 
-4 March 2024
+### 4 March 2024
 
 Added "member_game_list" column to "Games_Members" table. This column will allow us to
 set the games the member saves into either their favorites or wishlist/Want to play list.
@@ -16,10 +16,39 @@ Added "attendee_type" column to "Member_events" table. This column will allow me
 
 ## Week 14
 
-29 Feb 2024
+### 29 Feb 2024
 
 Added Venues and Locations tables to migrations file
 Created several Venues BaseModels for endpoints
+Created several Venues methods to interact with the database
+
+
+### 1 March 2024
+
+Completed 5 Venues endpoints:
+- Create new venue
+- List venues
+- Venue details
+- Update venue
+- Delete venue
+
+Completed 4 Pydantic models for Venues
+
+Completed 5 methods in the Venue repository class to support endpoints
+
+Started Locations endpoints, Pydantic models, and repository methods:
+- Create Location is fully functional
+
+Now that venues is complete, I merged 2 development branches for ease of maintenance - Locations & Venues
+
+### 29 Feb 2024
+
+Changed FastAPI version in requirements.txt file to satisfy dependancy requirements with jwtdown-fastapi
+
+Added Venues and Locations tables to migrations file
+
+Created several Venues Pydantic BaseModels for endpoints
+
 Created several Venues methods to interact with the database
 
 ## Week 13
