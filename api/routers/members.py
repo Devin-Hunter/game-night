@@ -7,7 +7,7 @@ from fastapi import (
     Request
     )
 from jwtdown_fastapi.authentication import Token
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
 from authenticator import authenticator
 from queries.members import (
     MemberIn,
@@ -34,11 +34,34 @@ class HttpError(BaseModel):
     detail: str
 
 
+@router.get('/api/protected', response_model=bool)
+async def get_token(request: Request, account_data: dict = Depends(authenticator.get_current_account_data)):
+    return True
+
+
+@router.get('/token', response_model=AccountToken | None)
+async def get_token(
+    request: Request,
+    account: MemberOut = Depends(authenticator.try_get_current_account_data)
+):
+  if account and authenticator.cookie_name in request.cookies:
+      return {
+          'access_token': request.cookies[authenticator.cookie_name],
+          'type': 'Bearer',
+          'account': account,
+        }
+
+
 @router.get('/users', response_model=Union[List[MemberOut], Error])
 def get_all_members(
+    request: Request,
     repo: MemberRepo = Depends(),
+    account_data: MemberOut = Depends(authenticator.try_get_current_account_data)
 ):
-    return repo.get_all()
+    if account_data and authenticator.cookie_name in request.cookies:
+        return repo.get_all()
+    
+
 
 
 @router.post('/user',  response_model=AccountToken | HttpError)
@@ -62,17 +85,20 @@ async def create_member(
     token = await authenticator.login(response, request, form, repo)
     return AccountToken(account=member, **token.dict())
 
-# @router.post('/token')
-# def login():
-#   pass
 
-# @router.delete('/token')
-# def logout():
-#   pass
-
-# @router.get('/user/{user_id}')
-# def member_details():
-#     pass
+@router.get('/user/{user_id}')
+def member_details(
+    user_id: int,
+    request: Request,
+    repo: MemberRepo = Depends(),
+    account_data: MemberOut = Depends(authenticator.try_get_current_account_data)
+) ->MemberOut:
+    print(account_data)
+    if account_data and authenticator.cookie_name in request.cookies:
+        user_id = account_data['id']
+        return repo.get(user_id)
+    else:
+        return 'Not logged in. Please log in to view member details.'
 
 
 # @router.put('/user/{user_id}')
