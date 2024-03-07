@@ -42,12 +42,12 @@ steps = [
             id SERIAL PRIMARY KEY NOT NULL,
             first_name VARCHAR(50) NOT NULL,
             last_name VARCHAR(50) NOT NULL,
-            username VARCHAR(20) NOT NULL,
+            username VARCHAR(20) UNIQUE NOT NULL,
+            hashed_password VARCHAR(200) NOT NULL,
             age SMALLINT NOT NULL,
             skill_level TEXT NOT NULL,
             avatar TEXT NOT NULL,
             about TEXT,
-            member_since DATE NOT NULL DEFAULT CURRENT_DATE,
             location_id INT REFERENCES locations (id)
         );
         """,
@@ -146,6 +146,7 @@ steps = [
         # "Up" SQL statement
         """
         CREATE TABLE members_events (
+            id SERIAL NOT NULL,
             member_id INTEGER NOT NULL REFERENCES events(id),
             event_id INTEGER NOT NULL REFERENCES members(id),
             attendee_type VARCHAR(50) NOT NULL,
@@ -162,6 +163,7 @@ steps = [
         # "Up" SQL statement
         """
         CREATE TABLE games_events(
+            id SERIAL NOT NULL,
             game_id INTEGER REFERENCES events(id),
             event_id INTEGER REFERENCES games(id),
             CONSTRAINT games_events_pk PRIMARY KEY(game_id, event_id)
