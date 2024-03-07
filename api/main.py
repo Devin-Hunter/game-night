@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import games, members, locations, venues
+from routers import games, members, locations, venues, events
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from authenticator import authenticator
@@ -11,6 +11,7 @@ app.include_router(locations.router)
 app.include_router(games.router)
 app.include_router(members.router)
 app.include_router(locations.router)
+app.include_router(events.router)
 app.include_router(authenticator.router)
 
 
