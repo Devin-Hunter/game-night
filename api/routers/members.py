@@ -41,6 +41,21 @@ def get_all_members(
     return repo.get_all()
 
 
+@router.get('/user/{username}', response_model= Union[MemberOut, Error])
+def member_details(
+    username: str,
+    request: Request,
+    repo: MemberRepo = Depends(),
+    account_data: MemberOut = Depends(authenticator.try_get_current_account_data)
+) ->MemberOut:
+    print(account_data)
+    if account_data and authenticator.cookie_name in request.cookies:
+        username = account_data['username']
+        return repo.get(username)
+    else:
+        return 'Not logged in. Please log in to view member details.'
+
+
 @router.post('/user',  response_model=AccountToken | HttpError)
 async def create_member(
     info: MemberIn,
@@ -63,12 +78,7 @@ async def create_member(
     return AccountToken(account=member, **token.dict())
 
 
-# @router.get('/user/{user_id}')
-# def member_details():
-#     pass
-
-
-# @router.put('/user/{user_id}')
+# @router.put('/user/{username}')
 # def update_member():
 #     pass
 
