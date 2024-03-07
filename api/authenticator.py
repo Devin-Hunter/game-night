@@ -32,5 +32,4 @@ class MemberAuthenticator(Authenticator):
         # You must return TWO values from this method.
         return member.username, MemberOut(**member.dict())
 
-
 authenticator = MemberAuthenticator(os.environ["SIGNING_KEY"])
