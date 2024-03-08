@@ -4,8 +4,8 @@ from fastapi import (
     HTTPException,
     status,
     Response,
-    Request
-    )
+    Request,
+)
 from jwtdown_fastapi.authentication import Token
 from pydantic import BaseModel
 from authenticator import authenticator
@@ -14,8 +14,8 @@ from queries.members import (
     MemberOut,
     MemberRepo,
     Error,
-    DuplicateAccountError
-    )
+    DuplicateAccountError,
+)
 from typing import List, Union
 
 router = APIRouter()
@@ -34,7 +34,7 @@ class HttpError(BaseModel):
     detail: str
 
 
-@router.get('/users', response_model=Union[List[MemberOut], Error])
+@router.get("/users", response_model=Union[List[MemberOut], Error])
 def get_all_members(
     repo: MemberRepo = Depends(),
 ):
@@ -59,7 +59,7 @@ async def create_member(
     info: MemberIn,
     request: Request,
     response: Response,
-    repo: MemberRepo = Depends()
+    repo: MemberRepo = Depends(),
 ):
 
     hashed_password = authenticator.hash_password(info.password)
@@ -69,7 +69,7 @@ async def create_member(
     except DuplicateAccountError:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail='username already exists, please try another'
+            detail="username already exists, please try another",
         )
     form = AccountForm(username=info.username, password=info.password)
     token = await authenticator.login(response, request, form, repo)

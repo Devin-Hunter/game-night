@@ -9,34 +9,34 @@ class Error(BaseModel):
 
 class GameIn(BaseModel):
     title: str
-    year: Optional[int]
-    min_players: Optional[int]
-    max_players: Optional[int]
-    play_time: Optional[str]
-    age: Optional[str]
-    description: Optional[str]
-    rules: Optional[str]
-    picture: Optional[str]
+    year: int
+    min_players: int
+    max_players: int
+    play_time: str
+    age: str
+    description: str
+    rules: str
+    picture: str
     video: Optional[str]
-    complexity: Optional[str]
-    category: Optional[str]
+    complexity: str
+    category: str
     rating: Optional[int]
 
 
 class GameOut(BaseModel):
     id: int
     title: str
-    year: Optional[int]
-    min_players: Optional[int]
-    max_players: Optional[int]
-    play_time: Optional[str]
-    age: Optional[str]
-    description: Optional[str]
-    rules: Optional[str]
-    picture: Optional[str]
+    year: int
+    min_players: int
+    max_players: int
+    play_time: str
+    age: str
+    description: str
+    rules: str
+    picture: str
     video: Optional[str]
-    complexity: Optional[str]
-    category: Optional[str]
+    complexity: str
+    category: str
     rating: Optional[int]
 
 
@@ -256,3 +256,57 @@ class GameRepo:
         except Exception as e:
             print(e)
             return {"message": "Could not add game to favorites list"}
+
+    def remove_game_from_owned(
+        self, member_id: int, game_id: int
+    ) -> Union[bool, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                            DELETE FROM owned_games
+                            WHERE member_id = %s AND game_id = %s
+                            """,
+                        [member_id, game_id],
+                    )
+                    return True
+        except Exception as e:
+            print(e)
+            return {"message": "Could not remove game from owned games list"}
+
+    def remove_game_from_wishlist(
+        self, member_id: int, game_id: int
+    ) -> Union[bool, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM wishlist_games
+                        WHERE member_id = %s AND game_id = %s
+                        """,
+                        [member_id, game_id],
+                    )
+                    return True
+        except Exception as e:
+            print(e)
+            return {"message": "Could not remove game from want to play list"}
+
+    def remove_game_from_favorites(
+        self, member_id: int, game_id: int
+    ) -> Union[bool, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM favorite_games
+                        WHERE member_id = %s AND game_id = %s
+                        """,
+                        [member_id, game_id],
+                    )
+                    return True
+        except Exception as e:
+            print(e)
+            return {"message": "Could not remove game from favorites list"}

@@ -84,13 +84,13 @@ class MemberRepo:
                             skill_level=record[5],
                             avatar=record[6],
                             about=record[7],
-                            location_id=record[8]
+                            location_id=record[8],
                         )
                         result.append(member)
                     return result
         except Exception as e:
             print(e)
-            return {'message': 'could not retrieve all members'}
+            return {"message": "could not retrieve all members"}
 
     def get(self, username: str) -> MemberOutWithPassword:
         try:
@@ -103,7 +103,7 @@ class MemberRepo:
                         FROM members
                         WHERE username = %s;
                         """,
-                        [username]
+                        [username],
                     )
                     record = result.fetchone()
                     if record is None:
@@ -157,10 +157,8 @@ class MemberRepo:
 #----------------------------END NOT WORKING-------------------------------------------   
 
     def new_member(
-            self,
-            member: MemberIn,
-            hashed_password: str
-            ) -> MemberOutWithPassword:
+        self, member: MemberIn, hashed_password: str
+    ) -> MemberOutWithPassword:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -183,25 +181,23 @@ class MemberRepo:
                             *;
                         """,
                         [
-                         member.first_name,
-                         member.last_name,
-                         member.username,
-                         member.age,
-                         member.skill_level,
-                         member.avatar,
-                         member.about,
-                         member.location_id,
-                         hashed_password
-                        ]
+                            member.first_name,
+                            member.last_name,
+                            member.username,
+                            member.age,
+                            member.skill_level,
+                            member.avatar,
+                            member.about,
+                            member.location_id,
+                            hashed_password,
+                        ],
                     )
                     record = result.fetchone()
                     if record:
                         data = self.record_to_member_out(record).dict()
-                        return MemberOutWithPassword(
-                            **data
-                            )
+                        return MemberOutWithPassword(**data)
                     else:
-                        return {'nope': 'not working'}
+                        return {"nope": "not working"}
         except Exception as e:
             print(e)
-            return {'message': 'Could not create new member'}
+            return {"message": "Could not create new member"}
