@@ -9,11 +9,11 @@ router = APIRouter()
 @router.post("/events", response_model=Union[EventOut, Error])
 def create_event(event: EventIn,
                  response: Response,
-                 repo: EventRepo =
-                 Depends(authenticator.try_get_current_account_data),
+                 repo: EventRepo = Depends(),
+                 account_data: dict =
+                 Depends(authenticator.get_current_account_data),
                  ):
-    response.status_code = 400
-    return repo.create(event)
+    return repo.create_event(event)
 
 
 @router.get("/events", response_model=Union[List[EventList], Error])
@@ -32,15 +32,17 @@ def event_details(event_id: int,
             response_model=Union[EventOut, Error])
 def update_event(event_id: int,
                  event: EventIn,
-                 repo: EventIn =
-                 Depends(authenticator.try_get_current_account_data),
+                 repo: EventIn = Depends(),
+                 account_data: dict =
+                 Depends(authenticator.get_current_account_data),
                  ) -> Union[Error, EventOut]:
     return repo.update(event_id, event)
 
 
 @router.delete("/user/{user_id}/events/{event_id}",
                response_model=bool)
-def delete_event(event_id: int, repo: EventRepo =
-                 Depends(authenticator.try_get_current_account_data),
+def delete_event(event_id: int, repo: EventRepo = Depends(),
+                 account_data: dict =
+                 Depends(authenticator.get_current_account_data),
                  ) -> bool:
     return repo.delete(event_id)

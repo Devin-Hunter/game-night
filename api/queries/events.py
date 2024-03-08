@@ -9,7 +9,7 @@ class Error(BaseModel):
 
 class EventIn(BaseModel):
     game: str
-    venue: str
+    venue: int
     date_time: int
     competitive_rating: str
     max_players: int
@@ -20,7 +20,7 @@ class EventIn(BaseModel):
 class EventOut(BaseModel):
     id: int
     game: str
-    venue: str
+    venue: int
     date_time: int
     competitive_rating: str
     max_players: int
@@ -31,7 +31,7 @@ class EventOut(BaseModel):
 class EventList(BaseModel):
     id: int
     game: str
-    venue: str
+    venue: int
     date_time: int
 
 
@@ -76,8 +76,9 @@ class EventRepo:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT game, venue, date_time
-                        FROM events
+                        SELECT e.game, v.venue, e.date_time
+                        FROM events AS e
+                        LEFT JOIN venues AS v on v.venue = v.id
                         ORDER BY date_time;
                         """
                     )
@@ -98,14 +99,15 @@ class EventRepo:
                     result = db.execute(
                         """
                         SELECT id
-                        , game
-                        , venue
-                        , date_time
-                        , competitive_rating
-                        , max_players
-                        , max_spectators
-                        , min_age
-                        FROM events
+                        , e.game
+                        , v.venue
+                        , e.date_time
+                        , e.competitive_rating
+                        , e.max_players
+                        , e.max_spectators
+                        , e.min_age
+                        FROM events AS e
+                        LEFT JOIN venues AS v on v.venue = v.id
                         WHERE id = %s
                         """,
                         [event_id],
