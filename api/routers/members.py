@@ -52,8 +52,6 @@ def member_details(
     if account_data and authenticator.cookie_name in request.cookies:
         username = account_data['username']
         return repo.get(username)
-    else:
-        return 'Not logged in. Please log in to view member details.'
 
 
 @router.post('/user',  response_model=AccountToken | HttpError)
@@ -78,16 +76,23 @@ async def create_member(
     return AccountToken(account=member, **token.dict())
 
 
-# @router.put('/user/{username}')
-# def update_member():
-#     pass
+@router.put('/user/{username}', response_model=Union[MemberOut, Error])
+def update_member(
+    username: str,
+    request: Request,
+    info: MemberOut,
+    repo: MemberRepo = Depends(),
+    account_data: MemberOut = Depends(authenticator.try_get_current_account_data)
+):
+    if account_data and authenticator.cookie_name in request.cookies:
+        username = account_data['username']
+        return repo.update_member(username, info)
 
-
-# @router.get('user/{user_id}/events')
+# @router.get('user/{username}/events')
 # def member_events():
 #     pass
 
 
-# @router.get('user/{user_id}/games')
+# @router.get('user/{username}/games')
 # def member_games():
 #     pass

@@ -113,6 +113,48 @@ class MemberRepo:
         except Exception as e:
             print(str(e))
             return {'message': 'Could not retrieve member'}
+#----------------------------NOT WORKING-------------------------------------------       
+    def update_member(
+            self,
+            username:str,
+            member: MemberOut
+            ) -> Union[MemberOut, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result= db.execute(
+                        """
+                        UPDATE members
+                        SET first_name = %s
+                            , last_name = %s
+                            , age = %s
+                            , skill_level = %s
+                            , avatar = %s
+                            , about = %s
+                            , location_id = %s
+                        WHERE username = %s
+                        """,
+                        [
+                            member.first_name,
+                            member.last_name,
+                            member.age,
+                            member.skill_level,
+                            member.avatar,
+                            member.about,
+                            member.location_id,
+                            username
+                        ]
+                    )
+                    record = result.fetchone()
+                    print(record)
+                    # if record is None:
+                    #     return None
+                    # member_data = self.record_to_member_out(record).dict()
+                    # return MemberOutWithPassword(**member_data)
+        except Exception as e:
+            print(e)
+            return {'error': 'could not update member'}
+#----------------------------END NOT WORKING-------------------------------------------   
 
     def new_member(
             self,
