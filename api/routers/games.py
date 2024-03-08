@@ -77,7 +77,7 @@ def add_to_wishlist(
     return repo.add_game_to_wishlist(member_id, game_id)
 
 
-# @router.post("/api/members/{member_id}/games/{game_id}/add_to_favorite"
+# @router.post("/api/members/{member_id}/games/{game_id}/add_to_favorites"
 @router.post(
     "/api/games/{game_id}/add_to_favorites/{member_id}",
     response_model=Union[bool, Error],
@@ -88,3 +88,44 @@ def add_to_favorites(
     repo: GameRepo = Depends(),
 ) -> Union[bool, Error]:
     return repo.add_game_to_favorites(member_id, game_id)
+
+
+# @router.delete("/api/members/{member_id}/games/{game_id}/remove_from_owned"
+@router.delete(
+    "/api/games/{game_id}/remove_from_owned/{member_id}",
+    response_model=Union[bool, Error],
+)
+def remove_from_owned(
+    game_id: int,
+    member_id: int,
+    repo: GameRepo = Depends(),
+) -> Union[bool, Error]:
+    return repo.remove_game_from_owned(member_id, game_id)
+
+
+# @router.delete("/api/members/{member_id}/games/{game_id}/remove_from_wishlist"
+@router.delete(
+    "/api/games/{game_id}/remove_from_wishlist/{member_id}",
+    response_model=Union[bool, Error],
+)
+def remove_from_wishlist(
+    game_id: int,
+    member_id: int,
+    repo: GameRepo = Depends(),
+) -> Union[bool, Error]:
+    return repo.remove_game_from_wishlist(member_id, game_id)
+
+
+# @router.delete(
+#     "/api/members/{member_id}/games/{game_id}/remove_from_favorites"
+# )
+@router.delete(
+    "/api/games/{game_id}/remove_from_favorites/{member_id}",
+    response_model=Union[bool, Error],
+)
+def remove_from_favorites(
+    game_id: int,
+    member_id: int,
+    repo: GameRepo = Depends(),
+) -> Union[bool, Error]:
+    return repo.remove_game_from_favorites(member_id, game_id)
