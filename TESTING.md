@@ -20,4 +20,7 @@ This screenshot is the verification that the GHI container has finished installi
 
 ![GHI-screenshot](docs/img/GHI_container_ready.png)
 
+
+## Front-End Development
+
 To use Flowbite components, navigate to https://flowbite.com/docs/components/sidebar/
