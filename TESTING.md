@@ -2,11 +2,9 @@
 
 ## Directions to start app:
 
-docker volume create postgres-data
-
-docker-compose build
-
-docker-compose up
+1. docker volume create postgres-data
+2. docker-compose build
+3. docker-compose up
 
 ## To see api endpoints in browser:
 
