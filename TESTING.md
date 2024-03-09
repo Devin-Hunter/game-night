@@ -1,6 +1,6 @@
-this is just for testing
+# Instructions for testing app
 
-##Directions to start app:
+## Directions to start app:
 
 docker volume create postgres-data
 
