@@ -19,3 +19,5 @@ When running the app for the 1st time after pulling changes for the Tailwind/Flo
 This screenshot is the verification that the GHI container has finished installing Tailwind, Flowbite, and all their dependancies.
 
 ![GHI-screenshot](docs/img/GHI_container_ready.png)
+
+To use Flowbite components, navigate to https://flowbite.com/docs/components/sidebar/
