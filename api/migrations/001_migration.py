@@ -61,7 +61,7 @@ steps = [
         """
         CREATE TABLE games (
             id SERIAL PRIMARY KEY NOT NULL,
-            title VARCHAR(255) NOT NULL,
+            title VARCHAR(255) UNIQUE NOT NULL,
             year INT NOT NULL,
             min_players INT NOT NULL,
             max_players INT NOT NULL,

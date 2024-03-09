@@ -6,6 +6,7 @@ from queries.games import (
     GameOut,
     GameRepo,
 )
+from authenticator import authenticator
 
 
 router = APIRouter()
@@ -15,6 +16,7 @@ router = APIRouter()
 def create_game(
     game: GameIn,
     repo: GameRepo = Depends(),
+    # account_data: dict = Depends(authenticator.get_current_account_data),
 ):
     return repo.create_game(game)
 
@@ -22,6 +24,7 @@ def create_game(
 @router.get("/api/games", response_model=Union[List[GameOut], Error])
 def list_all_games(
     repo: GameRepo = Depends(),
+    # account_data: dict = Depends(authenticator.get_current_account_data),
 ):
     return repo.list_all_games()
 
@@ -30,6 +33,7 @@ def list_all_games(
 def get_game_details(
     game_id: int,
     repo: GameRepo = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> GameOut:
     return repo.get_game_details(game_id)
 
@@ -39,6 +43,7 @@ def update_game(
     game_id: int,
     game: GameIn,
     repo: GameRepo = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> Union[Error, GameOut]:
     return repo.update_game(game_id, game)
 
@@ -47,6 +52,7 @@ def update_game(
 def delete_game(
     game_id: int,
     repo: GameRepo = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> bool:
     return repo.delete_game(game_id)
 
@@ -60,6 +66,7 @@ def add_to_owned(
     game_id: int,
     member_id: int,
     repo: GameRepo = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> Union[bool, Error]:
     return repo.add_game_to_owned(member_id, game_id)
 
@@ -73,10 +80,12 @@ def add_to_wishlist(
     game_id: int,
     member_id: int,
     repo: GameRepo = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> Union[bool, Error]:
     return repo.add_game_to_wishlist(member_id, game_id)
 
 
+# @router.post("/api/members/{member_id}/games/{game_id}/add_to_favorites"
 # @router.post("/api/members/{member_id}/games/{game_id}/add_to_favorites"
 @router.post(
     "/api/games/{game_id}/add_to_favorites/{member_id}",
@@ -86,6 +95,7 @@ def add_to_favorites(
     game_id: int,
     member_id: int,
     repo: GameRepo = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> Union[bool, Error]:
     return repo.add_game_to_favorites(member_id, game_id)
 
@@ -99,6 +109,7 @@ def remove_from_owned(
     game_id: int,
     member_id: int,
     repo: GameRepo = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> Union[bool, Error]:
     return repo.remove_game_from_owned(member_id, game_id)
 
@@ -112,6 +123,7 @@ def remove_from_wishlist(
     game_id: int,
     member_id: int,
     repo: GameRepo = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> Union[bool, Error]:
     return repo.remove_game_from_wishlist(member_id, game_id)
 
@@ -127,5 +139,6 @@ def remove_from_favorites(
     game_id: int,
     member_id: int,
     repo: GameRepo = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> Union[bool, Error]:
     return repo.remove_game_from_favorites(member_id, game_id)

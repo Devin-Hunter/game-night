@@ -1,0 +1,9 @@
+/* You should probably replace this with your own CSS */
+body {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/1.jpg');
+    background-size: cover;
+    font-size: calc(10px + 2vmin);
+    color: rgb(250, 248, 247);
+}

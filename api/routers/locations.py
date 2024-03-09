@@ -18,7 +18,7 @@ router = APIRouter()
 def create_location(
     location: LocationIn,
     response: Response,
-    account_data: dict = Depends(authenticator.get_current_account_data),
+    # account_data: dict = Depends(authenticator.get_current_account_data),
     repo: LocationRepository = Depends(),
 ):
     return repo.create(location)
