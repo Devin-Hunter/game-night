@@ -8,6 +8,11 @@ docker-compose build
 
 docker-compose up
 
-##To see api endpoints in browser:
+## To see api endpoints in browser:
 
 http://localhost:8000/docs
+
+
+## Main Page
+
+http://localhost:5173/gamenight
