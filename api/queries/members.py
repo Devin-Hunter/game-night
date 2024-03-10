@@ -39,6 +39,16 @@ class MemberOutWithPassword(MemberOut):
     hashed_password: str
 
 
+class MemberUpdate(BaseModel):
+    first_name: str
+    last_name: str
+    age: int
+    skill_level: str
+    avatar: str
+    about: str
+    location_id: int
+
+
 class MemberRepo:
     def record_to_member_out(self, record) -> MemberOutWithPassword:
         return MemberOutWithPassword(
@@ -113,11 +123,11 @@ class MemberRepo:
         except Exception as e:
             print(str(e))
             return {'message': 'Could not retrieve member'}
-#----------------------------NOT WORKING-------------------------------------------       
+      
     def update_member(
             self,
             username:str,
-            member: MemberOut
+            member: MemberUpdate
             ) -> Union[MemberOut, Error]:
         try:
             with pool.connection() as conn:
@@ -145,16 +155,14 @@ class MemberRepo:
                             username
                         ]
                     )
-                    record = result.fetchone()
-                    print(record)
-                    # if record is None:
-                    #     return None
-                    # member_data = self.record_to_member_out(record).dict()
-                    # return MemberOutWithPassword(**member_data)
+                    old_data = member.dict()
+                    updated = self.get(username).dict()
+                    id = updated['id']
+                    return MemberOut(id=id, username=username, **old_data)
+                    
         except Exception as e:
             print(e)
             return {'error': 'could not update member'}
-#----------------------------END NOT WORKING-------------------------------------------   
 
     def new_member(
         self, member: MemberIn, hashed_password: str
@@ -193,8 +201,10 @@ class MemberRepo:
                         ],
                     )
                     record = result.fetchone()
+                    print('RECORD before to member out is called',record)
                     if record:
                         data = self.record_to_member_out(record).dict()
+                        print('DATA, after memberout gets called',data)
                         return MemberOutWithPassword(**data)
                     else:
                         return {"nope": "not working"}

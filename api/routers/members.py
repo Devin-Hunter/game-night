@@ -12,6 +12,7 @@ from authenticator import authenticator
 from queries.members import (
     MemberIn,
     MemberOut,
+    MemberUpdate,
     MemberRepo,
     Error,
     DuplicateAccountError,
@@ -36,9 +37,12 @@ class HttpError(BaseModel):
 
 @router.get("/users", response_model=Union[List[MemberOut], Error])
 def get_all_members(
+    request: Request,
     repo: MemberRepo = Depends(),
+    account_data: MemberOut = Depends(authenticator.try_get_current_account_data)
 ):
-    return repo.get_all()
+    if account_data and authenticator.cookie_name in request.cookies:
+        return repo.get_all()
 
 
 @router.get('/user/{username}', response_model= Union[MemberOut, Error])
@@ -50,7 +54,6 @@ def member_details(
 ) ->MemberOut:
     print(account_data)
     if account_data and authenticator.cookie_name in request.cookies:
-        username = account_data['username']
         return repo.get(username)
 
 
@@ -61,9 +64,7 @@ async def create_member(
     response: Response,
     repo: MemberRepo = Depends(),
 ):
-
     hashed_password = authenticator.hash_password(info.password)
-
     try:
         member = repo.new_member(info, hashed_password)
     except DuplicateAccountError:
@@ -71,7 +72,9 @@ async def create_member(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="username already exists, please try another",
         )
+    print('INFO from router', info)
     form = AccountForm(username=info.username, password=info.password)
+    print('FORM', form)
     token = await authenticator.login(response, request, form, repo)
     return AccountToken(account=member, **token.dict())
 
@@ -80,12 +83,11 @@ async def create_member(
 def update_member(
     username: str,
     request: Request,
-    info: MemberOut,
+    info: MemberUpdate,
     repo: MemberRepo = Depends(),
     account_data: MemberOut = Depends(authenticator.try_get_current_account_data)
-):
+) -> Union[MemberOut, Error]:
     if account_data and authenticator.cookie_name in request.cookies:
-        username = account_data['username']
         return repo.update_member(username, info)
 
 # @router.get('user/{username}/events')
