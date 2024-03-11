@@ -149,9 +149,7 @@ steps = [
             id SERIAL NOT NULL,
             member_id INTEGER NOT NULL REFERENCES events(id),
             event_id INTEGER NOT NULL REFERENCES members(id),
-            attendee_type VARCHAR(50) NOT NULL,
-            CONSTRAINT attendee_sort CHECK (attendee_type in ('player', 'spectator')),
-            CONSTRAINT members_events_pk PRIMARY KEY(member_id, event_id)
+            attendee_type VARCHAR(50) NOT NULL
         );
         """,
         # "Down" SQL statement
@@ -173,5 +171,5 @@ steps = [
         """
         DROP TABLE game_events;
         """,
-    ],
+    ]
 ]

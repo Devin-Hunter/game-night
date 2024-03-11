@@ -39,6 +39,16 @@ class MemberOutWithPassword(MemberOut):
     hashed_password: str
 
 
+class MemberUpdate(BaseModel):
+    first_name: str
+    last_name: str
+    age: int
+    skill_level: str
+    avatar: str
+    about: str
+    location_id: int
+
+
 class MemberRepo:
     def record_to_member_out(self, record) -> MemberOutWithPassword:
         return MemberOutWithPassword(
@@ -112,7 +122,47 @@ class MemberRepo:
                     return MemberOutWithPassword(**member_data)
         except Exception as e:
             print(str(e))
-            return {"message": "Could not retrieve member"}
+            return {'message': 'Could not retrieve member'}
+
+    def update_member(
+            self,
+            username: str,
+            member: MemberUpdate
+            ) -> Union[MemberOut, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE members
+                        SET first_name = %s
+                            , last_name = %s
+                            , age = %s
+                            , skill_level = %s
+                            , avatar = %s
+                            , about = %s
+                            , location_id = %s
+                        WHERE username = %s
+                        """,
+                        [
+                            member.first_name,
+                            member.last_name,
+                            member.age,
+                            member.skill_level,
+                            member.avatar,
+                            member.about,
+                            member.location_id,
+                            username
+                        ]
+                    )
+                    old_data = member.dict()
+                    updated = self.get(username).dict()
+                    id = updated['id']
+                    return MemberOut(id=id, username=username, **old_data)
+
+        except Exception as e:
+            print(e)
+            return {'error': 'could not update member'}
 
     def new_member(
         self, member: MemberIn, hashed_password: str
