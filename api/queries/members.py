@@ -209,3 +209,9 @@ class MemberRepo:
         except Exception as e:
             print(e)
             return {"message": "Could not create new member"}
+        
+    def get_member_attending_events(self, ):
+        pass
+
+    def get_member_player_events(self,):
+        pass
