@@ -123,16 +123,16 @@ class MemberRepo:
         except Exception as e:
             print(str(e))
             return {'message': 'Could not retrieve member'}
-      
+
     def update_member(
             self,
-            username:str,
+            username: str,
             member: MemberUpdate
             ) -> Union[MemberOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    result= db.execute(
+                    result = db.execute(
                         """
                         UPDATE members
                         SET first_name = %s
@@ -159,7 +159,7 @@ class MemberRepo:
                     updated = self.get(username).dict()
                     id = updated['id']
                     return MemberOut(id=id, username=username, **old_data)
-                    
+
         except Exception as e:
             print(e)
             return {'error': 'could not update member'}
@@ -201,10 +201,8 @@ class MemberRepo:
                         ],
                     )
                     record = result.fetchone()
-                    print('RECORD before to member out is called',record)
                     if record:
                         data = self.record_to_member_out(record).dict()
-                        print('DATA, after memberout gets called',data)
                         return MemberOutWithPassword(**data)
                     else:
                         return {"nope": "not working"}

@@ -39,19 +39,23 @@ class HttpError(BaseModel):
 def get_all_members(
     request: Request,
     repo: MemberRepo = Depends(),
-    account_data: MemberOut = Depends(authenticator.try_get_current_account_data)
+    account_data: MemberOut = Depends(
+        authenticator.try_get_current_account_data
+    )
 ):
     if account_data and authenticator.cookie_name in request.cookies:
         return repo.get_all()
 
 
-@router.get('/user/{username}', response_model= Union[MemberOut, Error])
+@router.get('/user/{username}', response_model=Union[MemberOut, Error])
 def member_details(
     username: str,
     request: Request,
     repo: MemberRepo = Depends(),
-    account_data: MemberOut = Depends(authenticator.try_get_current_account_data)
-) ->MemberOut:
+    account_data: MemberOut = Depends(
+        authenticator.try_get_current_account_data
+    )
+) -> MemberOut:
     print(account_data)
     if account_data and authenticator.cookie_name in request.cookies:
         return repo.get(username)
@@ -85,7 +89,9 @@ def update_member(
     request: Request,
     info: MemberUpdate,
     repo: MemberRepo = Depends(),
-    account_data: MemberOut = Depends(authenticator.try_get_current_account_data)
+    account_data: MemberOut = Depends(
+        authenticator.try_get_current_account_data
+    )
 ) -> Union[MemberOut, Error]:
     if account_data and authenticator.cookie_name in request.cookies:
         return repo.update_member(username, info)
