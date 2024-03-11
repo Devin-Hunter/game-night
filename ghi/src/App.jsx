@@ -9,7 +9,7 @@ function App() {
             <NavBar />
             <div className="container">
                 <Routes>
-                    <Route path="/gamenight" element={<MainPage />} />
+                    <Route path="/" element={<MainPage />} />
                 </Routes>
             </div>
         </BrowserRouter>
