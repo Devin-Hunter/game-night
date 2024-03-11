@@ -4,6 +4,14 @@ Please keep all of your individual journals in this directory.
 
 Each team member is required to keep a development journal, which should be a single markdown file with an entry for each day the project was worked on.
 
+## Week 16
+
+### 11 March 2024
+
+Installed Tailwind/Flowbite for front-end library.
+
+Updated TESTING.md to house instructions for testing app while using Docker on local computer. Now it includes instructions for navigating to the front and back end sites with screenshots.
+
 ## Week 15
 
 ### 4 March 2024
