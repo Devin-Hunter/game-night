@@ -1,6 +1,6 @@
 ## Week 15
 3/7
-I added protected endpoints to my events create, update, and delete and got that merged with the main.
+I added protected endpoints to my events create, update, and delete and got that merged with the main. After I had to make some adjustemnets to my protected endpoints so they could work correctly and going back to my queries and fixing my events endpoints so they reference the venues table.
 
 3/6
 I worked on getting my fastapi docs link to load up to test my endpoints. Got both links working after restarting my computer. Testing out the events endpoints.

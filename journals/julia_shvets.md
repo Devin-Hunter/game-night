@@ -27,3 +27,7 @@ Week 15:
 3/5: Reformatted the table games_members into 3 separate tables: favorite_games, owned_games, wishlist_games. Created 3 endpoints for those table, add_to_favorites, add_to_owned, add_to_wishlist.
 
 3/6: Worked on GameList component in React.
+
+3/7. Tried to install Tailwind. Was not achieved. Protected all of my endpoints. Predominantly worked on GameForm Component.
+
+3/8. Continued working on frontend, mainly GameList and GameForm component. Realized that I needed to set Unique on title, so duplicate games won't be added to the database.
