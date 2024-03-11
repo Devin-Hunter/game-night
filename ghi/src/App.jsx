@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import './index.css'
 import MainPage from './MainPage'
-import Nav from './Nav'
-import './App.css'
+import NavBar from './Nav'
 
 function App() {
     return (
         <BrowserRouter>
-            <Nav />
+            <NavBar />
             <div className="container">
                 <Routes>
                     <Route path="/" element={<MainPage />} />
