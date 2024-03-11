@@ -132,7 +132,7 @@ class MemberRepo:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    result = db.execute(
+                    db.execute(
                         """
                         UPDATE members
                         SET first_name = %s
