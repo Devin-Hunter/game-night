@@ -14,6 +14,11 @@ app.include_router(events.router)
 app.include_router(authenticator.router)
 
 
+@app.get("/")
+def root():
+    return {"message": "You hit the root path!"}
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[os.environ.get("CORS_HOST")],
