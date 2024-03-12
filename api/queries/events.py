@@ -10,7 +10,7 @@ class Error(BaseModel):
 class EventIn(BaseModel):
     game: str
     venue: int
-    date_time: int
+    date_time: str
     competitive_rating: str
     max_players: int
     max_spectators: int
@@ -21,7 +21,7 @@ class EventOut(BaseModel):
     id: int
     game: str
     venue: int
-    date_time: int
+    date_time: str
     competitive_rating: str
     max_players: int
     max_spectators: int
@@ -52,7 +52,7 @@ class EventRepo:
                         , min_age)
                         VALUES
                         (%s, %s, %s, %s, %s, %s, %s)
-                        RETURNING id;
+                        RETURNING *;
                         """,
                         [
                             event.game,
@@ -64,9 +64,9 @@ class EventRepo:
                             event.min_age
                         ],
                     )
-                    id = result.fetchone()[0]
-                    old_data = event.dict()
-                    return EventOut(id=id, **old_data)
+                    record = result.fetchone()
+                    event_data = self.record_to_event_out(record).dict()
+                    return EventOut(**event_data)
         except Exception:
             return {"message": "Could not create event"}
 
@@ -122,7 +122,7 @@ class EventRepo:
             id=record[0],
             game=record[1],
             venue=record[2],
-            date_time=record[3],
+            date_time=str(record[3]),
             competitive_rating=record[4],
             max_players=record[5],
             max_spectators=record[6],

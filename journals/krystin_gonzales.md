@@ -1,3 +1,14 @@
+## Week 16
+3/11/24
+-Completed update and put query and router for members
+-Started join queries/endpoints for events
+
+3/12/24
+-Completed join queries/get endpoints for member events as spectator and player
+-Completed join queries/get endpoints for member owned, wishlist, and favorite games
+-Started post endpoint/query for member events
+
+
 ## Week 15
 3/04/24
 -Fixed migration syntax issue

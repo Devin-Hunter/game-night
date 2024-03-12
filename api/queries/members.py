@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import List, Union
 from .pool import pool
+from .events import EventOut
 
 
 class Error(BaseModel):
@@ -209,3 +210,69 @@ class MemberRepo:
         except Exception as e:
             print(e)
             return {"message": "Could not create new member"}
+
+    def get_member_attending_events(self, id):
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT e.*
+                        FROM members_events me
+                        JOIN events e
+                        ON me.event_id = e.id
+                        WHERE attendee_type = 'spectator'
+                        AND me.member_id = %s;
+                        """,
+                        [id]
+                    )
+                    result = []
+                    for record in db:
+                        event = EventOut(
+                            id=record[0],
+                            game=record[1],
+                            venue=record[2],
+                            date_time=record[3],
+                            competitive_rating=record[4],
+                            max_players=record[5],
+                            max_spectators=record[6],
+                            min_age=record[7]
+                        )
+                        result.append(event)
+                    return result
+        except Exception as e:
+            print(e)
+            return {'error': 'could not get member events'}
+
+    def get_member_player_events(self, id):
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT e.*
+                        FROM members_events me
+                        JOIN events e
+                        ON me.event_id = e.id
+                        WHERE attendee_type = 'player'
+                        AND me.member_id = %s;
+                        """,
+                        [id]
+                    )
+                    result = []
+                    for record in db:
+                        event = EventOut(
+                            id=record[0],
+                            game=record[1],
+                            venue=record[2],
+                            date_time=record[3],
+                            competitive_rating=record[4],
+                            max_players=record[5],
+                            max_spectators=record[6],
+                            min_age=record[7]
+                        )
+                        result.append(event)
+                    return result
+        except Exception as e:
+            print(e)
+            return {'error': 'could not get member events'}
