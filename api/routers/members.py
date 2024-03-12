@@ -17,6 +17,8 @@ from queries.members import (
     Error,
     DuplicateAccountError,
 )
+from queries.events import EventOut
+from queries.games import GameOut
 from typing import List, Union
 
 router = APIRouter()
@@ -96,11 +98,71 @@ def update_member(
     if account_data and authenticator.cookie_name in request.cookies:
         return repo.update_member(username, info)
 
-# @router.get('user/{username}/events')
-# def member_events():
-#     pass
+@router.get('/user/{username}/events/spectator', response_model=Union[List[EventOut], Error])
+def member_spec_events(
+    username: str,
+    request: Request,
+    repo: MemberRepo= Depends(),
+    account_data: MemberOut = Depends(
+        authenticator.try_get_current_account_data
+    )
+)->bool:
+    member_id = account_data['id']
+    if account_data and authenticator.cookie_name in request.cookies:
+        return repo.get_member_attending_events(member_id)
+    
+@router.get('/user/{username}/events/player', response_model=Union[List[EventOut], Error])
+def member_player_events(
+    username: str,
+    request: Request,
+    repo: MemberRepo= Depends(),
+    account_data: MemberOut = Depends(
+        authenticator.try_get_current_account_data
+    )
+)->bool:
+    member_id = account_data['id']
+    if account_data and authenticator.cookie_name in request.cookies:
+        return repo.get_member_player_events(member_id)
+    
 
 
-# @router.get('user/{username}/games')
-# def member_games():
-#     pass
+
+@router.get('/user/{username}/games/owned', response_model=Union[List[GameOut], Error])
+def owned_games(
+    username: str,
+    request: Request,
+    repo: MemberRepo= Depends(),
+    account_data: MemberOut = Depends(
+        authenticator.try_get_current_account_data
+    )
+)->bool:
+    member_id = account_data['id']
+    if account_data and authenticator.cookie_name in request.cookies:
+        return repo.get_owned_games(member_id)
+
+@router.get('/user/{username}/games/wishlist', response_model=Union[List[GameOut], Error])
+def wishlist_games(
+    username: str,
+    request: Request,
+    repo: MemberRepo= Depends(),
+    account_data: MemberOut = Depends(
+        authenticator.try_get_current_account_data
+    )
+):
+    member_id = account_data['id']
+    if account_data and authenticator.cookie_name in request.cookies:
+        return repo.get_wishlist_games(member_id)
+
+    
+@router.get('/user/{username}/games/favorites', response_model=Union[List[GameOut], Error])
+def favorite_games(
+    username: str,
+    request: Request,
+    repo: MemberRepo= Depends(),
+    account_data: MemberOut = Depends(
+        authenticator.try_get_current_account_data
+    )
+):
+    member_id = account_data['id']
+    if account_data and authenticator.cookie_name in request.cookies:
+        return repo.get_favorite_games(member_id)

@@ -1,6 +1,8 @@
 from pydantic import BaseModel
 from typing import List, Union
 from .pool import pool
+from .events import EventOut
+from .games import GameOut
 
 
 class Error(BaseModel):
@@ -210,8 +212,183 @@ class MemberRepo:
             print(e)
             return {"message": "Could not create new member"}
         
-    def get_member_attending_events(self, ):
-        pass
+    def get_member_attending_events(self, id):
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT e.*
+                        FROM members_events me
+                        JOIN events e
+                        ON me.event_id = e.id
+                        WHERE attendee_type = 'spectator' 
+                        AND me.member_id = %s;
+                        """,
+                        [id]
+                    )
+                    result = []
+                    for record in db:
+                        event = EventOut(
+                            id=record[0],
+                            game=record[1],
+                            venue=record[2],
+                            date_time=record[3],
+                            competitive_rating=record[4],
+                            max_players=record[5],
+                            max_spectators=record[6],
+                            min_age=record[7]
+                        )
+                        result.append(event)
+                    return result
+        except Exception as e:
+            print(e)
+            return {'error': 'could not get member events'}
 
-    def get_member_player_events(self,):
-        pass
+    def get_member_player_events(self, id):
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT e.*
+                        FROM members_events me
+                        JOIN events e
+                        ON me.event_id = e.id
+                        WHERE attendee_type = 'player' 
+                        AND me.member_id = %s;
+                        """,
+                        [id]
+                    )
+                    result = []
+                    for record in db:
+                        event = EventOut(
+                            id=record[0],
+                            game=record[1],
+                            venue=record[2],
+                            date_time=record[3],
+                            competitive_rating=record[4],
+                            max_players=record[5],
+                            max_spectators=record[6],
+                            min_age=record[7]
+                        )
+                        result.append(event)
+                    return result
+        except Exception as e:
+            print(e)
+            return {'error': 'could not get member events'}
+
+    def get_owned_games(self, id):
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT owned.*
+                        FROM owned_games owned
+                        JOIN games g
+                        ON owned.game_id = g.id
+                        WHERE owned.member_id = %s;
+                        """,
+                        [id]
+                    )
+                    result = []
+                    for record in db:
+                        print('RECORD', record)
+                        game = GameOut(
+                            id = record[0],
+                            title = record[1],
+                            year = record[2],
+                            min_players = record[3],
+                            max_players = record[4],
+                            play_time = record[5],
+                            age = record[6],
+                            description = record[7],
+                            rules = record[8],
+                            picture = record[9],
+                            video = record[10],
+                            complexity = record[11],
+                            category = record[12],
+                            rating = record[13]
+                        )
+                        result.append(game)
+                    return result
+        except Exception as e:
+            print(e)
+            return {'error': 'could not get owned games'}
+    
+    def get_wishlist_games(self, id):
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT wishlist.*
+                        FROM wishlist_games wishlist
+                        JOIN games
+                        ON wishlist.game_id = games.id
+                        WHERE wishlist.member_id = %s;
+                        """,
+                        [id]
+                    )
+                    result = []
+                    for record in db:
+                        game = GameOut(
+                            id = record[0],
+                            title = record[1],
+                            year = record[2],
+                            min_players = record[3],
+                            max_players = record[4],
+                            play_time = record[5],
+                            age = record[6],
+                            description = record[7],
+                            rules = record[8],
+                            picture = record[9],
+                            video = record[10],
+                            complexity = record[11],
+                            category = record[12],
+                            rating = record[13]
+                        )
+                        result.append(game)
+                    return result
+        except Exception as e:
+            print(e)
+            return {'error': 'could not get wishlist games'}
+
+    def get_favorite_games(self, id):
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT favorite.*
+                        FROM favorite_games favorite
+                        JOIN games
+                        ON favorite.game_id = games.id
+                        WHERE favorite.member_id = %s;
+                        """,
+                        [id]
+                    )
+                    result = []
+                    for record in db:
+                        game = GameOut(
+                            id = record[0],
+                            title = record[1],
+                            year = record[2],
+                            min_players = record[3],
+                            max_players = record[4],
+                            play_time = record[5],
+                            age = record[6],
+                            description = record[7],
+                            rules = record[8],
+                            picture = record[9],
+                            video = record[10],
+                            complexity = record[11],
+                            category = record[12],
+                            rating = record[13]
+                        )
+                        result.append(game)
+                    return result
+        except Exception as e:
+            print(e)
+            return {'error': 'could not get favorite games'}
