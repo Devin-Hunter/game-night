@@ -211,7 +211,7 @@ class MemberRepo:
         except Exception as e:
             print(e)
             return {"message": "Could not create new member"}
-        
+
     def get_member_attending_events(self, id):
         try:
             with pool.connection() as conn:
@@ -222,7 +222,7 @@ class MemberRepo:
                         FROM members_events me
                         JOIN events e
                         ON me.event_id = e.id
-                        WHERE attendee_type = 'spectator' 
+                        WHERE attendee_type = 'spectator'
                         AND me.member_id = %s;
                         """,
                         [id]
@@ -255,7 +255,7 @@ class MemberRepo:
                         FROM members_events me
                         JOIN events e
                         ON me.event_id = e.id
-                        WHERE attendee_type = 'player' 
+                        WHERE attendee_type = 'player'
                         AND me.member_id = %s;
                         """,
                         [id]
@@ -296,27 +296,27 @@ class MemberRepo:
                     for record in db:
                         print('RECORD', record)
                         game = GameOut(
-                            id = record[0],
-                            title = record[1],
-                            year = record[2],
-                            min_players = record[3],
-                            max_players = record[4],
-                            play_time = record[5],
-                            age = record[6],
-                            description = record[7],
-                            rules = record[8],
-                            picture = record[9],
-                            video = record[10],
-                            complexity = record[11],
-                            category = record[12],
-                            rating = record[13]
+                            id=record[0],
+                            title=record[1],
+                            year=record[2],
+                            min_players=record[3],
+                            max_players=record[4],
+                            play_time=record[5],
+                            age=record[6],
+                            description=record[7],
+                            rules=record[8],
+                            picture=record[9],
+                            video=record[10],
+                            complexity=record[11],
+                            category=record[12],
+                            rating=record[13]
                         )
                         result.append(game)
                     return result
         except Exception as e:
             print(e)
             return {'error': 'could not get owned games'}
-    
+
     def get_wishlist_games(self, id):
         try:
             with pool.connection() as conn:
@@ -334,20 +334,20 @@ class MemberRepo:
                     result = []
                     for record in db:
                         game = GameOut(
-                            id = record[0],
-                            title = record[1],
-                            year = record[2],
-                            min_players = record[3],
-                            max_players = record[4],
-                            play_time = record[5],
-                            age = record[6],
-                            description = record[7],
-                            rules = record[8],
-                            picture = record[9],
-                            video = record[10],
-                            complexity = record[11],
-                            category = record[12],
-                            rating = record[13]
+                            id=record[0],
+                            title=record[1],
+                            year=record[2],
+                            min_players=record[3],
+                            max_players=record[4],
+                            play_time=record[5],
+                            age=record[6],
+                            description=record[7],
+                            rules=record[8],
+                            picture=record[9],
+                            video=record[10],
+                            complexity=record[11],
+                            category=record[12],
+                            rating=record[13]
                         )
                         result.append(game)
                     return result
@@ -372,20 +372,20 @@ class MemberRepo:
                     result = []
                     for record in db:
                         game = GameOut(
-                            id = record[0],
-                            title = record[1],
-                            year = record[2],
-                            min_players = record[3],
-                            max_players = record[4],
-                            play_time = record[5],
-                            age = record[6],
-                            description = record[7],
-                            rules = record[8],
-                            picture = record[9],
-                            video = record[10],
-                            complexity = record[11],
-                            category = record[12],
-                            rating = record[13]
+                            id=record[0],
+                            title=record[1],
+                            year=record[2],
+                            min_players=record[3],
+                            max_players=record[4],
+                            play_time=record[5],
+                            age=record[6],
+                            description=record[7],
+                            rules=record[8],
+                            picture=record[9],
+                            video=record[10],
+                            complexity=record[11],
+                            category=record[12],
+                            rating=record[13]
                         )
                         result.append(game)
                     return result

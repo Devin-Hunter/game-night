@@ -40,7 +40,6 @@ class EventRepo:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    print('EVENT',event)
                     result = db.execute(
                         """
                         INSERT INTO events
@@ -65,11 +64,8 @@ class EventRepo:
                             event.min_age
                         ],
                     )
-                    record = result.fetchone()#[0]
-                    print('RECORD', record)
-                    # old_data = event.dict()
+                    record = result.fetchone()
                     event_data = self.record_to_event_out(record).dict()
-                    print('EVENT DATA', event_data)
                     return EventOut(**event_data)
         except Exception:
             return {"message": "Could not create event"}
