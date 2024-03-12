@@ -142,3 +142,36 @@ def remove_from_favorites(
     account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> Union[bool, Error]:
     return repo.remove_game_from_favorites(member_id, game_id)
+
+
+@router.get(
+        "/api/members/{member_id}/favorite_games",
+        response_model=Union[List[GameOut], Error])
+def list_favorite_games(
+        member_id: int,
+        repo: GameRepo = Depends(),
+        # account_data: dict = Depends(authenticator.get_current_account_data),
+) -> Union[List[GameOut], Error]:
+    return repo.list_favorite_games(member_id)
+
+
+@router.get(
+        "/api/members/{member_id}/owned_games",
+        response_model=Union[List[GameOut], Error])
+def list_owned_games(
+        member_id: int,
+        repo: GameRepo = Depends(),
+        # account_data: dict = Depends(authenticator.get_current_account_data),
+) -> Union[List[GameOut], Error]:
+    return repo.list_owned_games(member_id)
+
+
+@router.get(
+        "/api/members/{member_id}/wishlist_games",
+        response_model=Union[List[GameOut], Error])
+def list_wishlist_games(
+        member_id: int,
+        repo: GameRepo = Depends(),
+        # account_data: dict = Depends(authenticator.get_current_account_data),
+) -> Union[List[GameOut], Error]:
+    return repo.list_wishlist_games(member_id)
