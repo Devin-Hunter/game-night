@@ -5,6 +5,7 @@ import NavBar from './Nav'
 import { AuthProvider } from '@galvanize-inc/jwtdown-for-react'
 
 function App() {
+
     return (
         <BrowserRouter>
             <AuthProvider>
