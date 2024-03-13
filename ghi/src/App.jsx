@@ -4,6 +4,7 @@ import MainPage from './MainPage'
 import NavBar from './Nav'
 
 function App() {
+
     return (
         <BrowserRouter>
             <NavBar />
