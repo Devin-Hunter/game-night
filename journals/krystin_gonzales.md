@@ -6,7 +6,7 @@
 3/12/24
 -Completed join queries/get endpoints for member events as spectator and player
 -Completed join queries/get endpoints for member owned, wishlist, and favorite games
--Started working on front end landing page
+-Started post endpoint/query for member events
 
 
 ## Week 15
@@ -42,7 +42,6 @@
 -Got database up and running
 -Started building relational Model Diagram
 -Submitted merge request for issue #7
-
 
 
 2/29/24

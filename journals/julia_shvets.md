@@ -31,3 +31,9 @@ Week 15:
 3/7. Tried to install Tailwind. Was not achieved. Protected all of my endpoints. Predominantly worked on GameForm Component.
 
 3/8. Continued working on frontend, mainly GameList and GameForm component. Realized that I needed to set Unique on title, so duplicate games won't be added to the database.
+
+Week 16:
+
+3/11. Worked on the frontend component that has a form "Add Game". Was trying to figure out how to not submit the game with the same title. I gave title unique constraint.
+
+3/12. Moved to working on "All Games" frontend component. Added 3 endpoints for listing favorite games, wishlist games and owned games. Added 3 new components: wishlist games, want to play games, favorite games - these are just lists. Working on "favoriting" games feature.

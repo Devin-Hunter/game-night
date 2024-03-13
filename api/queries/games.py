@@ -310,3 +310,84 @@ class GameRepo:
         except Exception as e:
             print(e)
             return {"message": "Could not remove game from favorites list"}
+
+    def list_favorite_games(
+            self, member_id: int
+    ) -> Union[Error, List[GameOut]]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT g.id, g.title, g.year, g.min_players,
+                            g.max_players, g.play_time,
+                            g.age, g.description,
+                            g.rules, g.picture, g.video,
+                            g.complexity, g.category, g.rating
+                        FROM games AS g
+                        JOIN favorite_games AS fg ON g.id = fg.game_id
+                        WHERE fg.member_id = %s
+                        ORDER BY g.id;
+                        """,
+                        [member_id],
+                    )
+                    return [
+                        self.record_to_game_out(record) for record in result
+                    ]
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get favorites games"}
+
+    def list_owned_games(
+            self, member_id: int
+    ) -> Union[Error, List[GameOut]]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT g.id, g.title, g.year, g.min_players,
+                            g.max_players, g.play_time,
+                            g.age, g.description,
+                            g.rules, g.picture, g.video,
+                            g.complexity, g.category, g.rating
+                        FROM games AS g
+                        JOIN owned_games AS og ON g.id = og.game_id
+                        WHERE og.member_id = %s
+                        ORDER BY g.id;
+                        """,
+                        [member_id],
+                    )
+                    return [
+                        self.record_to_game_out(record) for record in result
+                    ]
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get games you own"}
+
+    def list_wishlist_games(
+            self, member_id: int
+    ) -> Union[Error, List[GameOut]]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT g.id, g.title, g.year, g.min_players,
+                            g.max_players, g.play_time,
+                            g.age, g.description,
+                            g.rules, g.picture, g.video,
+                            g.complexity, g.category, g.rating
+                        FROM games AS g
+                        JOIN wishlist_games AS wg ON g.id = wg.game_id
+                        WHERE wg.member_id = %s
+                        ORDER BY g.id;
+                        """,
+                        [member_id],
+                    )
+                    return [
+                        self.record_to_game_out(record) for record in result
+                    ]
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get games you want to play"}

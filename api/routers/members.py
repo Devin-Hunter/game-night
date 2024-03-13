@@ -18,7 +18,6 @@ from queries.members import (
     DuplicateAccountError,
 )
 from queries.events import EventOut
-from queries.games import GameOut
 from typing import List, Union
 
 router = APIRouter()
@@ -131,73 +130,3 @@ def member_player_events(
     member_id = account_data['id']
     if account_data and authenticator.cookie_name in request.cookies:
         return repo.get_member_player_events(member_id)
-
-
-@router.get(
-        '/user/{username}/games/owned',
-        response_model=Union[List[GameOut], Error]
-)
-def owned_games(
-    username: str,
-    request: Request,
-    repo: MemberRepo = Depends(),
-    account_data: MemberOut = Depends(
-        authenticator.try_get_current_account_data
-    )
-) -> bool:
-    member_id = account_data['id']
-    if account_data and authenticator.cookie_name in request.cookies:
-        return repo.get_owned_games(member_id)
-
-
-@router.get(
-        '/user/{username}/games/wishlist',
-        response_model=Union[List[GameOut], Error]
-)
-def wishlist_games(
-    username: str,
-    request: Request,
-    repo: MemberRepo = Depends(),
-    account_data: MemberOut = Depends(
-        authenticator.try_get_current_account_data
-    )
-):
-    member_id = account_data['id']
-    if account_data and authenticator.cookie_name in request.cookies:
-        return repo.get_wishlist_games(member_id)
-
-
-@router.get(
-        '/user/{username}/games/favorites',
-        response_model=Union[List[GameOut], Error]
-)
-def favorite_games(
-    username: str,
-    request: Request,
-    repo: MemberRepo = Depends(),
-    account_data: MemberOut = Depends(
-        authenticator.try_get_current_account_data
-    )
-):
-    member_id = account_data['id']
-    if account_data and authenticator.cookie_name in request.cookies:
-        return repo.get_favorite_games(member_id)
-
-
-@router.get('/token', response_model=AccountToken | None)
-async def get_token(
-    request: Request,
-    account: MemberOut = Depends(authenticator.try_get_current_account_data)
-):
-    if account and authenticator.cookie_name in request.cookies:
-        return {
-            'access_token': request.cookies[authenticator.cookie_name],
-            'type': 'Bearer',
-            'account': account,
-        }
-
-@router.get('/api/protected', response_model=bool)
-async def get_token(
-    request: Request,
-    account_data: dict = Depends(authenticator.get_current_account_data)):
-    return True
