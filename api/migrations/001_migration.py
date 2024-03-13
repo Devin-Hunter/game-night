@@ -147,8 +147,8 @@ steps = [
         """
         CREATE TABLE members_events (
             id SERIAL NOT NULL,
-            member_id INTEGER NOT NULL REFERENCES events(id),
-            event_id INTEGER NOT NULL REFERENCES members(id),
+            member_id INTEGER NOT NULL REFERENCES members(id),
+            event_id INTEGER NOT NULL REFERENCES events(id),
             attendee_type VARCHAR(50) NOT NULL
         );
         """,
