@@ -3,9 +3,9 @@ function MainPage() {
         <div>
             <h1>Game Night</h1>
             <div>
-                <p>
+                <h1>
                     Have fun with your friends, old and new, and play games!
-                </p>
+                </h1>
             </div>
         </div>
     )

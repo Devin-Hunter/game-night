@@ -182,3 +182,22 @@ def favorite_games(
     member_id = account_data['id']
     if account_data and authenticator.cookie_name in request.cookies:
         return repo.get_favorite_games(member_id)
+
+
+@router.get('/token', response_model=AccountToken | None)
+async def get_token(
+    request: Request,
+    account: MemberOut = Depends(authenticator.try_get_current_account_data)
+):
+    if account and authenticator.cookie_name in request.cookies:
+        return {
+            'access_token': request.cookies[authenticator.cookie_name],
+            'type': 'Bearer',
+            'account': account,
+        }
+
+@router.get('/api/protected', response_model=bool)
+async def get_token(
+    request: Request,
+    account_data: dict = Depends(authenticator.get_current_account_data)):
+    return True

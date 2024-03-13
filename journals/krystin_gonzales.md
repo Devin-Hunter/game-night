@@ -6,7 +6,7 @@
 3/12/24
 -Completed join queries/get endpoints for member events as spectator and player
 -Completed join queries/get endpoints for member owned, wishlist, and favorite games
--Started post endpoint/query for member events
+-Started working on front end landing page
 
 
 ## Week 15
