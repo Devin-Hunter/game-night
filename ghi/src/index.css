@@ -4,3 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/1.jpg');
+    background-size: cover;
+}
