@@ -19,7 +19,6 @@ class MemberIn(BaseModel):
     password: str
     age: int
     skill_level: str
-    avatar: str
     about: str
     location_id: int
 
@@ -31,7 +30,6 @@ class MemberOut(BaseModel):
     username: str
     age: int
     skill_level: str
-    avatar: str
     about: str
     location_id: int
 
@@ -60,9 +58,8 @@ class MemberRepo:
             hashed_password=record[4],
             age=record[5],
             skill_level=record[6],
-            avatar=record[7],
-            about=record[8],
-            location_id=record[9],
+            about=record[7],
+            location_id=record[8],
         )
 
     def get_all(self) -> Union[List[MemberOut], Error]:
@@ -78,7 +75,6 @@ class MemberRepo:
                             username,
                             age,
                             skill_level,
-                            avatar,
                             about,
                             location_id
                         FROM members
@@ -93,9 +89,8 @@ class MemberRepo:
                             username=record[3],
                             age=record[4],
                             skill_level=record[5],
-                            avatar=record[6],
-                            about=record[7],
-                            location_id=record[8],
+                            about=record[6],
+                            location_id=record[7],
                         )
                         result.append(member)
                     return result
@@ -140,7 +135,6 @@ class MemberRepo:
                             , last_name = %s
                             , age = %s
                             , skill_level = %s
-                            , avatar = %s
                             , about = %s
                             , location_id = %s
                         WHERE username = %s
@@ -150,7 +144,6 @@ class MemberRepo:
                             member.last_name,
                             member.age,
                             member.skill_level,
-                            member.avatar,
                             member.about,
                             member.location_id,
                             username
@@ -179,13 +172,12 @@ class MemberRepo:
                             username,
                             age,
                             skill_level,
-                            avatar,
                             about,
                             location_id,
                             hashed_password
                             )
                         VALUES
-                            (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                            (%s, %s, %s, %s, %s, %s, %s, %s)
                         RETURNING
                             *;
                         """,
@@ -195,7 +187,6 @@ class MemberRepo:
                             member.username,
                             member.age,
                             member.skill_level,
-                            member.avatar,
                             member.about,
                             member.location_id,
                             hashed_password,

@@ -1,6 +1,43 @@
-import { Link, NavLink } from 'react-router-dom'
+import useToken from '@galvanize-inc/jwtdown-for-react';
+import { apiHost } from './App';
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+
 
 function NavBar() {
+    const {token, logout} = useToken();
+    console.log(token)
+    // const logout = async () => {
+    //      if (token) {
+    //          const url = `${apiHost}/token`
+    //          const response = await fetch(url, {
+    //              method: 'delete',
+    //              credentials: 'include',
+    //          })
+    //          if (!response.ok) {
+    //              console.error(response.statusText)
+    //              return false
+    //          }
+    //         //  setToken(null)
+    //          // Delete old token
+    //          document.cookie =
+    //              'fastapi_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+    //          return true
+    //      }
+    //  }
+    const navigate = useNavigate();
+
+    const handleLogout = async (e) => {
+        e.preventDefault();
+        try {
+            const logout_response = logout();
+            console.log(logout_response)
+            navigate('/')
+        }
+        catch (error){
+            console.error(str(error))
+        }
+    }
+
   return (
       <NavLink>
           <button
@@ -72,7 +109,7 @@ function NavBar() {
                       </li>
                       <li>
                           <Link
-                              to="#"
+                              to="./profile/"
                               className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                           >
                               <svg
@@ -129,7 +166,7 @@ function NavBar() {
                       </li>
                       <li>
                           <Link
-                              to="#"
+                              onClick={handleLogout}
                               className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                           >
                               <svg
@@ -159,261 +196,6 @@ function NavBar() {
           <div className="p-4 sm:ml-64">
               <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
                   <div className="grid grid-cols-3 gap-4 mb-4">
-                      
-                      {/* <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                          <p className="text-2xl text-gray-400 dark:text-gray-500">
-                              <svg
-                                  className="w-3.5 h-3.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 18 18"
-                              >
-                                  <path
-                                      stroke="currentColor"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      d="M9 1v16M1 9h16"
-                                  />
-                              </svg> */}
-                      {/* </p>
-                      </div> */}
-                      {/* <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                          <p className="text-2xl text-gray-400 dark:text-gray-500">
-                              <svg
-                                  className="w-3.5 h-3.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 18 18"
-                              >
-                                  <path
-                                      stroke="currentColor"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      d="M9 1v16M1 9h16"
-                                  />
-                              </svg>
-                          </p>
-                      </div>
-                      <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                          <p className="text-2xl text-gray-400 dark:text-gray-500">
-                              <svg
-                                  className="w-3.5 h-3.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 18 18"
-                              >
-                                  <path
-                                      stroke="currentColor"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      d="M9 1v16M1 9h16"
-                                  />
-                              </svg>
-                          </p>
-                      </div> */}
-                      {/* </div>
-                  <div className="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-                      <p className="text-2xl text-gray-400 dark:text-gray-500">
-                          <svg
-                              className="w-3.5 h-3.5"
-                              aria-hidden="true"
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 18 18"
-                          >
-                            
-                              <path
-                                  stroke="currentColor"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth="2"
-                                  d="M9 1v16M1 9h16"
-                              />
-                              
-                          </svg>
-                          
-                      </p>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4 mb-4">
-                      <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                          <p className="text-2xl text-gray-400 dark:text-gray-500">
-                              <svg
-                                  className="w-3.5 h-3.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 18 18"
-                              >
-                                  <path
-                                      stroke="currentColor"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      d="M9 1v16M1 9h16"
-                                  />
-                              </svg>
-                          </p>
-                      </div>
-                      <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                          <p className="text-2xl text-gray-400 dark:text-gray-500">
-                              <svg
-                                  className="w-3.5 h-3.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 18 18"
-                              >
-                                  <path
-                                      stroke="currentColor"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      d="M9 1v16M1 9h16"
-                                  />
-                              </svg>
-                          </p>
-                      </div>
-                      <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                          <p className="text-2xl text-gray-400 dark:text-gray-500">
-                              <svg
-                                  className="w-3.5 h-3.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 18 18"
-                              >
-                                  <path
-                                      stroke="currentColor"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      d="M9 1v16M1 9h16"
-                                  />
-                              </svg>
-                          </p>
-                      </div>
-                      <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                          <p className="text-2xl text-gray-400 dark:text-gray-500">
-                              <svg
-                                  className="w-3.5 h-3.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 18 18"
-                              >
-                                  <path
-                                      stroke="currentColor"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      d="M9 1v16M1 9h16"
-                                  />
-                              </svg>
-                          </p>
-                      </div>
-                  </div>
-                  <div className="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-                      <p className="text-2xl text-gray-400 dark:text-gray-500">
-                          <svg
-                              className="w-3.5 h-3.5"
-                              aria-hidden="true"
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 18 18"
-                          >
-                              <path
-                                  stroke="currentColor"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth="2"
-                                  d="M9 1v16M1 9h16"
-                              />
-                          </svg>
-                      </p>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                      <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                          <p className="text-2xl text-gray-400 dark:text-gray-500">
-                              <svg
-                                  className="w-3.5 h-3.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 18 18"
-                              >
-                                  <path
-                                      stroke="currentColor"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      d="M9 1v16M1 9h16"
-                                  />
-                              </svg>
-                          </p>
-                      </div>
-                      <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                          <p className="text-2xl text-gray-400 dark:text-gray-500">
-                              <svg
-                                  className="w-3.5 h-3.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 18 18"
-                              >
-                                  <path
-                                      stroke="currentColor"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      d="M9 1v16M1 9h16"
-                                  />
-                              </svg>
-                          </p>
-                      </div>
-                      <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                          <p className="text-2xl text-gray-400 dark:text-gray-500">
-                              <svg
-                                  className="w-3.5 h-3.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 18 18"
-                              >
-                                  <path
-                                      stroke="currentColor"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      d="M9 1v16M1 9h16"
-                                  />
-                              </svg>
-                          </p>
-                      </div>
-                      <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                          <p className="text-2xl text-gray-400 dark:text-gray-500">
-                              <svg
-                                  className="w-3.5 h-3.5"
-                                  aria-hidden="true"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 18 18"
-                              >
-                                  <path
-                                      stroke="currentColor"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      d="M9 1v16M1 9h16"
-                                  />
-                              </svg>
-                          </p>
-                      </div> */}
                   </div>
               </div>
           </div>
