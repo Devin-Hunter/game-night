@@ -1,41 +1,26 @@
 import useToken from '@galvanize-inc/jwtdown-for-react';
+
 import { apiHost } from './App';
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 
 function NavBar() {
     const {token, logout} = useToken();
-    console.log(token)
-    // const logout = async () => {
-    //      if (token) {
-    //          const url = `${apiHost}/token`
-    //          const response = await fetch(url, {
-    //              method: 'delete',
-    //              credentials: 'include',
-    //          })
-    //          if (!response.ok) {
-    //              console.error(response.statusText)
-    //              return false
-    //          }
-    //         //  setToken(null)
-    //          // Delete old token
-    //          document.cookie =
-    //              'fastapi_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
-    //          return true
-    //      }
-    //  }
+    console.log('TOKEN:',token)
     const navigate = useNavigate();
 
     const handleLogout = async (e) => {
         e.preventDefault();
-        try {
-            const logout_response = logout();
-            console.log(logout_response)
+            const url = `${apiHost}/token`;
+            const response = await fetch(url, {
+                method: "delete",
+                credentials: "include",
+            });
+            if (!response.ok) {
+                console.error(response.statusText);
+                return false;
+            }
             navigate('/')
-        }
-        catch (error){
-            console.error(str(error))
-        }
     }
 
   return (
