@@ -6,6 +6,7 @@ import ProfilePage from './profilePage'
 import NavBar from './Nav'
 import AddLocationForm from './AddLocation'
 import { AuthProvider } from '@galvanize-inc/jwtdown-for-react'
+import { apiHost } from 'Constants'
 
 
 function App() {
