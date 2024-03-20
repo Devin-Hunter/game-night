@@ -8,8 +8,6 @@ import AddLocationForm from './AddLocation'
 import { AuthProvider } from '@galvanize-inc/jwtdown-for-react'
 
 
-export const apiHost = import.meta.env.VITE_API_HOST
-
 function App() {
     if (!apiHost) throw new Error('base url missing')
     return (

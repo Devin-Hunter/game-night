@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate } from "react-router-dom";
-import { apiHost } from "./App";
+import { apiHost } from "./Constants";
 
 const SignupForm = () => {
     const [firstName, setFirstName] = useState('');
