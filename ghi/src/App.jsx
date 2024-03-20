@@ -4,8 +4,9 @@ import MainPage from './MainPage'
 import SignupForm from './signupForm'
 import ProfilePage from './profilePage'
 import NavBar from './Nav'
+import AddLocationForm from './AddLocation'
 import { AuthProvider } from '@galvanize-inc/jwtdown-for-react'
-import Logout from './Logout'
+
 
 export const apiHost = import.meta.env.VITE_API_HOST
 
@@ -18,9 +19,9 @@ function App() {
                 <div className="container">
                     <Routes>
                         <Route path="/" element={<MainPage />} />
+                        <Route path="/locations" element={<AddLocationForm />} />
                         <Route path="/sign-up/" element={<SignupForm />} />
                         <Route path="/profile/" element={<ProfilePage />} />
-                        <Route path="/logout/" element={<Logout />} />
                     </Routes>
                 </div>
             </AuthProvider>
