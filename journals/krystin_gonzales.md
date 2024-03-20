@@ -1,3 +1,18 @@
+## Week 17
+3/18/24
+-Continued implementing FE auth
+-Hit blocker with the auth token in browser
+
+3/19/24
+-Continued troubleshooting auth cookie in browser
+-Got it to delete on logout 
+-Get cookie still returns null even though the cookie is stored in browser
+-Created template for update member info form
+
+3/20/24
+-Solved auth cookie issue
+-B
+
 ## Week 16
 3/11/24
 -Completed update and put query and router for members
@@ -7,6 +22,14 @@
 -Completed join queries/get endpoints for member events as spectator and player
 -Completed join queries/get endpoints for member owned, wishlist, and favorite games
 -Started post endpoint/query for member events
+
+3/13/24
+-Created template for Main Page log in form
+-Created template for Create Account form
+
+3/14/24
+-Began studying frontend auth
+-Added AuthProvider to app.js
 
 
 ## Week 15

@@ -17,7 +17,7 @@ const SignupForm = () => {
     const navigate = useNavigate();
 
     const fetchLocations = async () =>{
-        const url = `${apiHost}/locations`
+        const url = `${apiHost}/locations/list`
         const response = await fetch(url);
         if (response.ok){
             const data = await response.json();
