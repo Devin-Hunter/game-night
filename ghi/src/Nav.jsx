@@ -1,5 +1,3 @@
-import useToken from '@galvanize-inc/jwtdown-for-react';
-
 import { apiHost } from './App';
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 
