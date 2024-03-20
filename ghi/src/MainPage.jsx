@@ -1,4 +1,5 @@
-import useToken from "@galvanize-inc/jwtdown-for-react";
+import useToken from '@galvanize-inc/jwtdown-for-react'
+import {useAuthContext} from "@galvanize-inc/jwtdown-for-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -7,16 +8,16 @@ import { useNavigate } from "react-router-dom";
 function MainPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const {login, token} = useToken();
+    const {login} = useToken();
     const navigate = useNavigate();
-
+    const { token } = useToken();
     
     const handleLogin = (e) => {
         e.preventDefault();
         login(username, password);
+        console.log('TOKEN!!!', token)
         e.target.reset();
         navigate('/profile')
-        console.log(token)
     };
 
     return (
@@ -75,6 +76,7 @@ function MainPage() {
                         </div>
                         <button
                             type="submit"
+                            value='Login'
                             className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         >
                             Login to your account

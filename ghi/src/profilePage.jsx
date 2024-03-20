@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import useToken from '@galvanize-inc/jwtdown-for-react'
+import { useAuthContext } from '@galvanize-inc/jwtdown-for-react'
 import { apiHost } from './constants'
 
 const ProfilePage = () => {
@@ -11,11 +11,11 @@ const ProfilePage = () => {
     const [locations, setLocations] = useState([])
     const [locationChoice, setLocationChoice] = useState('')
 
-    const {token} = useToken();
-    console.log(token)
-
+    const {token} = useAuthContext();
+    console.log('Profile Page console log token', token)
+ 
     const fetchLocations = async () => {
-        const url = 'http://localhost:8000/locations'
+        const url = `${apiHost}/locations`
         const response = await fetch(url)
         if (response.ok) {
             const data = await response.json()

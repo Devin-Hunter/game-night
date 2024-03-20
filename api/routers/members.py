@@ -35,6 +35,37 @@ class AccountToken(Token):
 class HttpError(BaseModel):
     detail: str
 
+@router.get("/user/{username}")
+async def get_user(
+    username: str,
+    accounts: MemberRepo = Depends(),
+    _=Depends(authenticator.get_current_account_data),
+) -> MemberOut:
+    try:
+        account = accounts.get(username)
+        print('get_user try block', account)
+    except Exception as e:
+        print(str(e))
+        return HTTPException(status.HTTP_401_UNAUTHORIZED)
+    return account
+
+@router.get("/token")
+async def get_by_cookie(
+    request: Request,
+    account_data: dict
+    | None = Depends(authenticator.try_get_current_account_data),
+    accounts: MemberRepo = Depends(),
+    ra=Depends(authenticator.get_current_account_data),
+) -> AccountToken:
+    print("ra",ra)
+    account = await get_user(account_data["username"], accounts=accounts)
+    print('get_by_cookie returned account')
+    return {
+        "access_token": request.cookies[authenticator.cookie_name],
+        "type": "Bearer",
+        "account": account,
+    }
+
 
 @router.get("/users", response_model=Union[List[MemberOut], Error])
 def get_all_members(
