@@ -24,10 +24,10 @@ def create_location(
     return repo.create(location)
 
 
-@router.get("/locations", response_model=Union[List[LocationList], Error])
+@router.get("/locations/list", response_model=Union[List[LocationList], Error])
 def get_all_locations(
     repo: LocationRepository = Depends(),
-    account_data: dict = Depends(authenticator.get_current_account_data),
+    # account_data: dict = Depends(authenticator.get_current_account_data),
 ):
     return repo.get_all_locations()
 

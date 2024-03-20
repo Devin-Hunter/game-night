@@ -46,7 +46,6 @@ steps = [
             hashed_password VARCHAR(200) NOT NULL,
             age SMALLINT NOT NULL,
             skill_level TEXT NOT NULL,
-            avatar TEXT NOT NULL,
             about TEXT,
             location_id INT REFERENCES locations (id)
         );
