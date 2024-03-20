@@ -1,4 +1,4 @@
-import { apiHost } from './Constants';
+import { apiHost } from './constants';
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 

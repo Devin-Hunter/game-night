@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import useToken from '@galvanize-inc/jwtdown-for-react'
-import { apiHost } from './Constants'
+import { apiHost } from './constants'
 
 const ProfilePage = () => {
     const [firstName, setFirstName] = useState('')
