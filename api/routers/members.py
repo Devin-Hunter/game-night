@@ -35,6 +35,7 @@ class AccountToken(Token):
 class HttpError(BaseModel):
     detail: str
 
+
 @router.get("/user/{username}")
 async def get_user(
     username: str,
@@ -49,6 +50,7 @@ async def get_user(
         return HTTPException(status.HTTP_401_UNAUTHORIZED)
     return account
 
+
 @router.get("/token")
 async def get_by_cookie(
     request: Request,
@@ -57,9 +59,7 @@ async def get_by_cookie(
     accounts: MemberRepo = Depends(),
     ra=Depends(authenticator.get_current_account_data),
 ) -> AccountToken:
-    print("ra",ra)
     account = await get_user(account_data["username"], accounts=accounts)
-    print('get_by_cookie returned account')
     return {
         "access_token": request.cookies[authenticator.cookie_name],
         "type": "Bearer",
