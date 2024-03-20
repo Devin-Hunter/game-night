@@ -5,10 +5,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 
 function NavBar() {
-    const {token, logout} = useToken();
-    console.log('TOKEN:',token)
     const navigate = useNavigate();
-
     const handleLogout = async (e) => {
         e.preventDefault();
             const url = `${apiHost}/token`;

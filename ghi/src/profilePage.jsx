@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import useToken from '@galvanize-inc/jwtdown-for-react'
-import { useNavigate } from 'react-router-dom'
 import { apiHost } from './App'
 
 const ProfilePage = () => {
@@ -38,7 +37,7 @@ const ProfilePage = () => {
             about: about,
             location_id: parseInt(locationChoice),
         }
-        // send PUT to ${apiHost}
+        console.log('PROFILE PAGE IN PROGRESS', accountData, `${apiHost}/profile`)
     }
 
     return (

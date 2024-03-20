@@ -13,7 +13,7 @@ function MainPage() {
     
     const handleLogin = (e) => {
         e.preventDefault();
-        const login_response = login(username, password);
+        login(username, password);
         e.target.reset();
         navigate('/profile')
         console.log(token)
