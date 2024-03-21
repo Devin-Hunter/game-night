@@ -1,5 +1,5 @@
 import { apiHost } from './constants';
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 function NavBar() {
@@ -19,7 +19,7 @@ function NavBar() {
     }
 
   return (
-      <NavLink>
+      <nav>
           <button
               data-drawer-target="default-sidebar"
               data-drawer-toggle="default-sidebar"
@@ -45,7 +45,7 @@ function NavBar() {
 
           <aside
               id="default-sidebar"
-              className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+              className="float-left top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
               aria-label="Sidebar"
           >
               <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
@@ -179,7 +179,7 @@ function NavBar() {
                   </div>
               </div>
           </div>
-      </NavLink>
+      </nav>
   )
 }
 

@@ -88,7 +88,6 @@ def member_details(
         authenticator.try_get_current_account_data
     )
 ) -> MemberOut:
-    print(account_data)
     if account_data and authenticator.cookie_name in request.cookies:
         return repo.get(username)
 
