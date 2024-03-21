@@ -3,16 +3,27 @@ import { useAuthContext } from '@galvanize-inc/jwtdown-for-react'
 import { apiHost } from './constants'
 
 const ProfilePage = () => {
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [age, setAge] = useState()
-    const [skill, setSkill] = useState('')
-    const [about, setAbout] = useState('')
-    const [locations, setLocations] = useState([])
-    const [locationChoice, setLocationChoice] = useState('')
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [age, setAge] = useState();
+    const [skill, setSkill] = useState('');
+    const [about, setAbout] = useState('');
+    const [locations, setLocations] = useState([]);
+    const [locationChoice, setLocationChoice] = useState('');
 
-    const {token} = useAuthContext();
-    console.log('Profile Page console log token', token)
+    // const {token} = useAuthContext();
+    // console.log('Profile Page console log token', token);
+    // const getMemberData = async() =>{
+    //     const url = `${apiHost}/user/${username}`;
+    //     const request = await fetch(url, {
+    //         method: 'get',
+    //         headers:{ 
+    //             'Content-Type': 'application/json'
+    //             Authorization: `Bearer ${token}`
+    //         }
+    //     })
+    //     console.log('GET MEMBER DATA REQUEST', request)
+    // }
  
     const fetchLocations = async () => {
         const url = `${apiHost}/locations/list`
@@ -25,6 +36,7 @@ const ProfilePage = () => {
     }
     useEffect(() => {
         fetchLocations()
+        // getMemberData()
     }, [])
 
     const handleSubmit = (e) => {
