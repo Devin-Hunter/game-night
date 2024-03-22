@@ -1,4 +1,57 @@
+## Week 17
+3/21
+
+I continued working on getting my authentication working with my frontend event components without errors. After getting them working and completed, I moved on to making a unit test for the events.
+
+3/20
+
+I tested my event fronted components with venues to make sure all my endpoint and components are working and rendering on the page. I got details, create form, and all listed events working.
+
+3/19
+
+I worked on adjusting the members event list page to show all the events the user has created as well as the spectator and playing events. Changed the navigation to update the users events list. Tried to make a pytest to test the list all events, but kept running into errors.
+
+3/18
+
+I worked on getting my frontend components to work, testing them, and passing pipelines. I ran into a small block where I kept getting pipeline error because I forgot about a loose apostrophe in a sentence but once i fixed it, my pipelines were passing. I then moved on to work on the navigation section and added my routes to the frontend components.
+
+## Week 16
+3/14
+
+I worked on the rough draft for my frontend components for all events list, create event form, the event details page, and the members events list.
+
+3/13
+
+I continued working on the the members attendance status endpoint player_or_spectating, that I broke down into two methods. one for spectating and one for playing and making sure both the post and delete methods were working correctly.
+
+3/12
+
+I started with working on the events list frontend component. I switched off to make the player_or_spectating endpoint that was needed for keeping track of the attendance status of a member for an event.
+
+3/11
+
+I started working on my frontend components and as a group we decided we will be using the tailwind resource for frontend. I ran into a block when pulling down changes from main once tailwind was installed into the project getting an Plugin failed error.  I was able to get it fixed all I had to do along with pruning everything in docker was remove package-lock.json and node_modules and then npm i to reinstall them and rebuild volume posgres-data and rebuild docker containers.
+
+Overall fix:
+
+- install the latest docker
+- Delete the package-lock.json and node_modules locally in the ghi folder then recreated them in the ghi folder by running npm i
+- Afterwards, run these commands:
+```
+docker-compose down --remove-orphans
+docker network prune # Answer Y
+docker container prune # Answer Y
+docker volume prune # Answer Y
+docker image prune # Answer Y
+```
+- Then recreate the volume and ran docker-compose up
+
 ## Week 15
+3/8
+Accomplished:
+
+Completed week 14 checkpoint goals: backend authorization complete, I completed 1 backend merge request which was completed and that followed checklist criteria, I had 1 protected endpoint completed, had 1 use of pydantic data validation, journal updated, and started building out frontend component.
+
 3/7
 I added protected endpoints to my events create, update, and delete and got that merged with the main. After I had to make some adjustemnets to my protected endpoints so they could work correctly and going back to my queries and fixing my events endpoints so they reference the venues table.
 
