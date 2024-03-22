@@ -5,6 +5,7 @@ import SignupForm from './signupForm'
 import ProfilePage from './profilePage'
 import Profile from './profileView'
 import NavBar from './Nav'
+import AddLocationForm from './AddLocation'
 import VenuesList from './VenuesList'
 import EventList from './EventList'
 import CreateEvent from './CreateEvent'
@@ -35,6 +36,7 @@ function App() {
                     <Route path="/events/:eventId" element={<EventDetails />} />
                     <Route path="/sign-up/" element={<SignupForm />} />
                     <Route path="/profile/" element={<ProfilePage />} />
+                    <Route path="/locations" element={<AddLocationForm />} />
                     <Route path="/venues" element={<VenuesList />} />
                     <Route path="/sign-up/" element={<SignupForm />} />
                     <Route
