@@ -24,7 +24,7 @@ const ProfilePage = () => {
         setAbout(memberData['account']['about']);
         setLocationChoice(memberData['account']['location_id']);
         setUsername(memberData['account']['username'])
-    }, [token, fetchWithCookie])
+    }, [fetchWithCookie])
     
     
     const fetchLocations = async () => {
