@@ -88,7 +88,6 @@ def member_details(
         authenticator.try_get_current_account_data
     )
 ) -> MemberOut:
-    print(account_data)
     if account_data and authenticator.cookie_name in request.cookies:
         return repo.get(username)
 
@@ -125,6 +124,7 @@ def update_member(
         authenticator.try_get_current_account_data
     )
 ) -> Union[MemberOut, Error]:
+    print('ROUTER PUT USERNAME', username)
     if account_data and authenticator.cookie_name in request.cookies:
         return repo.update_member(username, info)
 

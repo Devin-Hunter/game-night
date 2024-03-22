@@ -1,5 +1,6 @@
 ## Week 17
 3/18/24
+-Completed functionality for the create member and login forms
 -Continued implementing FE auth
 -Hit blocker with the auth token in browser
 
@@ -11,7 +12,9 @@
 
 3/20/24
 -Solved auth cookie issue
--B
+-Merged create member, login/logout page, Auth functionality 
+-Began functionality for update member info form
+
 
 ## Week 16
 3/11/24
@@ -75,16 +78,6 @@
 -Started Members base model(issue #24),
 -Members table will need revision
 -Drafted endpoints for members
-
-## Week 13
-Accomplished:
--Wireframes completed
--API endpoints planned
--Repo forked and cloned to local computer.
--Docker containers up and running.
--Functioning properly for local ports 5173 and 8000/docs
--MVP form
-
 
 ## Week 13
 Accomplished:
