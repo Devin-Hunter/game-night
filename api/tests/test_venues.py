@@ -36,7 +36,7 @@ def mock_venue_data():
         "hours_operation": "str",
         "phone_number": "str",
         "venue_type": "str",
-        "reservation_req": "false"
+        "reservation_req": "bool"
     }
 
 
@@ -64,7 +64,7 @@ def test_create_venue():
         "hours_operation": "None",
         "phone_number": "555-123-4567",
         "venue_type": "Residential",
-        "reservation_req": "false"
+        "reservation_req": False
     }
     response = client.post("/venues", json=venue)
     app.dependency_overrides.clear()
