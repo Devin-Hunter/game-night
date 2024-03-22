@@ -39,7 +39,7 @@ function GameForm() {
             }
         }
         fetchGames()
-    }, [])
+    }, [token])
 
     const handleSubmit = async (event) => {
         event.preventDefault()
