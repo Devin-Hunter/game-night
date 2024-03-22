@@ -1,16 +1,5 @@
 import { apiHost } from './constants';
-import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { Sidebar } from 'flowbite-react'
-import {
-    HiArrowSmRight,
-    HiChartPie,
-    HiInbox,
-    HiShoppingBag,
-    HiTable,
-    HiUser,
-    HiViewBoards,
-} from 'react-icons/hi'
-
+import { Link, useNavigate } from 'react-router-dom'
 
 function NavBar() {
     const navigate = useNavigate();
