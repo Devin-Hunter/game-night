@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useState, useEffect, useCallback } from 'react'
 import useToken from '@galvanize-inc/jwtdown-for-react'
 import { apiHost } from './constants'
@@ -17,6 +18,7 @@ const ProfilePage = () => {
         const memberData = await fetchWithCookie(
             `${apiHost}/token/`
             );
+        console.log('MEMBER DATA',memberData)
         setFirstName(memberData['account']['first_name']);
         setLastName(memberData['account']['last_name']);
         setAge(memberData['account']['age']);
@@ -25,9 +27,9 @@ const ProfilePage = () => {
         setLocationChoice(memberData['account']['location_id']);
         setUsername(memberData['account']['username'])
     }, [fetchWithCookie])
-    
-    
-    const fetchLocations = async () => {
+
+
+    const fetchLocations =  async () => {
         const url = `${apiHost}/locations/list`
         const response = await fetch(url)
         if (response.ok) {
@@ -35,10 +37,12 @@ const ProfilePage = () => {
             setLocations(data)
         }
     }
+
     useEffect(() => {
-            fetchLocations(),
-            getMemberData()
-    }, [getMemberData])
+        fetchLocations()
+        getMemberData()
+    }, [])
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -61,6 +65,7 @@ const ProfilePage = () => {
                 'Authorization': `Bearer ${token}`
             },
         }
+
         const response = await fetch(url, fetchConfig)
         if (!response.ok){
             throw new Error('Could not update user info')
@@ -75,7 +80,15 @@ const ProfilePage = () => {
         <div className="p-4 ml-64">
             <div className="grid">
                 <div className="grid-cols-4 gap-4 mb-4">
-                    <div className="w-full max-w-sm mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+                    <div className="w-full 
+                    max-w-sm 
+                    mx-auto 
+                    p-4 bg-white 
+                    border border-gray-200 
+                    rounded-lg 
+                    shadow 
+                    sm:p-6 
+                    md:p-8">
                         <div
                             className="w-full 
                             max-w-sm 
@@ -121,11 +134,11 @@ const ProfilePage = () => {
                                         name="firstName"
                                         id="firstName"
                                         className="bg-gray-50 
-                                    border border-gray-300 
-                                    text-gray-900 text-sm rounded-lg 
-                                    focus:ring-blue-500 focus:border-blue-500 
-                                    block w-full 
-                                    p-2.5"
+                                        border border-gray-300 
+                                        text-gray-900 text-sm rounded-lg 
+                                        focus:ring-blue-500 focus:border-blue-500 
+                                        block w-full 
+                                        p-2.5"
                                         placeholder="Your First Name Here"
                                         required
                                     />
@@ -134,10 +147,10 @@ const ProfilePage = () => {
                                     <label
                                         htmlFor="lastName"
                                         className="block 
-                                    mb-2 
-                                    text-sm 
-                                    font-medium 
-                                    text-gray-900"
+                                        mb-2 
+                                        text-sm 
+                                        font-medium 
+                                        text-gray-900"
                                     >
                                         Your Last Name
                                     </label>
@@ -150,13 +163,13 @@ const ProfilePage = () => {
                                         name="lastName"
                                         id="lastName"
                                         className="bg-gray-50 
-                                    border border-gray-300 
-                                    text-gray-900 
-                                    text-sm rounded-lg 
-                                    focus:ring-blue-500 
-                                    focus:border-blue-500 
-                                    block w-full 
-                                    p-2.5"
+                                        border border-gray-300 
+                                        text-gray-900 
+                                        text-sm rounded-lg 
+                                        focus:ring-blue-500 
+                                        focus:border-blue-500 
+                                        block w-full 
+                                        p-2.5"
                                         placeholder="Your Last Name Here"
                                         required
                                     />
@@ -165,10 +178,10 @@ const ProfilePage = () => {
                                     <label
                                         htmlFor="age"
                                         className="block 
-                                    mb-2 
-                                    text-sm 
-                                    font-medium
-                                    text-gray-900"
+                                        mb-2 
+                                        text-sm 
+                                        font-medium
+                                        text-gray-900"
                                     >
                                         Your Age
                                     </label>
@@ -181,14 +194,14 @@ const ProfilePage = () => {
                                         name="age"
                                         id="age"
                                         className="bg-gray-50 
-                                    border border-gray-300 
-                                    text-gray-900 
-                                    text-sm 
-                                    rounded-lg 
-                                    focus:ring-blue-500 
-                                    focus:border-blue-500 
-                                    block w-full 
-                                    p-2.5"
+                                        border border-gray-300 
+                                        text-gray-900 
+                                        text-sm 
+                                        rounded-lg 
+                                        focus:ring-blue-500 
+                                        focus:border-blue-500 
+                                        block w-full 
+                                        p-2.5"
                                         placeholder="16"
                                         required
                                     />
@@ -197,10 +210,10 @@ const ProfilePage = () => {
                                     <label
                                         htmlFor="skill"
                                         className="block 
-                                    mb-2 
-                                    text-sm 
-                                    font-medium 
-                                    text-gray-900"
+                                        mb-2 
+                                        text-sm 
+                                        font-medium 
+                                        text-gray-900"
                                     >
                                         Skill Level
                                     </label>
@@ -210,14 +223,15 @@ const ProfilePage = () => {
                                         }
                                         value={skill}
                                         className="bg-gray-50 
-                                    border border-gray-300 
-                                    text-gray-900 
-                                    text-sm 
-                                    rounded-lg 
-                                    focus:ring-blue-500 
-                                    focus:border-blue-500 
-                                    block w-full 
-                                    p-2.5"
+                                        border border-gray-300 
+                                        text-gray-900 
+                                        text-sm 
+                                        rounded-lg 
+                                        focus:ring-blue-500 
+                                        focus:border-blue-500 
+                                        block w-full 
+                                        p-2.5"
+                                        id = 'skill'
                                     >
                                         <option value="">
                                             Select your skill level
@@ -236,10 +250,10 @@ const ProfilePage = () => {
                                     <label
                                         htmlFor="location"
                                         className="block 
-                                    mb-2 
-                                    text-sm 
-                                    font-medium 
-                                    text-gray-900"
+                                        mb-2 
+                                        text-sm 
+                                        font-medium 
+                                        text-gray-900"
                                     >
                                         Location
                                     </label>
@@ -252,14 +266,14 @@ const ProfilePage = () => {
                                         id="location"
                                         value={locationChoice}
                                         className="bg-gray-50 
-                                    border border-gray-300 
-                                    text-gray-900 
-                                    text-sm 
-                                    rounded-lg 
-                                    focus:ring-blue-500 
-                                    focus:border-blue-500 
-                                    block w-full 
-                                    p-2.5"
+                                        border border-gray-300 
+                                        text-gray-900 
+                                        text-sm 
+                                        rounded-lg 
+                                        focus:ring-blue-500 
+                                        focus:border-blue-500 
+                                        block w-full 
+                                        p-2.5"
                                     >
                                         <option>Select your location</option>
                                         {locations.map((location) => {
@@ -278,7 +292,12 @@ const ProfilePage = () => {
                                 <div>
                                     <label
                                         htmlFor="about"
-                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                        className="block
+                                        mb-2 
+                                        text-sm 
+                                        font-medium 
+                                        text-gray-900 
+                                        dark:text-white"
                                     >
                                         About You
                                     </label>
@@ -290,14 +309,41 @@ const ProfilePage = () => {
                                         rows="3"
                                         name="about"
                                         id="about"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        className="bg-gray-50 
+                                        border border-gray-300 
+                                        text-gray-900 
+                                        text-sm 
+                                        rounded-lg 
+                                        focus:ring-blue-500 
+                                        focus:border-blue-500 
+                                        block w-full 
+                                        p-2.5 
+                                        dark:bg-gray-600 
+                                        dark:border-gray-500 
+                                        dark:placeholder-gray-400 
+                                        dark:text-white"
                                         placeholder="A short description of yourself and your interests"
                                         required
                                     />
                                 </div>
                                 <button
                                     type="submit"
-                                    className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                    className="w-full 
+                                    text-white 
+                                    bg-blue-700 
+                                    hover:bg-blue-800 
+                                    focus:ring-4 
+                                    focus:outline-none 
+                                    focus:ring-blue-300 
+                                    font-medium 
+                                    rounded-lg 
+                                    text-sm 
+                                    px-5 
+                                    py-2.5 
+                                    text-center 
+                                    dark:bg-blue-600 
+                                    dark:hover:bg-blue-700 
+                                    dark:focus:ring-blue-800"
                                     value="Register"
                                 >
                                     Update your account

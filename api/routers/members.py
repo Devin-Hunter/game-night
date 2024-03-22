@@ -44,7 +44,7 @@ async def get_user(
 ) -> MemberOut:
     try:
         account = accounts.get(username)
-        print('get_user try block', account)
+        print('get_user routers try block', account)
     except Exception as e:
         print(str(e))
         return HTTPException(status.HTTP_401_UNAUTHORIZED)

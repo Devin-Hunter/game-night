@@ -19,7 +19,6 @@ class MemberAuthenticator(Authenticator):
         return members
 
     def get_hashed_password(self, member: MemberOutWithPassword):
-        print("dict:", member)
         return member.hashed_password
 
     def get_account_data_for_cookie(self, member: MemberOut):
