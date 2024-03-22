@@ -35,8 +35,9 @@ const ProfilePage = () => {
     }
 
     useEffect(() => {
-        fetchLocations(), getMemberData()
-    }, [getMemberData])
+        fetchLocations(), 
+        getMemberData()
+    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
