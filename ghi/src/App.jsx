@@ -7,6 +7,7 @@ import NavBar from './Nav'
 import AddLocationForm from './AddLocation'
 import { AuthProvider } from '@galvanize-inc/jwtdown-for-react'
 import { apiHost } from './constants'
+import ProtectedRoute from './auth/ProtectedRoute'
 
 
 function App() {
@@ -16,12 +17,19 @@ function App() {
         <BrowserRouter>
             <AuthProvider baseUrl={apiHost}>
                 <NavBar />
-                    <Routes>
-                        <Route path="/" element={<MainPage />} />
-                        <Route path="/locations" element={<AddLocationForm />} />
-                        <Route path="/sign-up/" element={<SignupForm />} />
-                        <Route path="/profile/" element={<ProfilePage />} />
-                    </Routes>
+                <Routes>
+                    <Route path="/" element={<MainPage />} />
+                    <Route path="/locations" element={<AddLocationForm />} />
+                    <Route path="/sign-up/" element={<SignupForm />} />
+                    <Route
+                        path="/profile/edit"
+                        element={
+                            <ProtectedRoute>
+                                <ProfilePage />
+                            </ProtectedRoute>
+                        }
+                    />
+                </Routes>
             </AuthProvider>
         </BrowserRouter>
     )

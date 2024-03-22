@@ -48,7 +48,7 @@ function NavBar() {
               className="float-left top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
               aria-label="Sidebar"
           >
-              <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+              <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800" id='navbar'>
                   <ul className="space-y-2 font-medium">
                       <li>
                           <Link
@@ -172,13 +172,6 @@ function NavBar() {
                   </ul>
               </div>
           </aside>
-
-          <div className="p-4 sm:ml-64">
-              <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-                  <div className="grid grid-cols-3 gap-4 mb-4">
-                  </div>
-              </div>
-          </div>
       </nav>
   )
 }

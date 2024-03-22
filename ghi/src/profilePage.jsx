@@ -1,30 +1,33 @@
 import { useState, useEffect } from 'react'
-import { useAuthContext } from '@galvanize-inc/jwtdown-for-react'
+import useToken from '@galvanize-inc/jwtdown-for-react'
 import { apiHost } from './constants'
 
 const ProfilePage = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [age, setAge] = useState();
+    const [age, setAge] = useState(0);
     const [skill, setSkill] = useState('');
     const [about, setAbout] = useState('');
     const [locations, setLocations] = useState([]);
     const [locationChoice, setLocationChoice] = useState('');
+    const {token, fetchWithCookie} = useToken();
+    const [username, setUsername] = useState('');
 
-    // const {token} = useAuthContext();
-    // console.log('Profile Page console log token', token);
-    // const getMemberData = async() =>{
-    //     const url = `${apiHost}/user/${username}`;
-    //     const request = await fetch(url, {
-    //         method: 'get',
-    //         headers:{ 
-    //             'Content-Type': 'application/json'
-    //             Authorization: `Bearer ${token}`
-    //         }
-    //     })
-    //     console.log('GET MEMBER DATA REQUEST', request)
-    // }
- 
+    const getMemberData = async() =>{
+        const memberData = await fetchWithCookie(
+            `${apiHost}/token/`
+            );
+        console.log('MEMBER DATA PROFILE PAGE', memberData);
+        setFirstName(memberData['account']['first_name']);
+        setLastName(memberData['account']['last_name']);
+        setAge(memberData['account']['age']);
+        setSkill(memberData['account']['skill_level']);
+        setAbout(memberData['account']['about']);
+        setLocationChoice(memberData['account']['location_id']);
+        setUsername(memberData['account']['username']);
+    }
+    
+    
     const fetchLocations = async () => {
         const url = `${apiHost}/locations/list`
         const response = await fetch(url)
@@ -35,11 +38,14 @@ const ProfilePage = () => {
         }
     }
     useEffect(() => {
-        fetchLocations()
-        // getMemberData()
-    }, [])
+        if(token){
+            fetchLocations(),
+            getMemberData()
+        }
+    }, [token])
 
-    const handleSubmit = (e) => {
+    console.log('USERNAME', username)
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const accountData = {
             first_name: firstName,
@@ -49,7 +55,26 @@ const ProfilePage = () => {
             about: about,
             location_id: parseInt(locationChoice),
         }
-        console.log('PROFILE PAGE IN PROGRESS', accountData, `${apiHost}/profile`)
+        console.log('PROFILE data update', accountData) //prints
+
+        const url = `${apiHost}/user/${username}`;
+        const fetchConfig = {
+            method: 'put',
+            body: JSON.stringify(accountData),
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        }
+        const response = await fetch(url, fetchConfig)
+        if (!response.ok){
+            throw new Error('Could not update user info')
+        }
+        else{
+            console.log('user info updated!')
+            location.reload()
+        }
     }
 
     return (
@@ -97,6 +122,7 @@ const ProfilePage = () => {
                                         onChange={(event) =>
                                             setFirstName(event.target.value)
                                         }
+                                        value={firstName}
                                         type="text"
                                         name="firstName"
                                         id="firstName"
@@ -125,6 +151,7 @@ const ProfilePage = () => {
                                         onChange={(event) =>
                                             setLastName(event.target.value)
                                         }
+                                        value={lastName}
                                         type="text"
                                         name="lastName"
                                         id="lastName"
@@ -155,6 +182,7 @@ const ProfilePage = () => {
                                         onChange={(event) =>
                                             setAge(event.target.value)
                                         }
+                                        value={age}
                                         type="number"
                                         name="age"
                                         id="age"
@@ -186,6 +214,7 @@ const ProfilePage = () => {
                                         onChange={(event) =>
                                             setSkill(event.target.value)
                                         }
+                                        value={skill}
                                         className="bg-gray-50 
                                     border border-gray-300 
                                     text-gray-900 
@@ -211,7 +240,7 @@ const ProfilePage = () => {
                                 </div>
                                 <div>
                                     <label
-                                        htmlFor="skill"
+                                        htmlFor="location"
                                         className="block 
                                     mb-2 
                                     text-sm 
@@ -226,7 +255,8 @@ const ProfilePage = () => {
                                                 event.target.value
                                             )
                                         }
-                                        id="skill"
+                                        id="location"
+                                        value={locationChoice}
                                         className="bg-gray-50 
                                     border border-gray-300 
                                     text-gray-900 
@@ -262,6 +292,7 @@ const ProfilePage = () => {
                                         onChange={(event) =>
                                             setAbout(event.target.value)
                                         }
+                                        value={about}
                                         rows="3"
                                         name="about"
                                         id="about"
