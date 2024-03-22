@@ -26,13 +26,13 @@ This screenshot is the verification that the GHI container has finished installi
 
 To use Flowbite components, navigate to https://flowbite.com/docs/components/sidebar/
 
-# Instructions for deployed website
+# Instructions for testing app with deployed website
 
 ## Prep before Front-End Deployment
 
 run docker compose up and look at your ghi logs. Address any warnings mentioned there
 
-### Replace all <a> tags with <Link>
+#### Replace all <a> tags with <Link>
 
 ```
 <a> Tag Example:
@@ -44,7 +44,7 @@ New <Link> Tag Example:
 <Link to="/" className="btn btn-primary"></Link>
 ```
 
-### Replace all React fetch request URLS
+#### Replace all React fetch request URLS
 
 Pre-deployment Fetch Example:
 ```

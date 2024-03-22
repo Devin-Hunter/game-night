@@ -7,3 +7,18 @@ body {
     font-size: calc(10px + 2vmin);
     color: rgb(250, 248, 247);
 }
+
+.custom-card {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.custom-card:hover {
+    transform: scale(1.05);
+}
+
+.game-title {
+    color: black;
+}

@@ -34,6 +34,8 @@ class EventList(BaseModel):
     game: str
     venue_name: str
     date_time: datetime
+    max_players: int
+    max_spectators: int
 
 
 class EventRepo:
@@ -78,7 +80,8 @@ class EventRepo:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT e.id, e.game, v.venue_name, e.date_time
+                        SELECT e.id, e.game, v.venue_name, e.date_time,
+                        e.max_players, e.max_spectators
                         FROM events AS e
                         LEFT JOIN venues AS v on e.venue = v.id
                         ORDER BY e.date_time;
@@ -90,6 +93,8 @@ class EventRepo:
                             game=record[1],
                             venue_name=record[2],
                             date_time=record[3],
+                            max_players=record[4],
+                            max_spectators=record[5]
                         )
                         for record in db
                     ]

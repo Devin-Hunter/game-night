@@ -10,7 +10,7 @@ class Error(BaseModel):
 class VenueIn(BaseModel):
     venue_name: str
     online_link: str
-    location_id: Optional[int]
+    location_id: int
     hours_operation: str
     phone_number: Optional[str]
     venue_type: Optional[str]
@@ -21,7 +21,7 @@ class VenueOut(BaseModel):
     id: int
     venue_name: str
     online_link: str
-    location_id: Optional[int]
+    location_id: int
     hours_operation: str
     phone_number: Optional[str]
     venue_type: Optional[str]
@@ -36,7 +36,8 @@ class VenuesOnline(BaseModel):
 class VenuesInPerson(BaseModel):
     id: int
     venue_name: str
-    location_id: Optional[int]
+    city: str
+    state_abbrev: str
 
 
 class VenueDetails(BaseModel):
@@ -117,7 +118,8 @@ class VenueRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT v.id, v.venue_name, l.online
+                        SELECT v.id, v.venue_name, l.city,
+                        l.state_abbrev, l.online
 
                         FROM venues AS v
 
@@ -130,7 +132,8 @@ class VenueRepository:
                         VenuesInPerson(
                             id=record[0],
                             venue_name=record[1],
-                            location_id=record[2],
+                            city=record[2],
+                            state_abbrev=record[3],
                         )
                         for record in db
                     ]
