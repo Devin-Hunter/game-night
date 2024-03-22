@@ -9,10 +9,11 @@ import AddLocationForm from './AddLocation'
 import { AuthProvider } from '@galvanize-inc/jwtdown-for-react'
 import { apiHost } from './constants'
 import ProtectedRoute from './auth/ProtectedRoute'
-
+import GameForm from './GameForm'
+import GameDetail from './GameDetail'
+import UpdateGame from './UpdateGame'
 
 function App() {
-
     if (!apiHost) throw new Error('base url missing')
     return (
         <BrowserRouter>
@@ -30,7 +31,7 @@ function App() {
                             </ProtectedRoute>
                         }
                     />
-                    <Route 
+                    <Route
                         path="/profile/"
                         element={
                             <ProtectedRoute>
@@ -38,6 +39,12 @@ function App() {
                             </ProtectedRoute>
                         }
                     />
+                    <Route path="/games/:game_id" element={<GameDetail />} />
+                    <Route
+                        path="/games/update/:game_id"
+                        element={<UpdateGame />}
+                    />
+                    <Route path="/games/new" element={<GameForm />} />
                 </Routes>
             </AuthProvider>
         </BrowserRouter>
