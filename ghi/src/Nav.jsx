@@ -41,26 +41,16 @@ function NavBar() {
             </button>
 
             <aside
-                className="float-left fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+                className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
                 aria-label="Sidebar"
             >
                 <div
                     className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800 shadow border-gray-100"
                     id="navbar"
                 >
-                    <a
-                        href="../public/game-night-logo.jpg"
-                        className="flex items-center ps-1.5 mb-5"
-                    >
-                        <img
-                            src="../public/game-night-logo.jpg"
-                            className="h-6 me-3 sm:h-7"
-                            alt="Game Night"
-                        />
-                        <span className="self-center text-2xl font-bold whitespace-nowrap dark:text-white">
-                            Game Night
-                        </span>
-                    </a>
+                    <h1 className="self-center text-2xl mb-2 font-bold whitespace-nowrap dark:text-white">
+                        Game Night
+                    </h1>
                     <ul className="space-y-2 font-medium">
                         <li>
                             <button
@@ -140,7 +130,7 @@ function NavBar() {
                         </li>
                         <li>
                             <Link
-                                to="./profile/"
+                                to="./profile/edit"
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                             >
                                 <svg
@@ -336,11 +326,7 @@ function NavBar() {
                 </div>
             </aside>
 
-            <div className="p-4 sm:ml-64">
-                <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-                    <div className="grid grid-cols-3 gap-4 mb-4"></div>
-                </div>
-            </div>
+            <div className="p-4 "></div>
         </nav>
     )
 }

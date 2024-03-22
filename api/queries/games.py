@@ -283,9 +283,7 @@ class GameRepo:
             print(e)
             return {"message": "Could not get favorites games"}
 
-    def list_owned_games(
-        self, member_id: int
-    ) -> Union[Error, List[GameOut]]:
+    def list_owned_games(self, member_id: int) -> Union[Error, List[GameOut]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:

@@ -44,7 +44,7 @@ async def get_user(
 ) -> MemberOut:
     try:
         account = accounts.get(username)
-        print('get_user routers try block', account)
+        print("get_user routers try block", account)
     except Exception as e:
         print(str(e))
         return HTTPException(status.HTTP_401_UNAUTHORIZED)
@@ -54,8 +54,9 @@ async def get_user(
 @router.get("/token")
 async def get_by_cookie(
     request: Request,
-    account_data: dict
-    | None = Depends(authenticator.try_get_current_account_data),
+    account_data: dict | None = Depends(
+        authenticator.try_get_current_account_data
+    ),
     accounts: MemberRepo = Depends(),
     ra=Depends(authenticator.get_current_account_data),
 ) -> AccountToken:
@@ -73,26 +74,26 @@ def get_all_members(
     repo: MemberRepo = Depends(),
     account_data: MemberOut = Depends(
         authenticator.try_get_current_account_data
-    )
+    ),
 ):
     if account_data and authenticator.cookie_name in request.cookies:
         return repo.get_all()
 
 
-@router.get('/user/{username}', response_model=Union[MemberOut, Error])
+@router.get("/user/{username}", response_model=Union[MemberOut, Error])
 def member_details(
     username: str,
     request: Request,
     repo: MemberRepo = Depends(),
     account_data: MemberOut = Depends(
         authenticator.try_get_current_account_data
-    )
+    ),
 ) -> MemberOut:
     if account_data and authenticator.cookie_name in request.cookies:
         return repo.get(username)
 
 
-@router.post('/user',  response_model=AccountToken | HttpError)
+@router.post("/user", response_model=AccountToken | HttpError)
 async def create_member(
     info: MemberIn,
     request: Request,
@@ -107,14 +108,14 @@ async def create_member(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="username already exists, please try another",
         )
-    print('INFO from router', info)
+    print("INFO from router", info)
     form = AccountForm(username=info.username, password=info.password)
-    print('FORM', form)
+    print("FORM", form)
     token = await authenticator.login(response, request, form, repo)
     return AccountToken(account=member, **token.dict())
 
 
-@router.put('/user/{username}', response_model=Union[MemberOut, Error])
+@router.put("/user/{username}", response_model=Union[MemberOut, Error])
 def update_member(
     username: str,
     request: Request,
@@ -122,16 +123,16 @@ def update_member(
     repo: MemberRepo = Depends(),
     account_data: MemberOut = Depends(
         authenticator.try_get_current_account_data
-    )
+    ),
 ) -> Union[MemberOut, Error]:
-    print('ROUTER PUT USERNAME', username)
+    print("ROUTER PUT USERNAME", username)
     if account_data and authenticator.cookie_name in request.cookies:
         return repo.update_member(username, info)
 
 
 @router.get(
-        '/user/{username}/events/spectator',
-        response_model=Union[List[EventOut], Error]
+    "/user/{username}/events/spectator",
+    response_model=Union[List[EventOut], Error],
 )
 def member_spec_events(
     username: str,
@@ -139,16 +140,16 @@ def member_spec_events(
     repo: MemberRepo = Depends(),
     account_data: MemberOut = Depends(
         authenticator.try_get_current_account_data
-    )
+    ),
 ) -> bool:
-    member_id = account_data['id']
+    member_id = account_data["id"]
     if account_data and authenticator.cookie_name in request.cookies:
         return repo.get_member_attending_events(member_id)
 
 
 @router.get(
-        '/user/{username}/events/player',
-        response_model=Union[List[EventOut], Error]
+    "/user/{username}/events/player",
+    response_model=Union[List[EventOut], Error],
 )
 def member_player_events(
     username: str,
@@ -156,8 +157,8 @@ def member_player_events(
     repo: MemberRepo = Depends(),
     account_data: MemberOut = Depends(
         authenticator.try_get_current_account_data
-    )
+    ),
 ) -> bool:
-    member_id = account_data['id']
+    member_id = account_data["id"]
     if account_data and authenticator.cookie_name in request.cookies:
         return repo.get_member_player_events(member_id)

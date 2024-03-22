@@ -39,8 +39,8 @@ def get_game_details(
 
 
 @router.put(
-        "/api/games/update/{game_id}",
-        response_model=Union[GameOut, Error],
+    "/api/games/update/{game_id}",
+    response_model=Union[GameOut, Error],
 )
 def update_game(
     game_id: int,
@@ -71,7 +71,7 @@ def add_to_owned(
 ) -> Union[bool, Error]:
     if not account_data:
         raise HTTPException(status_code=401, detail="Unauthorized")
-    member_id = account_data['id']
+    member_id = account_data["id"]
     return repo.add_game_to_owned(member_id, game_id)
 
 
@@ -86,7 +86,7 @@ def add_to_wishlist(
 ) -> Union[bool, Error]:
     if not account_data:
         raise HTTPException(status_code=401, detail="Unauthorized")
-    member_id = account_data['id']
+    member_id = account_data["id"]
     return repo.add_game_to_wishlist(member_id, game_id)
 
 
@@ -101,49 +101,49 @@ def add_to_favorites(
 ) -> Union[bool, Error]:
     if not account_data:
         raise HTTPException(status_code=401, detail="Unauthorized")
-    member_id = account_data['id']
+    member_id = account_data["id"]
     return repo.add_game_to_favorites(member_id, game_id)
 
 
 @router.get(
-        "/api/members/me/favorite_games",
-        response_model=Union[List[GameOut], Error],
+    "/api/members/me/favorite_games",
+    response_model=Union[List[GameOut], Error],
 )
 def list_favorite_games(
-        repo: GameRepo = Depends(),
-        account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: GameRepo = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> Union[List[GameOut], Error]:
     if not account_data:
         raise HTTPException(status_code=401, detail="Unauthorized")
-    member_id = account_data['id']
+    member_id = account_data["id"]
     return repo.list_favorite_games(member_id)
 
 
 @router.get(
-        "/api/members/me/owned_games",
-        response_model=Union[List[GameOut], Error],
+    "/api/members/me/owned_games",
+    response_model=Union[List[GameOut], Error],
 )
 def list_owned_games(
-        repo: GameRepo = Depends(),
-        account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: GameRepo = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> Union[List[GameOut], Error]:
     if not account_data:
         raise HTTPException(status_code=401, detail="Unauthorized")
-    member_id = account_data['id']
+    member_id = account_data["id"]
     return repo.list_owned_games(member_id)
 
 
 @router.get(
-        "/api/members/me/wishlist_games",
-        response_model=Union[List[GameOut], Error],
+    "/api/members/me/wishlist_games",
+    response_model=Union[List[GameOut], Error],
 )
 def list_wishlist_games(
-        repo: GameRepo = Depends(),
-        account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: GameRepo = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> Union[List[GameOut], Error]:
     if not account_data:
         raise HTTPException(status_code=401, detail="Unauthorized")
-    member_id = account_data['id']
+    member_id = account_data["id"]
     return repo.list_wishlist_games(member_id)
 
 
@@ -158,7 +158,7 @@ def remove_from_owned(
 ) -> Union[bool, Error]:
     if not account_data:
         raise HTTPException(status_code=401, detail="Unauthorized")
-    member_id = account_data['id']
+    member_id = account_data["id"]
     return repo.remove_game_from_owned(member_id, game_id)
 
 
@@ -173,7 +173,7 @@ def remove_from_wishlist(
 ) -> Union[bool, Error]:
     if not account_data:
         raise HTTPException(status_code=401, detail="Unauthorized")
-    member_id = account_data['id']
+    member_id = account_data["id"]
     return repo.remove_game_from_wishlist(member_id, game_id)
 
 
@@ -188,5 +188,5 @@ def remove_from_favorites(
 ) -> Union[bool, Error]:
     if not account_data:
         raise HTTPException(status_code=401, detail="Unauthorized")
-    member_id = account_data['id']
+    member_id = account_data["id"]
     return repo.remove_game_from_favorites(member_id, game_id)

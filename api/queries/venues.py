@@ -31,6 +31,7 @@ class VenueOut(BaseModel):
 class VenuesOnline(BaseModel):
     id: int
     venue_name: str
+    online_link: str
 
 
 class VenuesInPerson(BaseModel):
@@ -92,7 +93,7 @@ class VenueRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT v.id, v.venue_name, l.online
+                        SELECT v.id, v.venue_name, v.online_link, l.online
 
                         FROM venues AS v
 
@@ -105,6 +106,7 @@ class VenueRepository:
                         VenuesOnline(
                             id=record[0],
                             venue_name=record[1],
+                            online_link=record[2],
                         )
                         for record in db
                     ]
@@ -118,8 +120,11 @@ class VenueRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT v.id, v.venue_name, l.city,
-                        l.state_abbrev, l.online
+                        SELECT v.id
+                        , v.venue_name
+                        , l.city
+                        , l.state_abbrev
+                        , l.online
 
                         FROM venues AS v
 

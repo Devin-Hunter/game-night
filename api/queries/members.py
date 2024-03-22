@@ -117,13 +117,11 @@ class MemberRepo:
                     return MemberOutWithPassword(**member_data)
         except Exception as e:
             print(str(e))
-            return {'message': 'Could not retrieve member'}
+            return {"message": "Could not retrieve member"}
 
     def update_member(
-            self,
-            username: str,
-            member: MemberUpdate
-            ) -> Union[MemberOut, Error]:
+        self, username: str, member: MemberUpdate
+    ) -> Union[MemberOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -145,17 +143,17 @@ class MemberRepo:
                             member.skill_level,
                             member.about,
                             member.location_id,
-                            username
-                        ]
+                            username,
+                        ],
                     )
                     old_data = member.dict()
                     updated = self.get(username).dict()
-                    id = updated['id']
+                    id = updated["id"]
                     return MemberOut(id=id, username=username, **old_data)
 
         except Exception as e:
             print(e)
-            return {'error': 'could not update member'}
+            return {"error": "could not update member"}
 
     def new_member(
         self, member: MemberIn, hashed_password: str
@@ -214,7 +212,7 @@ class MemberRepo:
                         WHERE attendee_type = 'spectator'
                         AND me.member_id = %s;
                         """,
-                        [id]
+                        [id],
                     )
                     result = []
                     for record in db:
@@ -226,13 +224,13 @@ class MemberRepo:
                             competitive_rating=record[4],
                             max_players=record[5],
                             max_spectators=record[6],
-                            min_age=record[7]
+                            min_age=record[7],
                         )
                         result.append(event)
                     return result
         except Exception as e:
             print(e)
-            return {'error': 'could not get member events'}
+            return {"error": "could not get member events"}
 
     def get_member_player_events(self, id):
         try:
@@ -247,7 +245,7 @@ class MemberRepo:
                         WHERE attendee_type = 'player'
                         AND me.member_id = %s;
                         """,
-                        [id]
+                        [id],
                     )
                     result = []
                     for record in db:
@@ -259,10 +257,10 @@ class MemberRepo:
                             competitive_rating=record[4],
                             max_players=record[5],
                             max_spectators=record[6],
-                            min_age=record[7]
+                            min_age=record[7],
                         )
                         result.append(event)
                     return result
         except Exception as e:
             print(e)
-            return {'error': 'could not get member events'}
+            return {"error": "could not get member events"}

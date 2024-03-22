@@ -64,7 +64,7 @@ class EventRepo:
                             event.competitive_rating,
                             event.max_players,
                             event.max_spectators,
-                            event.min_age
+                            event.min_age,
                         ],
                     )
                     record = db.fetchone()
@@ -94,7 +94,7 @@ class EventRepo:
                             venue_name=record[2],
                             date_time=record[3],
                             max_players=record[4],
-                            max_spectators=record[5]
+                            max_spectators=record[5],
                         )
                         for record in db
                     ]
@@ -140,8 +140,9 @@ class EventRepo:
             min_age=record[7],
         )
 
-    def update_event(self, user_id: int, event_id: int, event: EventIn
-                     ) -> Optional[EventOut]:
+    def update_event(
+        self, user_id: int, event_id: int, event: EventIn
+    ) -> Optional[EventOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -165,7 +166,7 @@ class EventRepo:
                             event.max_players,
                             event.max_spectators,
                             event.min_age,
-                            event_id
+                            event_id,
                         ],
                     )
                     old_data = event.dict()
@@ -190,8 +191,7 @@ class EventRepo:
             print(e)
             return {"message": "Could not delete event"}
 
-    def is_player(self, member_id: int, event_id: int
-                  ) -> Union[bool, Error]:
+    def is_player(self, member_id: int, event_id: int) -> Union[bool, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -201,7 +201,7 @@ class EventRepo:
                         (member_id, event_id, attendee_type)
                         VALUES (%s, %s, 'player')
                         """,
-                        (member_id, event_id)
+                        (member_id, event_id),
                     )
                     conn.commit()
                     return True
@@ -209,8 +209,9 @@ class EventRepo:
             print(e)
             return False
 
-    def is_spectator(self, member_id: int, event_id: int
-                     ) -> Union[bool, Error]:
+    def is_spectator(
+        self, member_id: int, event_id: int
+    ) -> Union[bool, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -220,7 +221,7 @@ class EventRepo:
                         (member_id, event_id, attendee_type)
                         VALUES (%s, %s, 'spectator')
                         """,
-                        (member_id, event_id)
+                        (member_id, event_id),
                     )
                     conn.commit()
                     return True
@@ -228,8 +229,9 @@ class EventRepo:
             print(e)
             return False
 
-    def delete_attendance_status(self, member_id: int, event_id: int
-                                 ) -> Union[bool, Error]:
+    def delete_attendance_status(
+        self, member_id: int, event_id: int
+    ) -> Union[bool, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -238,7 +240,7 @@ class EventRepo:
                         DELETE FROM members_events
                         WHERE member_id = %s AND event_id = %s
                         """,
-                        (member_id, event_id)
+                        (member_id, event_id),
                     )
                     conn.commit()
                     return True

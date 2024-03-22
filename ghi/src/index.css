@@ -9,10 +9,27 @@ body {
     height: 100vh;
     background-image: url('/1.jpg');
     background-size: cover;
+    background-attachment: scroll;
 }
 
 #navbar {
     background-color: #04d5e3;
+    /* position: fixed; */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#main {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    left: 18%; /* width of #sidebar + extra margin */
+}
+#main > div {
+    width: 100%;
+    min-height: 100%;
 }
 
 .game-list {

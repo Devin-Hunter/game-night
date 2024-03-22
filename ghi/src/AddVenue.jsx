@@ -1,4 +1,5 @@
 'use client'
+import { useNavigate } from 'react-router-dom'
 import AddLocationForm from './AddLocation'
 import {
     Button,
@@ -11,8 +12,10 @@ import {
 import { useEffect, useState } from 'react'
 import { apiHost } from './constants'
 import { useAuthContext } from '@galvanize-inc/jwtdown-for-react'
-export default function AddVenueForm() {
+
+export default function AddVenueForm({ onSubmit }) {
     const { token } = useAuthContext()
+
     const initialFormState = {
         venue_name: '',
         online_link: '',
@@ -22,13 +25,17 @@ export default function AddVenueForm() {
         venue_type: '',
         reservation_req: 'false',
     }
+
     const [formState, setFormState] = useState(initialFormState)
     const [openModal, setOpenModal] = useState(false)
     const [locations, setLocations] = useState([])
     const [switch1, setSwitch1] = useState(false)
+    const navigate = useNavigate()
+
     const getLocations = async function () {
         const url = `${apiHost}/locations/list`
         const response = await fetch(url)
+
         if (!response.ok) {
             throw new Error('Bad fetch response for Locations')
         } else {
@@ -36,14 +43,17 @@ export default function AddVenueForm() {
             setLocations(data)
         }
     }
+
     const handleVenueChange = (event) => {
         const value = event.target.value
         const inputName = event.target.id
+
         setFormState((prevState) => ({
             ...prevState,
             [inputName]: value,
         }))
     }
+
     const handleToggle = () => {
         setSwitch1(!switch1)
         setFormState((prevState) => ({
@@ -51,10 +61,13 @@ export default function AddVenueForm() {
             reservation_req: !switch1,
         }))
     }
+
     const handleVenueSubmit = async function (event) {
         event.preventDefault()
+
         // const url = `${VITE_API_HOST}/api/foobar`
         const url = `${apiHost}/venues`
+
         const fetchConfig = {
             method: 'post',
             body: JSON.stringify(formState),
@@ -63,24 +76,31 @@ export default function AddVenueForm() {
                 Authorization: `Bearer ${token}`,
             },
         }
+
         const response = await fetch(url, fetchConfig)
         if (!response.ok) {
             throw new Error('Bad fetch response while adding new venue')
         } else {
+            onSubmit(formState)
             setFormState(initialFormState)
             setSwitch1(false)
+            navigate('/venues')
         }
     }
+
     function onCloseModal() {
         setOpenModal(false)
     }
+
     const handleModalSubmit = () => {
         onCloseModal()
         getLocations()
     }
+
     useEffect(() => {
         getLocations()
     }, [])
+
     return (
         <form className="max-w-sm mx-auto pt-6" onSubmit={handleVenueSubmit}>
             <div className="grid sm:grid-cols-2 sm:gap-6 w-max bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">

@@ -35,7 +35,7 @@ const ProfilePage = () => {
     }
 
     useEffect(() => {
-        fetchLocations(), 
+        fetchLocations(),
         getMemberData()
     }, [])
 
@@ -71,17 +71,17 @@ const ProfilePage = () => {
     }
 
     return (
-        <div className="p-4 ml-64">
+        <div className="">
             <div className="grid">
                 <div className="grid-cols-4 gap-4 mb-4">
-                    <div className="w-full 
-                    max-w-sm 
-                    mx-auto 
-                    p-4 bg-white 
-                    border border-gray-200 
-                    rounded-lg 
-                    shadow 
-                    sm:p-6 
+                    <div className="w-full
+                    max-w-sm
+                    mx-auto
+                    p-4 bg-white
+                    border border-gray-200
+                    rounded-lg
+                    shadow
+                    sm:p-6
                     md:p-8">
                         <div
                             className="w-full
@@ -286,10 +286,10 @@ const ProfilePage = () => {
                                     <label
                                         htmlFor="about"
                                         className="block
-                                        mb-2 
-                                        text-sm 
-                                        font-medium 
-                                        text-gray-900 
+                                        mb-2
+                                        text-sm
+                                        font-medium
+                                        text-gray-900
                                         dark:text-white"
                                     >
                                         About You
@@ -302,18 +302,18 @@ const ProfilePage = () => {
                                         rows="3"
                                         name="about"
                                         id="about"
-                                        className="bg-gray-50 
-                                        border border-gray-300 
-                                        text-gray-900 
-                                        text-sm 
-                                        rounded-lg 
-                                        focus:ring-blue-500 
-                                        focus:border-blue-500 
-                                        block w-full 
-                                        p-2.5 
-                                        dark:bg-gray-600 
-                                        dark:border-gray-500 
-                                        dark:placeholder-gray-400 
+                                        className="bg-gray-50
+                                        border border-gray-300
+                                        text-gray-900
+                                        text-sm
+                                        rounded-lg
+                                        focus:ring-blue-500
+                                        focus:border-blue-500
+                                        block w-full
+                                        p-2.5
+                                        dark:bg-gray-600
+                                        dark:border-gray-500
+                                        dark:placeholder-gray-400
                                         dark:text-white"
                                         placeholder="A short description of yourself and your interests"
                                         required
@@ -321,21 +321,21 @@ const ProfilePage = () => {
                                 </div>
                                 <button
                                     type="submit"
-                                    className="w-full 
-                                    text-white 
-                                    bg-blue-700 
-                                    hover:bg-blue-800 
-                                    focus:ring-4 
-                                    focus:outline-none 
-                                    focus:ring-blue-300 
-                                    font-medium 
-                                    rounded-lg 
-                                    text-sm 
-                                    px-5 
-                                    py-2.5 
-                                    text-center 
-                                    dark:bg-blue-600 
-                                    dark:hover:bg-blue-700 
+                                    className="w-full
+                                    text-white
+                                    bg-blue-700
+                                    hover:bg-blue-800
+                                    focus:ring-4
+                                    focus:outline-none
+                                    focus:ring-blue-300
+                                    font-medium
+                                    rounded-lg
+                                    text-sm
+                                    px-5
+                                    py-2.5
+                                    text-center
+                                    dark:bg-blue-600
+                                    dark:hover:bg-blue-700
                                     dark:focus:ring-blue-800"
                                     value="Register"
                                 >
