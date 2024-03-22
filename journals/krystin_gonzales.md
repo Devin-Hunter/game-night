@@ -15,6 +15,15 @@
 -Merged create member, login/logout page, Auth functionality 
 -Began functionality for update member info form
 
+3/21/24
+-Completed update member info form
+-Merged to main
+-Began unit test
+
+3/22/24
+-Continued unit test
+-view profile page
+
 
 ## Week 16
 3/11/24
