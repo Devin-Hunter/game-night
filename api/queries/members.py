@@ -43,7 +43,6 @@ class MemberUpdate(BaseModel):
     last_name: str
     age: int
     skill_level: str
-    avatar: str
     about: str
     location_id: int
 

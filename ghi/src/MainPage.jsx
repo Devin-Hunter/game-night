@@ -10,20 +10,21 @@ function MainPage() {
     const {login} = useToken();
     const navigate = useNavigate();
     const { token } = useToken();
-    
+
     const handleLogin = (e) => {
         e.preventDefault();
         login(username, password);
-        console.log('TOKEN!!!', token)
-        e.target.reset();
-        navigate('/profile')
+        e.target.reset();  
+        if(token){
+            navigate(`/profile/edit`);
+        }
     };
 
     return (
         <div className="p-4 ml-64">
             <div className="grid">
                 <div className="grid-cols-3 gap-4 mb-4"></div>
-                <div className="w-full max-w-sm mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+                <div id="login-card" className="w-full max-w-sm mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                     <h1 className="mb-4 text-5xl font-extrabold text-gray-900 dark:text-white">
                         Game Night
                     </h1>

@@ -21,7 +21,6 @@ const SignupForm = () => {
         const response = await fetch(url);
         if (response.ok){
             const data = await response.json();
-            console.log(data)
             setLocations(data)
         }
     }
@@ -46,7 +45,7 @@ const SignupForm = () => {
             `${apiHost}/user`
         );
         event.target.reset();
-        navigate('/profile');
+        navigate('/profile/edit');
     };
     return (
         <div className="p-4 ml-64">
