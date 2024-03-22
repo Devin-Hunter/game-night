@@ -5,9 +5,15 @@ import SignupForm from './signupForm'
 import ProfilePage from './profilePage'
 import Profile from './profileView'
 import NavBar from './Nav'
+import AddVenueForm from './AddVenue'
+import Video from './TestVideo'
+import EventList from './EventList'
+import CreateEvent from './CreateEvent'
+import EventDetails from './EventDetails'
 import AddLocationForm from './AddLocation'
 import { AuthProvider } from '@galvanize-inc/jwtdown-for-react'
 import { apiHost } from './constants'
+import MemberEventList from './MemberEventList'
 import ProtectedRoute from './auth/ProtectedRoute'
 import GameForm from './GameForm'
 import GameDetail from './GameDetail'
@@ -15,6 +21,7 @@ import UpdateGame from './UpdateGame'
 import FavoriteGames from './FavoriteGames'
 import OwnedGames from './OwnedGames'
 import WishlistGames from './WishlistGames'
+import GameList from './GameList'
 
 function App() {
     if (!apiHost) throw new Error('base url missing')
@@ -22,6 +29,19 @@ function App() {
         <BrowserRouter>
             <AuthProvider baseUrl={apiHost}>
                 <NavBar />
+                    <Routes>
+                        <Route path="/" element={<MainPage />} />
+                    <Route path="/events" element={<EventList />} />
+                    <Route path="/events/member" element={<MemberEventList />} />
+                    <Route path="/events/new" element={<CreateEvent />} />
+                    <Route path="/events/:eventId" element={<EventDetails />} />
+                        <Route path="/locations" element={<AddLocationForm />} />
+                    {/* <Route path="/locations" element={<AddLocationForm />} /> */}
+                    <Route path="/venues" element={<AddVenueForm />} />
+                    <Route path="/test" element={<Video />} />
+                        <Route path="/sign-up/" element={<SignupForm />} />
+                        <Route path="/profile/" element={<ProfilePage />} />
+                    </Routes>
                 <Routes>
                     <Route path="/" element={<MainPage />} />
                     <Route path="/locations" element={<AddLocationForm />} />
@@ -54,6 +74,7 @@ function App() {
                     />
                     <Route path="/games/owned" element={<OwnedGames />} />
                     <Route path="/games/wishlist" element={<WishlistGames />} />
+                    <Route path="/games" element={<GameList />} />
                 </Routes>
             </AuthProvider>
         </BrowserRouter>

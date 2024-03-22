@@ -6,7 +6,7 @@ from authenticator import authenticator
 router = APIRouter()
 
 
-@router.post("/events", response_model=Union[EventOut, Error])
+@router.post("/events/new", response_model=Union[EventOut, Error])
 def create_event(event: EventIn,
                  response: Response,
                  repo: EventRepo = Depends(),
@@ -56,7 +56,7 @@ def is_player(event_id: int, member_id: int,
               repo: EventRepo = Depends(),
               account_data: dict = Depends(
                   authenticator.get_current_account_data),
-              ) -> bool:
+              ) -> Union[bool, Error]:
     return repo.is_player(member_id, event_id)
 
 
@@ -66,7 +66,7 @@ def is_spectator(event_id: int, member_id: int,
                  repo: EventRepo = Depends(),
                  account_data: dict = Depends(
                      authenticator.get_current_account_data),
-                 ) -> bool:
+                 ) -> Union[bool, Error]:
     return repo.is_spectator(member_id, event_id)
 
 

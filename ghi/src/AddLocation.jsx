@@ -2,14 +2,14 @@
 import { Button, Label, TextInput, Select } from 'flowbite-react'
 import { useState } from 'react'
 
-export default function AddLocationForm() {
-    const initialFormState = {
+export default function AddLocationForm({ onSubmit }) {
+    const initialLocationForm = {
         city: '',
         state: '',
         state_abbrev: '',
     }
 
-    const [formState, setFormState] = useState(initialFormState)
+    const [locationForm, setLocationForm] = useState(initialLocationForm)
 
     const states = [
         { label: 'Alabama', value: 'AL' },
@@ -69,11 +69,11 @@ export default function AddLocationForm() {
         { label: 'Wyoming', value: 'WY' },
     ]
 
-    const handleFormChange = (event) => {
+    const handleLocationChange = (event) => {
         const value = event.target.value
         const inputName = event.target.id
 
-        setFormState((prevState) => ({
+        setLocationForm((prevState) => ({
             ...prevState,
             [inputName]: value,
         }))
@@ -83,14 +83,14 @@ export default function AddLocationForm() {
         const selectedState = states.find(
             (state) => state.label === event.target.value
         )
-        setFormState((prevState) => ({
+        setLocationForm((prevState) => ({
             ...prevState,
             state: selectedState.label,
             state_abbrev: selectedState.value,
         }))
     }
 
-    const handleSubmit = async function (event) {
+    const handleLocationSubmit = async function (event) {
         event.preventDefault()
 
         // const url = `${VITE_API_HOST}/locations`
@@ -98,7 +98,7 @@ export default function AddLocationForm() {
 
         const fetchConfig = {
             method: 'post',
-            body: JSON.stringify(formState),
+            body: JSON.stringify(locationForm),
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -108,12 +108,13 @@ export default function AddLocationForm() {
         if (!response.ok) {
             throw new Error('Bad fetch response while adding new location')
         } else {
-            setFormState(initialFormState)
+            onSubmit(locationForm);
+            setLocationForm(initialLocationForm)
         }
     }
 
     return (
-        <form className="max-w-sm mx-auto pt-6" onSubmit={handleSubmit}>
+        <form className="max-w-sm mx-auto pt-6" onSubmit={handleLocationSubmit}>
             <div className="mb-5">
                 <div className="mb-5 block">
                     <Label htmlFor="city" value="City" />
@@ -122,8 +123,8 @@ export default function AddLocationForm() {
                     id="city"
                     type="text"
                     placeholder="City"
-                    value={formState.city}
-                    onChange={handleFormChange}
+                    value={locationForm.city}
+                    onChange={handleLocationChange}
                     required
                 />
             </div>
@@ -134,7 +135,7 @@ export default function AddLocationForm() {
                 <Select
                     placeholder="Choose a State"
                     onChange={handleStateChange}
-                    value={formState.state}
+                    value={locationForm.state}
                     required
                 >
                     <option placeholder="Choose a State"></option>
