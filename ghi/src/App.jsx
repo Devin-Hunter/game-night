@@ -3,6 +3,7 @@ import './index.css'
 import MainPage from './MainPage'
 import SignupForm from './signupForm'
 import ProfilePage from './profilePage'
+import Profile from './profileView'
 import NavBar from './Nav'
 import AddLocationForm from './AddLocation'
 import { AuthProvider } from '@galvanize-inc/jwtdown-for-react'
@@ -26,6 +27,14 @@ function App() {
                         element={
                             <ProtectedRoute>
                                 <ProfilePage />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route 
+                        path="/profile/"
+                        element={
+                            <ProtectedRoute>
+                                <Profile />
                             </ProtectedRoute>
                         }
                     />
