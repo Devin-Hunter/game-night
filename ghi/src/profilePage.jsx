@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import useToken from '@galvanize-inc/jwtdown-for-react'
 import { apiHost } from './constants'
 
@@ -13,19 +13,18 @@ const ProfilePage = () => {
     const {token, fetchWithCookie} = useToken();
     const [username, setUsername] = useState('');
 
-    const getMemberData = async() =>{
+    const getMemberData = useCallback(async() =>{
         const memberData = await fetchWithCookie(
             `${apiHost}/token/`
             );
-        console.log('MEMBER DATA PROFILE PAGE', memberData);
         setFirstName(memberData['account']['first_name']);
         setLastName(memberData['account']['last_name']);
         setAge(memberData['account']['age']);
         setSkill(memberData['account']['skill_level']);
         setAbout(memberData['account']['about']);
         setLocationChoice(memberData['account']['location_id']);
-        setUsername(memberData['account']['username']);
-    }
+        setUsername(memberData['account']['username'])
+    }, [token])
     
     
     const fetchLocations = async () => {
@@ -33,18 +32,14 @@ const ProfilePage = () => {
         const response = await fetch(url)
         if (response.ok) {
             const data = await response.json()
-            console.log(data)
             setLocations(data)
         }
     }
     useEffect(() => {
-        if(token){
             fetchLocations(),
             getMemberData()
-        }
-    }, [token])
+    }, [getMemberData])
 
-    console.log('USERNAME', username)
     const handleSubmit = async (e) => {
         e.preventDefault();
         const accountData = {
@@ -55,7 +50,6 @@ const ProfilePage = () => {
             about: about,
             location_id: parseInt(locationChoice),
         }
-        console.log('PROFILE data update', accountData) //prints
 
         const url = `${apiHost}/user/${username}`;
         const fetchConfig = {
