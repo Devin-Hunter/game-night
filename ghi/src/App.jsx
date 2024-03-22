@@ -15,6 +15,7 @@ import UpdateGame from './UpdateGame'
 import FavoriteGames from './FavoriteGames'
 import OwnedGames from './OwnedGames'
 import WishlistGames from './WishlistGames'
+import GameList from './GameList'
 
 function App() {
     if (!apiHost) throw new Error('base url missing')
@@ -54,6 +55,7 @@ function App() {
                     />
                     <Route path="/games/owned" element={<OwnedGames />} />
                     <Route path="/games/wishlist" element={<WishlistGames />} />
+                    <Route path="/games" element={<GameList />} />
                 </Routes>
             </AuthProvider>
         </BrowserRouter>
