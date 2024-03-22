@@ -41,7 +41,7 @@ const SignupForm = () => {
             location_id: parseInt(locationChoice),
         };
         register(
-            accountData, 
+            accountData,
             `${apiHost}/user`
         );
         event.target.reset();
@@ -53,16 +53,16 @@ const SignupForm = () => {
                 <div className="grid-cols-4 gap-4 mb-4">
                     <div className="w-full max-w-sm mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                         <div
-                            className="w-full 
-                            max-w-sm 
-                            p-4 
-                            bg-white 
-                            border border-gray-200 
-                            rounded-lg 
-                            shadow 
-                            sm:p-6 
-                            md:p-8 
-                            dark:bg-gray-800 
+                            className="w-full
+                            max-w-sm
+                            p-4
+                            bg-white
+                            border border-gray-200
+                            rounded-lg
+                            shadow
+                            sm:p-6
+                            md:p-8
+                            dark:bg-gray-800
                             dark:border-gray-700"
                         >
                             <form
@@ -70,9 +70,9 @@ const SignupForm = () => {
                                 onSubmit={(event) => handleRegistration(event)}
                             >
                                 <h5
-                                    className="text-xl 
-                                font-medium 
-                                text-gray-900 
+                                    className="text-xl
+                                font-medium
+                                text-gray-900
                                 dark:text-white"
                                 >
                                     Sign Up
@@ -80,10 +80,10 @@ const SignupForm = () => {
                                 <div>
                                     <label
                                         htmlFor="firstName"
-                                        className="block 
-                                    mb-2 
-                                    text-sm 
-                                    font-medium 
+                                        className="block
+                                    mb-2
+                                    text-sm
+                                    font-medium
                                     text-gray-900"
                                     >
                                         Your First Name
@@ -95,11 +95,11 @@ const SignupForm = () => {
                                         type="text"
                                         name="firstName"
                                         id="firstName"
-                                        className="bg-gray-50 
-                                    border border-gray-300 
-                                    text-gray-900 text-sm rounded-lg 
-                                    focus:ring-blue-500 focus:border-blue-500 
-                                    block w-full 
+                                        className="bg-gray-50
+                                    border border-gray-300
+                                    text-gray-900 text-sm rounded-lg
+                                    focus:ring-blue-500 focus:border-blue-500
+                                    block w-full
                                     p-2.5"
                                         placeholder="Your First Name Here"
                                         required
@@ -108,10 +108,10 @@ const SignupForm = () => {
                                 <div>
                                     <label
                                         htmlFor="lastName"
-                                        className="block 
-                                    mb-2 
-                                    text-sm 
-                                    font-medium 
+                                        className="block
+                                    mb-2
+                                    text-sm
+                                    font-medium
                                     text-gray-900"
                                     >
                                         Your Last Name
@@ -123,13 +123,13 @@ const SignupForm = () => {
                                         type="text"
                                         name="lastName"
                                         id="lastName"
-                                        className="bg-gray-50 
-                                    border border-gray-300 
-                                    text-gray-900 
-                                    text-sm rounded-lg 
-                                    focus:ring-blue-500 
-                                    focus:border-blue-500 
-                                    block w-full 
+                                        className="bg-gray-50
+                                    border border-gray-300
+                                    text-gray-900
+                                    text-sm rounded-lg
+                                    focus:ring-blue-500
+                                    focus:border-blue-500
+                                    block w-full
                                     p-2.5"
                                         placeholder="Your Last Name Here"
                                         required
@@ -138,10 +138,10 @@ const SignupForm = () => {
                                 <div>
                                     <label
                                         htmlFor="username"
-                                        className="block 
-                                    mb-2 
-                                    text-sm 
-                                    font-medium 
+                                        className="block
+                                    mb-2
+                                    text-sm
+                                    font-medium
                                     text-gray-900"
                                     >
                                         Username
@@ -153,14 +153,14 @@ const SignupForm = () => {
                                         type="text"
                                         name="username"
                                         id="username"
-                                        className="bg-gray-50 
-                                    border border-gray-300 
-                                    text-gray-900 
-                                    text-sm 
-                                    rounded-lg 
-                                    focus:ring-blue-500 
-                                    focus:border-blue-500 
-                                    block w-full 
+                                        className="bg-gray-50
+                                    border border-gray-300
+                                    text-gray-900
+                                    text-sm
+                                    rounded-lg
+                                    focus:ring-blue-500
+                                    focus:border-blue-500
+                                    block w-full
                                     p-2.5"
                                         placeholder="username"
                                         required
@@ -169,10 +169,10 @@ const SignupForm = () => {
                                 <div>
                                     <label
                                         htmlFor="password"
-                                        className="block 
-                                    mb-2 
-                                    text-sm 
-                                    font-medium 
+                                        className="block
+                                    mb-2
+                                    text-sm
+                                    font-medium
                                     text-gray-900"
                                     >
                                         Your password
@@ -185,12 +185,12 @@ const SignupForm = () => {
                                         name="password"
                                         id="password"
                                         placeholder="••••••••"
-                                        className="bg-gray-50 
-                                    border border-gray-300 
-                                    text-gray-900 
-                                    text-sm 
-                                    rounded-lg 
-                                    focus:ring-blue-500 
+                                        className="bg-gray-50
+                                    border border-gray-300
+                                    text-gray-900
+                                    text-sm
+                                    rounded-lg
+                                    focus:ring-blue-500
                                     focus:border-blue-500
                                     block w-full
                                     p-2.5"
@@ -200,9 +200,9 @@ const SignupForm = () => {
                                 <div>
                                     <label
                                         htmlFor="age"
-                                        className="block 
-                                    mb-2 
-                                    text-sm 
+                                        className="block
+                                    mb-2
+                                    text-sm
                                     font-medium
                                     text-gray-900"
                                     >
@@ -215,14 +215,14 @@ const SignupForm = () => {
                                         type="number"
                                         name="age"
                                         id="age"
-                                        className="bg-gray-50 
-                                    border border-gray-300 
-                                    text-gray-900 
-                                    text-sm 
-                                    rounded-lg 
-                                    focus:ring-blue-500 
-                                    focus:border-blue-500 
-                                    block w-full 
+                                        className="bg-gray-50
+                                    border border-gray-300
+                                    text-gray-900
+                                    text-sm
+                                    rounded-lg
+                                    focus:ring-blue-500
+                                    focus:border-blue-500
+                                    block w-full
                                     p-2.5"
                                         placeholder="16"
                                         required
@@ -231,10 +231,10 @@ const SignupForm = () => {
                                 <div>
                                     <label
                                         htmlFor="skill"
-                                        className="block 
-                                    mb-2 
-                                    text-sm 
-                                    font-medium 
+                                        className="block
+                                    mb-2
+                                    text-sm
+                                    font-medium
                                     text-gray-900"
                                     >
                                         Skill Level
@@ -243,14 +243,14 @@ const SignupForm = () => {
                                         onChange={(event) =>
                                             setSkill(event.target.value)
                                         }
-                                        className="bg-gray-50 
-                                    border border-gray-300 
-                                    text-gray-900 
-                                    text-sm 
-                                    rounded-lg 
-                                    focus:ring-blue-500 
-                                    focus:border-blue-500 
-                                    block w-full 
+                                        className="bg-gray-50
+                                    border border-gray-300
+                                    text-gray-900
+                                    text-sm
+                                    rounded-lg
+                                    focus:ring-blue-500
+                                    focus:border-blue-500
+                                    block w-full
                                     p-2.5"
                                     >
                                         <option value="">
@@ -269,10 +269,10 @@ const SignupForm = () => {
                                 <div>
                                     <label
                                         htmlFor="skill"
-                                        className="block 
-                                    mb-2 
-                                    text-sm 
-                                    font-medium 
+                                        className="block
+                                    mb-2
+                                    text-sm
+                                    font-medium
                                     text-gray-900"
                                     >
                                         Location
@@ -284,14 +284,14 @@ const SignupForm = () => {
                                             )
                                         }
                                         id="skill"
-                                        className="bg-gray-50 
-                                    border border-gray-300 
-                                    text-gray-900 
-                                    text-sm 
-                                    rounded-lg 
-                                    focus:ring-blue-500 
-                                    focus:border-blue-500 
-                                    block w-full 
+                                        className="bg-gray-50
+                                    border border-gray-300
+                                    text-gray-900
+                                    text-sm
+                                    rounded-lg
+                                    focus:ring-blue-500
+                                    focus:border-blue-500
+                                    block w-full
                                     p-2.5"
                                     >
                                         <option>Select your location</option>

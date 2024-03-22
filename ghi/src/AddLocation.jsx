@@ -1,17 +1,20 @@
 'use client'
-import { Button, Label, TextInput, Select } from 'flowbite-react'
+import { ToggleSwitch, Button, Label, TextInput, Select } from 'flowbite-react'
 import { useState } from 'react'
 
 export default function AddLocationForm({ onSubmit }) {
     const initialLocationForm = {
+        online: 'false',
         city: '',
         state: '',
         state_abbrev: '',
     }
 
     const [locationForm, setLocationForm] = useState(initialLocationForm)
+    const [switch1, setSwitch1] = useState(false)
 
     const states = [
+        { label: 'Online', value: 'N/A' },
         { label: 'Alabama', value: 'AL' },
         { label: 'Alaska', value: 'AK' },
         { label: 'American Samoa', value: 'AS' },
@@ -90,6 +93,16 @@ export default function AddLocationForm({ onSubmit }) {
         }))
     }
 
+    const handleToggle = () => {
+        setSwitch1(!switch1)
+        setLocationForm(() => ({
+            online: !switch1,
+            city: 'Online',
+            state: 'Online',
+            state_abbrev: 'N/A',
+        }))
+    }
+
     const handleLocationSubmit = async function (event) {
         event.preventDefault()
 
@@ -108,15 +121,23 @@ export default function AddLocationForm({ onSubmit }) {
         if (!response.ok) {
             throw new Error('Bad fetch response while adding new location')
         } else {
-            onSubmit(locationForm);
+            onSubmit(locationForm)
             setLocationForm(initialLocationForm)
         }
     }
 
     return (
         <form className="max-w-sm mx-auto pt-6" onSubmit={handleLocationSubmit}>
+            <div className="pb-5">
+                <ToggleSwitch
+                    checked={switch1}
+                    label="Online Venue?"
+                    value={locationForm.online}
+                    onChange={handleToggle}
+                />
+            </div>
             <div className="mb-5">
-                <div className="mb-5 block">
+                <div className=" block">
                     <Label htmlFor="city" value="City" />
                 </div>
                 <TextInput
@@ -129,7 +150,7 @@ export default function AddLocationForm({ onSubmit }) {
                 />
             </div>
             <div className="mb-5">
-                <div className="mb-2 block">
+                <div className="block">
                     <Label htmlFor="states" value="State" />
                 </div>
                 <Select

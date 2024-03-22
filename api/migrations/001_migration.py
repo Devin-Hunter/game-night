@@ -170,5 +170,5 @@ steps = [
         """
         DROP TABLE game_events;
         """,
-    ]
+    ],
 ]

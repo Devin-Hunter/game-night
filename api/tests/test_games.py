@@ -27,7 +27,7 @@ class CreateGameRepo:
             "video": "string",
             "complexity": "string",
             "category": "string",
-            "rating": 1
+            "rating": 1,
         }
         result.update(game)
         return result
@@ -48,15 +48,15 @@ def mock_account_data():
         "video": "string",
         "complexity": "string",
         "category": "string",
-        "rating": 1
+        "rating": 1,
     }
 
 
 def test_get_all_games():
     app.dependency_overrides[GameRepo] = EmptyGameRepo
-    app.dependency_overrides[
-        authenticator.get_current_account_data
-    ] = mock_account_data
+    app.dependency_overrides[authenticator.get_current_account_data] = (
+        mock_account_data
+    )
     response = client.get("/api/games")
     app.dependency_overrides = {}
     assert response.status_code == 200
@@ -65,9 +65,9 @@ def test_get_all_games():
 
 def test_create_game():
     app.dependency_overrides[GameRepo] = CreateGameRepo
-    app.dependency_overrides[
-        authenticator.get_current_account_data
-    ] = mock_account_data
+    app.dependency_overrides[authenticator.get_current_account_data] = (
+        mock_account_data
+    )
     game = {
         "title": "Takenoko",
         "year": 2019,
@@ -81,7 +81,7 @@ def test_create_game():
         "video": "https://www.youtube.com/watch?v=U725y9I-msE",
         "complexity": "Serene Enigma",
         "category": "Animals, Family, Strategy",
-        "rating": 3
+        "rating": 3,
     }
     response = client.post("/api/games", json=game)
     app.dependency_overrides.clear()
