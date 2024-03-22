@@ -39,7 +39,7 @@ function UpdateGame() {
             }
         }
         getGameDetails()
-    }, [game_id])
+    }, [game_id, token])
 
     const handleSubmit = async (event) => {
         event.preventDefault()
