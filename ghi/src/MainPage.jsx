@@ -16,7 +16,7 @@ function MainPage() {
         login(username, password);
         e.target.reset();  
         if(token){
-            navigate(`/profile/edit`);
+            navigate(`/profile`);
         }
     };
 
