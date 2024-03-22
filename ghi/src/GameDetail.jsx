@@ -418,7 +418,7 @@ function GameDetail() {
                                 title={
                                     <>
                                         <svg
-                                            class="w-6 h-6 text-gray-800 dark:text-white"
+                                            className="w-6 h-6 text-gray-800 dark:text-white"
                                             aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="24"
@@ -428,7 +428,7 @@ function GameDetail() {
                                         >
                                             <path
                                                 stroke="currentColor"
-                                                strokLinecap="round"
+                                                strokeLinecap="round"
                                                 strokeLinejoin="round"
                                                 strokeWidth="2"
                                                 d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"
@@ -442,7 +442,7 @@ function GameDetail() {
                                 title={
                                     <>
                                         <svg
-                                            class="w-6 h-6 text-gray-800 dark:text-white"
+                                            className="w-6 h-6 text-gray-800 dark:text-white"
                                             aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="24"
