@@ -3,30 +3,27 @@ import useToken from '@galvanize-inc/jwtdown-for-react'
 import { apiHost } from './constants'
 
 const ProfilePage = () => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [age, setAge] = useState(0);
-    const [skill, setSkill] = useState('');
-    const [about, setAbout] = useState('');
-    const [locations, setLocations] = useState([]);
-    const [locationChoice, setLocationChoice] = useState('');
-    const {token, fetchWithCookie} = useToken();
-    const [username, setUsername] = useState('');
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [age, setAge] = useState(0)
+    const [skill, setSkill] = useState('')
+    const [about, setAbout] = useState('')
+    const [locations, setLocations] = useState([])
+    const [locationChoice, setLocationChoice] = useState('')
+    const { token, fetchWithCookie } = useToken()
+    const [username, setUsername] = useState('')
 
-    const getMemberData = useCallback(async() =>{
-        const memberData = await fetchWithCookie(
-            `${apiHost}/token/`
-            );
-        setFirstName(memberData['account']['first_name']);
-        setLastName(memberData['account']['last_name']);
-        setAge(memberData['account']['age']);
-        setSkill(memberData['account']['skill_level']);
-        setAbout(memberData['account']['about']);
-        setLocationChoice(memberData['account']['location_id']);
+    const getMemberData = useCallback(async () => {
+        const memberData = await fetchWithCookie(`${apiHost}/token/`)
+        setFirstName(memberData['account']['first_name'])
+        setLastName(memberData['account']['last_name'])
+        setAge(memberData['account']['age'])
+        setSkill(memberData['account']['skill_level'])
+        setAbout(memberData['account']['about'])
+        setLocationChoice(memberData['account']['location_id'])
         setUsername(memberData['account']['username'])
     }, [fetchWithCookie])
-    
-    
+
     const fetchLocations = async () => {
         const url = `${apiHost}/locations/list`
         const response = await fetch(url)
@@ -36,12 +33,11 @@ const ProfilePage = () => {
         }
     }
     useEffect(() => {
-            fetchLocations(),
-            getMemberData()
+        fetchLocations(), getMemberData()
     }, [getMemberData])
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         const accountData = {
             first_name: firstName,
             last_name: lastName,
@@ -51,21 +47,20 @@ const ProfilePage = () => {
             location_id: parseInt(locationChoice),
         }
 
-        const url = `${apiHost}/user/${username}`;
+        const url = `${apiHost}/user/${username}`
         const fetchConfig = {
             method: 'put',
             body: JSON.stringify(accountData),
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
             },
         }
         const response = await fetch(url, fetchConfig)
-        if (!response.ok){
+        if (!response.ok) {
             throw new Error('Could not update user info')
-        }
-        else{
+        } else {
             console.log('user info updated!')
             location.reload()
         }
@@ -77,16 +72,16 @@ const ProfilePage = () => {
                 <div className="grid-cols-4 gap-4 mb-4">
                     <div className="w-full max-w-sm mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                         <div
-                            className="w-full 
-                            max-w-sm 
-                            p-4 
-                            bg-white 
-                            border border-gray-200 
-                            rounded-lg 
-                            shadow 
-                            sm:p-6 
-                            md:p-8 
-                            dark:bg-gray-800 
+                            className="w-full
+                            max-w-sm
+                            p-4
+                            bg-white
+                            border border-gray-200
+                            rounded-lg
+                            shadow
+                            sm:p-6
+                            md:p-8
+                            dark:bg-gray-800
                             dark:border-gray-700"
                         >
                             <form
@@ -94,9 +89,9 @@ const ProfilePage = () => {
                                 onSubmit={(event) => handleSubmit(event)}
                             >
                                 <h5
-                                    className="text-xl 
-                                font-medium 
-                                text-gray-900 
+                                    className="text-xl
+                                font-medium
+                                text-gray-900
                                 dark:text-white"
                                 >
                                     Update Information
@@ -104,10 +99,10 @@ const ProfilePage = () => {
                                 <div>
                                     <label
                                         htmlFor="firstName"
-                                        className="block 
-                                    mb-2 
-                                    text-sm 
-                                    font-medium 
+                                        className="block
+                                    mb-2
+                                    text-sm
+                                    font-medium
                                     text-gray-900"
                                     >
                                         Your First Name
@@ -120,11 +115,11 @@ const ProfilePage = () => {
                                         type="text"
                                         name="firstName"
                                         id="firstName"
-                                        className="bg-gray-50 
-                                    border border-gray-300 
-                                    text-gray-900 text-sm rounded-lg 
-                                    focus:ring-blue-500 focus:border-blue-500 
-                                    block w-full 
+                                        className="bg-gray-50
+                                    border border-gray-300
+                                    text-gray-900 text-sm rounded-lg
+                                    focus:ring-blue-500 focus:border-blue-500
+                                    block w-full
                                     p-2.5"
                                         placeholder="Your First Name Here"
                                         required
@@ -133,10 +128,10 @@ const ProfilePage = () => {
                                 <div>
                                     <label
                                         htmlFor="lastName"
-                                        className="block 
-                                    mb-2 
-                                    text-sm 
-                                    font-medium 
+                                        className="block
+                                    mb-2
+                                    text-sm
+                                    font-medium
                                     text-gray-900"
                                     >
                                         Your Last Name
@@ -149,13 +144,13 @@ const ProfilePage = () => {
                                         type="text"
                                         name="lastName"
                                         id="lastName"
-                                        className="bg-gray-50 
-                                    border border-gray-300 
-                                    text-gray-900 
-                                    text-sm rounded-lg 
-                                    focus:ring-blue-500 
-                                    focus:border-blue-500 
-                                    block w-full 
+                                        className="bg-gray-50
+                                    border border-gray-300
+                                    text-gray-900
+                                    text-sm rounded-lg
+                                    focus:ring-blue-500
+                                    focus:border-blue-500
+                                    block w-full
                                     p-2.5"
                                         placeholder="Your Last Name Here"
                                         required
@@ -164,9 +159,9 @@ const ProfilePage = () => {
                                 <div>
                                     <label
                                         htmlFor="age"
-                                        className="block 
-                                    mb-2 
-                                    text-sm 
+                                        className="block
+                                    mb-2
+                                    text-sm
                                     font-medium
                                     text-gray-900"
                                     >
@@ -180,14 +175,14 @@ const ProfilePage = () => {
                                         type="number"
                                         name="age"
                                         id="age"
-                                        className="bg-gray-50 
-                                    border border-gray-300 
-                                    text-gray-900 
-                                    text-sm 
-                                    rounded-lg 
-                                    focus:ring-blue-500 
-                                    focus:border-blue-500 
-                                    block w-full 
+                                        className="bg-gray-50
+                                    border border-gray-300
+                                    text-gray-900
+                                    text-sm
+                                    rounded-lg
+                                    focus:ring-blue-500
+                                    focus:border-blue-500
+                                    block w-full
                                     p-2.5"
                                         placeholder="16"
                                         required
@@ -196,10 +191,10 @@ const ProfilePage = () => {
                                 <div>
                                     <label
                                         htmlFor="skill"
-                                        className="block 
-                                    mb-2 
-                                    text-sm 
-                                    font-medium 
+                                        className="block
+                                    mb-2
+                                    text-sm
+                                    font-medium
                                     text-gray-900"
                                     >
                                         Skill Level
@@ -209,14 +204,14 @@ const ProfilePage = () => {
                                             setSkill(event.target.value)
                                         }
                                         value={skill}
-                                        className="bg-gray-50 
-                                    border border-gray-300 
-                                    text-gray-900 
-                                    text-sm 
-                                    rounded-lg 
-                                    focus:ring-blue-500 
-                                    focus:border-blue-500 
-                                    block w-full 
+                                        className="bg-gray-50
+                                    border border-gray-300
+                                    text-gray-900
+                                    text-sm
+                                    rounded-lg
+                                    focus:ring-blue-500
+                                    focus:border-blue-500
+                                    block w-full
                                     p-2.5"
                                     >
                                         <option value="">
@@ -235,10 +230,10 @@ const ProfilePage = () => {
                                 <div>
                                     <label
                                         htmlFor="location"
-                                        className="block 
-                                    mb-2 
-                                    text-sm 
-                                    font-medium 
+                                        className="block
+                                    mb-2
+                                    text-sm
+                                    font-medium
                                     text-gray-900"
                                     >
                                         Location
@@ -251,14 +246,14 @@ const ProfilePage = () => {
                                         }
                                         id="location"
                                         value={locationChoice}
-                                        className="bg-gray-50 
-                                    border border-gray-300 
-                                    text-gray-900 
-                                    text-sm 
-                                    rounded-lg 
-                                    focus:ring-blue-500 
-                                    focus:border-blue-500 
-                                    block w-full 
+                                        className="bg-gray-50
+                                    border border-gray-300
+                                    text-gray-900
+                                    text-sm
+                                    rounded-lg
+                                    focus:ring-blue-500
+                                    focus:border-blue-500
+                                    block w-full
                                     p-2.5"
                                     >
                                         <option>Select your location</option>

@@ -12,6 +12,9 @@ import ProtectedRoute from './auth/ProtectedRoute'
 import GameForm from './GameForm'
 import GameDetail from './GameDetail'
 import UpdateGame from './UpdateGame'
+import FavoriteGames from './FavoriteGames'
+import OwnedGames from './OwnedGames'
+import WishlistGames from './WishlistGames'
 
 function App() {
     if (!apiHost) throw new Error('base url missing')
@@ -45,6 +48,12 @@ function App() {
                         element={<UpdateGame />}
                     />
                     <Route path="/games/new" element={<GameForm />} />
+                    <Route
+                        path="/games/favorites"
+                        element={<FavoriteGames />}
+                    />
+                    <Route path="/games/owned" element={<OwnedGames />} />
+                    <Route path="/games/wishlist" element={<WishlistGames />} />
                 </Routes>
             </AuthProvider>
         </BrowserRouter>
