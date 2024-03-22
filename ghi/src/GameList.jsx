@@ -34,7 +34,7 @@ function GameList() {
     return (
         <div className="text-center py-8">
             <h1
-                className="text-7xl font-bold text-green-500 mb-4"
+                className="text-7xl font-bold text-green-300 mb-4"
                 style={{
                     textShadow: '1px 1px 3px #000000',
                 }}
@@ -82,21 +82,9 @@ function GameList() {
                 >
                     Add Game
                 </NavLink>
-                <span
-                    className="text-sm ml-2"
-                    style={{
-                        color: '#ffffff',
-                        fontWeight: 'bold',
-                    }}
-                >
-                    <span className="whitespace-nowrap">
-                        {`Don't see your game?`}
-                    </span>{' '}
-                    {`Click 'Add game' to include it in the catalog!`}
-                </span>
             </form>
             <hr
-                className="w-full border-t-5 border-gray-200 my-8"
+                className="w-full border-t-5 border-gray-100 my-8"
                 style={{
                     maxWidth: '900px',
                     margin: 'auto',
