@@ -16,14 +16,12 @@ function App() {
         <BrowserRouter>
             <AuthProvider baseUrl={apiHost}>
                 <NavBar />
-                <div className="container">
                     <Routes>
                         <Route path="/" element={<MainPage />} />
                         <Route path="/locations" element={<AddLocationForm />} />
                         <Route path="/sign-up/" element={<SignupForm />} />
                         <Route path="/profile/" element={<ProfilePage />} />
                     </Routes>
-                </div>
             </AuthProvider>
         </BrowserRouter>
     )
