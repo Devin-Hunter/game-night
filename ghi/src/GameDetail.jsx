@@ -29,7 +29,7 @@ function GameDetail() {
     return (
         <div className="flex-grid">
             {game && (
-                <main className="flex-grid p-4 md:ml-64 h-auto pt-20">
+                <main className="flex-grid p-20 md:ml-64 h-auto pt-20">
                     <div
                         className="border h-98 mb-10 bg-cover bg-center"
                         style={{ backgroundColor: '#ddf2f4', color: '#000000' }}
@@ -277,6 +277,7 @@ function GameDetail() {
                         style={{
                             backgroundColor: '#ffffff',
                             padding: '0 30px',
+                            color: 'black',
                         }}
                     >
                         <Tabs aria-label="Full width tabs" style="fullWidth">

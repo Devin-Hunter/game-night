@@ -54,16 +54,16 @@ function WishlistList() {
 
     return (
         <>
-            <div className="text-center py-8">
+            <div className="flex flex-col items-center py-8">
                 <h1
-                    className="text-7xl font-bold text-green-500 mb-4 mx-auto"
+                    className="text-7xl font-bold text-green-300 mb-4"
                     style={{
                         textShadow: '1px 1px 3px #000000',
                     }}
                 >
-                    Want to Play Games
+                    Want To Play Games
                 </h1>
-                <form className="max-w-sm mx-auto mt-10 mb-10">
+                <form className="max-w-sm w-full mb-10">
                     <label
                         htmlFor="default-search"
                         className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -107,7 +107,7 @@ function WishlistList() {
                                 viewBox="0 0 24 24"
                             >
                                 <path
-                                    stroke="currentColor"
+                                    stroke="#ffffff"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     strokeWidth="2"
@@ -118,10 +118,11 @@ function WishlistList() {
                     </div>
                 </form>
                 <hr
-                    className="w-full border-t-3 border-gray-300 my-8"
+                    className="w-full border-t-3 border-gray-100"
                     style={{
-                        maxWidth: '900px',
-                        margin: 'auto',
+                        maxWidth: '1000px',
+                        marginTop: 'auto',
+                        marginBottom: 'auto',
                     }}
                 />
             </div>

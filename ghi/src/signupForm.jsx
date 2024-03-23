@@ -1,35 +1,48 @@
 import { useState, useEffect } from "react";
+import { Button, Modal } from 'flowbite-react'
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate } from "react-router-dom";
 import { apiHost } from "./constants";
+import AddLocationForm from './AddLocation'
 
 const SignupForm = () => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [age, setAge] = useState();
-    const [skill, setSkill] = useState('');
-    const [about, setAbout] = useState('');
-    const [locations, setLocations] = useState([]);
-    const [locationChoice, setLocationChoice] = useState('');
-    const { register } = useToken();
-    const navigate = useNavigate();
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [age, setAge] = useState()
+    const [skill, setSkill] = useState('')
+    const [about, setAbout] = useState('')
+    const [locations, setLocations] = useState([])
+    const [locationChoice, setLocationChoice] = useState('')
+    const [openModal, setOpenModal] = useState(false)
+    const { register } = useToken()
+    const navigate = useNavigate()
 
-    const fetchLocations = async () =>{
+    const fetchLocations = async () => {
         const url = `${apiHost}/locations/list`
-        const response = await fetch(url);
-        if (response.ok){
-            const data = await response.json();
+        const response = await fetch(url)
+        if (response.ok) {
+            const data = await response.json()
             setLocations(data)
         }
     }
-    useEffect(()=>{
-        fetchLocations();
+
+    function onCloseModal() {
+        setOpenModal(false)
+    }
+
+    const handleNewLocation = () => {
+        onCloseModal()
+        fetchLocations()
+    }
+
+    useEffect(() => {
+        fetchLocations()
     }, [])
 
     const handleRegistration = (event) => {
-        event.preventDefault();
+        event.preventDefault()
         const accountData = {
             first_name: firstName,
             last_name: lastName,
@@ -39,14 +52,11 @@ const SignupForm = () => {
             skill_level: skill,
             about: about,
             location_id: parseInt(locationChoice),
-        };
-        register(
-            accountData,
-            `${apiHost}/user`
-        );
-        event.target.reset();
-        navigate('/profile/edit');
-    };
+        }
+        register(accountData, `${apiHost}/user`)
+        event.target.reset()
+        navigate('/profile/edit')
+    }
     return (
         <div className="p-4 ml-64">
             <div className="grid">
@@ -335,6 +345,33 @@ const SignupForm = () => {
                                     Create your account
                                 </button>
                             </form>
+                            <Button
+                                className="sm:col-span-1 mt-6"
+                                gradientMonochrome="lime"
+                                onClick={() => setOpenModal(true)}
+                            >
+                                Add New Location
+                            </Button>
+                            <Modal
+                                show={openModal}
+                                onSubmit={handleNewLocation}
+                                size="md"
+                                onClose={onCloseModal}
+                                popup
+                            >
+                                <Modal.Header>
+                                    <div className="space-y-6">
+                                        <h3 className=" text-xl font-medium text-gray-900 dark:text-white">
+                                            Add a New Location
+                                        </h3>
+                                    </div>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <AddLocationForm
+                                        onSubmit={handleNewLocation}
+                                    />
+                                </Modal.Body>
+                            </Modal>
                         </div>
                     </div>
                 </div>
