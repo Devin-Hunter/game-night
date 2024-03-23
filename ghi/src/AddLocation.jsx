@@ -1,6 +1,7 @@
 'use client'
 import { ToggleSwitch, Button, Label, TextInput, Select } from 'flowbite-react'
 import { useState } from 'react'
+import { apiHost } from './constants'
 
 export default function AddLocationForm({ onSubmit }) {
     const initialLocationForm = {
@@ -107,7 +108,7 @@ export default function AddLocationForm({ onSubmit }) {
         event.preventDefault()
 
         // const url = `${VITE_API_HOST}/locations`
-        const url = `http://localhost:8000/locations/`
+        const url = `${apiHost}/locations`
 
         const fetchConfig = {
             method: 'post',
