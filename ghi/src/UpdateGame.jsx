@@ -155,370 +155,390 @@ function UpdateGame() {
     }
 
     return (
-        <div className="update-game-form">
-            <h1
-                className="text-center pb-3 text-5xl font-bold mb-4"
-                style={{
-                    color: '#8bbdf3',
-                    textShadow: '1px 1px 2px #000000',
-                }}
-            >
-                Update Game
-            </h1>
-            {game && (
-                <form onSubmit={handleSubmit} id="create-game-form">
-                    <div style={{ marginBottom: '15px' }}>
-                        <label
-                            htmlFor="title"
+        <div
+            className="bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-4 dark:bg-gray-800 dark:border-gray-700"
+            style={{
+                width: '750px',
+                height: '750px',
+                margin: '0 auto',
+                marginTop: '40px',
+            }}
+        >
+            <div className="update-game-form">
+                <h1
+                    className="text-center pb-3 text-5xl text-orange-300 font-bold mb-4"
+                    style={{
+                        // color: '#8bbdf3',
+                        textShadow: '1px 2px 2px #000000',
+                    }}
+                >
+                    Update Game
+                </h1>
+                {game && (
+                    <form onSubmit={handleSubmit} id="create-game-form">
+                        <div style={{ marginBottom: '15px' }}>
+                            <label
+                                htmlFor="title"
+                                style={{
+                                    color: '#000000',
+                                }}
+                            >
+                                Title<span style={{ color: 'red' }}>*</span>
+                            </label>
+                            <input
+                                onChange={handleTitleChange}
+                                value={title}
+                                placeholder="Enter game title"
+                                required
+                                type="text"
+                                name="title"
+                                id="title"
+                                style={{
+                                    width: '100%',
+                                    padding: '8px',
+                                    borderRadius: '8px',
+                                    border: '1px solid #ccc',
+                                }}
+                            />
+                        </div>
+                        <div style={{ marginBottom: '15px' }}>
+                            <label
+                                htmlFor="year"
+                                style={{
+                                    color: '#000000',
+                                }}
+                            >
+                                Year<span style={{ color: 'red' }}>*</span>
+                            </label>
+                            <input
+                                onChange={handleYearChange}
+                                value={year}
+                                placeholder="Enter year"
+                                required
+                                type="text"
+                                name="year"
+                                id="year"
+                                style={{
+                                    width: '100%',
+                                    padding: '8px',
+                                    borderRadius: '8px',
+                                    border: '1px solid #ccc',
+                                }}
+                            />
+                        </div>
+                        <div style={{ display: 'flex', gap: '20px' }}>
+                            <div style={{ marginBottom: '15px' }}>
+                                <label
+                                    htmlFor="min_players"
+                                    style={{
+                                        color: '#000000',
+                                    }}
+                                >
+                                    Minimum Players
+                                    <span style={{ color: 'red' }}>*</span>
+                                </label>
+                                <input
+                                    onChange={handleMinPlayersChange}
+                                    value={minPlayers}
+                                    placeholder="Enter minimum players"
+                                    required
+                                    type="text"
+                                    name="min_players"
+                                    id="min_players"
+                                    style={{
+                                        width: '100%',
+                                        padding: '8px',
+                                        borderRadius: '8px',
+                                        border: '1px solid #ccc',
+                                    }}
+                                />
+                            </div>
+                            <div style={{ marginBottom: '15px' }}>
+                                <label
+                                    htmlFor="max_players"
+                                    style={{
+                                        color: '#000000',
+                                    }}
+                                >
+                                    Maximum Players
+                                    <span style={{ color: 'red' }}>*</span>
+                                </label>
+                                <input
+                                    onChange={handleMaxPlayersChange}
+                                    value={maxPlayers}
+                                    placeholder="Enter maximum players"
+                                    required
+                                    type="text"
+                                    name="max_players"
+                                    id="max_players"
+                                    style={{
+                                        width: '100%',
+                                        padding: '8px',
+                                        borderRadius: '8px',
+                                        border: '1px solid #ccc',
+                                    }}
+                                />
+                            </div>
+                        </div>
+                        <div style={{ display: 'flex', gap: '20px' }}>
+                            <div style={{ marginBottom: '15px' }}>
+                                <label
+                                    htmlFor="play_time"
+                                    style={{
+                                        color: '#000000',
+                                    }}
+                                >
+                                    Play Time
+                                    <span style={{ color: 'red' }}>*</span>
+                                </label>
+                                <input
+                                    onChange={handlePlayTimeChange}
+                                    value={playTime}
+                                    placeholder="Enter play time"
+                                    required
+                                    type="text"
+                                    name="play_time"
+                                    id="play_time"
+                                    style={{
+                                        width: '100%',
+                                        padding: '8px',
+                                        borderRadius: '8px',
+                                        border: '1px solid #ccc',
+                                    }}
+                                />
+                            </div>
+                            <div style={{ marginBottom: '15px' }}>
+                                <label
+                                    htmlFor="age"
+                                    style={{
+                                        color: '#000000',
+                                    }}
+                                >
+                                    Age<span style={{ color: 'red' }}>*</span>
+                                </label>
+                                <input
+                                    onChange={handleAgeChange}
+                                    value={age}
+                                    placeholder="Enter age"
+                                    required
+                                    type="text"
+                                    name="age"
+                                    id="age"
+                                    style={{
+                                        width: '100%',
+                                        padding: '8px',
+                                        borderRadius: '8px',
+                                        border: '1px solid #ccc',
+                                    }}
+                                />
+                            </div>
+                        </div>
+                        <div style={{ marginBottom: '15px' }}>
+                            <label
+                                htmlFor="description"
+                                style={{
+                                    color: '#000000',
+                                }}
+                            >
+                                Description
+                                <span style={{ color: 'red' }}>*</span>
+                            </label>
+                            <textarea
+                                onChange={handleDescriptionChange}
+                                value={description}
+                                placeholder="Fill out game description"
+                                required
+                                type="text"
+                                name="description"
+                                id="description"
+                                rows="2"
+                                style={{
+                                    width: '100%',
+                                    padding: '8px',
+                                    borderRadius: '8px',
+                                    border: '1px solid #ccc',
+                                }}
+                            />
+                        </div>
+                        <div style={{ marginBottom: '15px' }}>
+                            <label
+                                htmlFor="rules"
+                                style={{
+                                    color: '#000000',
+                                }}
+                            >
+                                Rules<span style={{ color: 'red' }}>*</span>
+                            </label>
+                            <textarea
+                                onChange={handleRulesChange}
+                                value={rules}
+                                placeholder="Fill out game rules"
+                                required
+                                type="text"
+                                name="rules"
+                                id="rules"
+                                rows="2"
+                                style={{
+                                    width: '100%',
+                                    padding: '8px',
+                                    borderRadius: '8px',
+                                    border: '1px solid #ccc',
+                                }}
+                            />
+                        </div>
+                        <div style={{ display: 'flex', gap: '20px' }}>
+                            <div style={{ marginBottom: '15px' }}>
+                                <label
+                                    htmlFor="picture"
+                                    style={{
+                                        color: '#000000',
+                                    }}
+                                >
+                                    Picture
+                                    <span style={{ color: 'red' }}>*</span>
+                                </label>
+                                <input
+                                    onChange={handlePictureChange}
+                                    value={picture}
+                                    placeholder="Upload picture"
+                                    required
+                                    type="text"
+                                    name="picture"
+                                    id="picture"
+                                    style={{
+                                        width: '100%',
+                                        padding: '8px',
+                                        borderRadius: '8px',
+                                        border: '1px solid #ccc',
+                                    }}
+                                />
+                            </div>
+                            <div style={{ marginBottom: '15px' }}>
+                                <label
+                                    htmlFor="video"
+                                    style={{
+                                        color: '#000000',
+                                    }}
+                                >
+                                    Video
+                                </label>
+                                <input
+                                    onChange={handleVideoChange}
+                                    value={video}
+                                    placeholder="Upload youtube video"
+                                    type="text"
+                                    name="video"
+                                    id="video"
+                                    style={{
+                                        width: '100%',
+                                        padding: '8px',
+                                        borderRadius: '8px',
+                                        border: '1px solid #ccc',
+                                    }}
+                                />
+                            </div>
+                        </div>
+                        <div style={{ marginBottom: '15px' }}>
+                            <label
+                                htmlFor="category"
+                                style={{
+                                    color: '#000000',
+                                }}
+                            >
+                                Category<span style={{ color: 'red' }}>*</span>
+                            </label>
+                            <input
+                                onChange={handleCategoryChange}
+                                value={category}
+                                placeholder="Enter category"
+                                required
+                                type="text"
+                                name="category"
+                                id="category"
+                                style={{
+                                    width: '100%',
+                                    padding: '8px',
+                                    borderRadius: '8px',
+                                    border: '1px solid #ccc',
+                                }}
+                            />
+                        </div>
+                        <div style={{ display: 'flex', gap: '20px' }}>
+                            <select
+                                onChange={handleComplexityChange}
+                                value={complexity}
+                                required
+                                name="complexity"
+                                id="complexity"
+                                className="form-select"
+                                style={{ color: '#000000' }}
+                            >
+                                <option value="">
+                                    Choose Complexity Level(required)
+                                </option>
+                                <option value="Easy Breezy">
+                                    {`${emoji}`}Easy Breezy
+                                </option>
+                                <option value="Serene Enigma">
+                                    {`${emoji}${emoji}`} Serene Enigma
+                                </option>
+                                <option value="Brain Bender">
+                                    {`${emoji}${emoji}${emoji}`} Brain Bender
+                                </option>
+                                <option value="Mind Melter">
+                                    {`${emoji}${emoji}${emoji}${emoji}`}Mind
+                                    Melter
+                                </option>
+                            </select>
+                            <select
+                                onChange={handleRatingChange}
+                                value={rating}
+                                name="rating"
+                                id="rating"
+                                className="form-select"
+                                style={{ color: '#000000' }}
+                            >
+                                <option value="">
+                                    Choose your rating (optional)
+                                </option>
+                                <option value="1">{`${emoji1}`}</option>
+                                <option value="2">{`${emoji1}${emoji1}`}</option>
+                                <option value="3">{`${emoji1}${emoji1}${emoji1}`}</option>
+                                <option value="4">{`${emoji1}${emoji1}${emoji1}${emoji1}`}</option>
+                                <option value="5">{`${emoji1}${emoji1}${emoji1}${emoji1}${emoji1}`}</option>
+                            </select>
+                        </div>
+                        <button
+                            className="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-xl px-10 py-4 text-center me-2 mb-2"
                             style={{
-                                color: '#8bbdf3',
-                                textShadow: '0px 0px 1px #000000',
+                                display: 'block',
+                                margin: '0 auto',
+                                marginTop: '20px',
+                                cursor: 'pointer',
                             }}
                         >
-                            Title
-                        </label>
-                        <input
-                            onChange={handleTitleChange}
-                            value={title}
-                            placeholder="required field"
-                            required
-                            type="text"
-                            name="title"
-                            id="title"
-                            style={{
-                                width: '100%',
-                                padding: '8px',
-                                borderRadius: '4px',
-                                border: '1px solid #ccc',
-                            }}
-                        />
-                    </div>
-                    <div style={{ marginBottom: '15px' }}>
-                        <label
-                            htmlFor="year"
-                            style={{
-                                color: '#8bbdf3',
-                                textShadow: '0px 0px 1px #000000',
-                            }}
-                        >
-                            Year
-                        </label>
-                        <input
-                            onChange={handleYearChange}
-                            value={year}
-                            placeholder="required field"
-                            required
-                            type="text"
-                            name="year"
-                            id="year"
-                            style={{
-                                width: '100%',
-                                padding: '8px',
-                                borderRadius: '4px',
-                                border: '1px solid #ccc',
-                            }}
-                        />
-                    </div>
-                    <div style={{ marginBottom: '15px' }}>
-                        <label
-                            htmlFor="min_players"
-                            style={{
-                                color: '#8bbdf3',
-                                textShadow: '0px 0px 1px #000000',
-                            }}
-                        >
-                            Minimum Players
-                        </label>
-                        <input
-                            onChange={handleMinPlayersChange}
-                            value={minPlayers}
-                            placeholder="required field"
-                            type="text"
-                            name="min_players"
-                            id="min_players"
-                            style={{
-                                width: '100%',
-                                padding: '8px',
-                                borderRadius: '4px',
-                                border: '1px solid #ccc',
-                            }}
-                        />
-                    </div>
-                    <div style={{ marginBottom: '15px' }}>
-                        <label
-                            htmlFor="max_players"
-                            style={{
-                                color: '#8bbdf3',
-                                textShadow: '0px 0px 1px #000000',
-                            }}
-                        >
-                            Maximum Players
-                        </label>
-                        <input
-                            onChange={handleMaxPlayersChange}
-                            value={maxPlayers}
-                            placeholder="required field"
-                            type="text"
-                            name="max_players"
-                            id="max_players"
-                            style={{
-                                width: '100%',
-                                padding: '8px',
-                                borderRadius: '4px',
-                                border: '1px solid #ccc',
-                            }}
-                        />
-                    </div>
-                    <div style={{ marginBottom: '15px' }}>
-                        <label
-                            htmlFor="play_time"
-                            style={{
-                                color: '#8bbdf3',
-                                textShadow: '0px 0px 1px #000000',
-                            }}
-                        >
-                            Play Time
-                        </label>
-                        <input
-                            onChange={handlePlayTimeChange}
-                            value={playTime}
-                            placeholder="required field"
-                            type="text"
-                            name="play_time"
-                            id="play_time"
-                            style={{
-                                width: '100%',
-                                padding: '8px',
-                                borderRadius: '4px',
-                                border: '1px solid #ccc',
-                            }}
-                        />
-                    </div>
-                    <div style={{ marginBottom: '15px' }}>
-                        <label
-                            htmlFor="age"
-                            style={{
-                                color: '#8bbdf3',
-                                textShadow: '0px 0px 1px #000000',
-                            }}
-                        >
-                            Age
-                        </label>
-                        <input
-                            onChange={handleAgeChange}
-                            value={age}
-                            placeholder="required field"
-                            type="text"
-                            name="age"
-                            id="age"
-                            style={{
-                                width: '100%',
-                                padding: '8px',
-                                borderRadius: '4px',
-                                border: '1px solid #ccc',
-                            }}
-                        />
-                    </div>
-                    <div style={{ marginBottom: '15px' }}>
-                        <label
-                            htmlFor="description"
-                            style={{
-                                color: '#8bbdf3',
-                                textShadow: '0px 0px 1px #000000',
-                            }}
-                        >
-                            Description
-                        </label>
-                        <textarea
-                            onChange={handleDescriptionChange}
-                            value={description}
-                            placeholder="required field"
-                            type="text"
-                            name="description"
-                            id="description"
-                            rows="4"
-                            style={{
-                                width: '100%',
-                                padding: '8px',
-                                borderRadius: '4px',
-                                border: '1px solid #ccc',
-                            }}
-                        />
-                    </div>
-                    <div style={{ marginBottom: '15px' }}>
-                        <label
-                            htmlFor="rules"
-                            style={{
-                                color: '#8bbdf3',
-                                textShadow: '0px 0px 1px #000000',
-                            }}
-                        >
-                            Rules
-                        </label>
-                        <textarea
-                            onChange={handleRulesChange}
-                            value={rules}
-                            placeholder="required field"
-                            type="text"
-                            name="rules"
-                            id="rules"
-                            rows="4"
-                            style={{
-                                width: '100%',
-                                padding: '8px',
-                                borderRadius: '4px',
-                                border: '1px solid #ccc',
-                            }}
-                        />
-                    </div>
-                    <div style={{ marginBottom: '15px' }}>
-                        <label
-                            htmlFor="picture"
-                            style={{
-                                color: '#8bbdf3',
-                                textShadow: '0px 0px 1px #000000',
-                            }}
-                        >
-                            Picture
-                        </label>
-                        <input
-                            onChange={handlePictureChange}
-                            value={picture}
-                            placeholder="required field"
-                            type="text"
-                            name="picture"
-                            id="picture"
-                            style={{
-                                width: '100%',
-                                padding: '8px',
-                                borderRadius: '4px',
-                                border: '1px solid #ccc',
-                            }}
-                        />
-                    </div>
-                    <div style={{ marginBottom: '15px' }}>
-                        <label
-                            htmlFor="video"
-                            style={{
-                                color: '#8bbdf3',
-                                textShadow: '0px 0px 1px #000000',
-                            }}
-                        >
-                            Video
-                        </label>
-                        <input
-                            onChange={handleVideoChange}
-                            value={video}
-                            placeholder="optional"
-                            type="text"
-                            name="video"
-                            id="video"
-                            style={{
-                                width: '100%',
-                                padding: '8px',
-                                borderRadius: '4px',
-                                border: '1px solid #ccc',
-                            }}
-                        />
-                    </div>
-                    <div style={{ marginBottom: '15px' }}>
-                        <label
-                            htmlFor="category"
-                            style={{
-                                color: '#8bbdf3',
-                                textShadow: '0px 0px 1px #000000',
-                            }}
-                        >
-                            Category
-                        </label>
-                        <input
-                            onChange={handleCategoryChange}
-                            value={category}
-                            placeholder="required field"
-                            type="text"
-                            name="category"
-                            id="category"
-                            style={{
-                                width: '100%',
-                                padding: '8px',
-                                borderRadius: '4px',
-                                border: '1px solid #ccc',
-                            }}
-                        />
-                    </div>
-                    <select
-                        onChange={handleComplexityChange}
-                        value={complexity}
-                        required
-                        name="complexity"
-                        id="complexity"
-                        className="form-select"
-                        style={{ color: '#8bbdf3' }}
-                    >
-                        <option value="">
-                            Choose Complexity Level [Required]
-                        </option>
-                        <option value="Easy Breezy">
-                            {`${emoji}`}Easy Breezy
-                        </option>
-                        <option value="Serene Enigma">
-                            {`${emoji}${emoji}`} Serene Enigma
-                        </option>
-                        <option value="Brain Bender">
-                            {`${emoji}${emoji}${emoji}`} Brain Bender
-                        </option>
-                        <option value="Mind Melter">
-                            {`${emoji}${emoji}${emoji}${emoji}`}Mind Melter
-                        </option>
-                    </select>
-                    <select
-                        onChange={handleRatingChange}
-                        value={rating}
-                        required
-                        name="rating"
-                        id="rating"
-                        className="form-select"
-                        style={{ color: '#8bbdf3' }}
-                    >
-                        <option value="">Choose your rating [Optional]</option>
-                        <option value="1">{`${emoji1}`}</option>
-                        <option value="2">{`${emoji1}${emoji1}`}</option>
-                        <option value="3">{`${emoji1}${emoji1}${emoji1}`}</option>
-                        <option value="4">{`${emoji1}${emoji1}${emoji1}${emoji1}`}</option>
-                        <option value="4">{`${emoji1}${emoji1}${emoji1}${emoji1}${emoji1}`}</option>
-                    </select>
-                    <button
-                        className="add-button"
-                        style={{
-                            display: 'block',
-                            margin: '0 auto',
-                            marginTop: '20px',
-                            backgroundColor: '#007bff',
-                            color: '#fff',
-                            padding: '5px 20px',
-                            borderRadius: '4px',
-                            border: 'none',
-                            cursor: 'pointer',
-                        }}
-                    >
-                        UPDATE {emojis[489]}
-                    </button>
-                </form>
-            )}
-            {showModal && (
-                <div className="modal">
-                    <div className="modal-content" style={{ color: '#f8f8f8' }}>
-                        <p>
-                            Your Game Has Been Successfully Updated! <br />
-                            To navigate to All Games, please press{' '}
-                            <Link to="/games">here</Link>.
-                        </p>
-                        <button onClick={() => setShowModal(false)}>
-                            Close
+                            UPDATE {emojis[489]}
                         </button>
+                    </form>
+                )}
+                {showModal && (
+                    <div className="modal">
+                        <div
+                            className="modal-content"
+                            style={{ color: '#f8f8f8' }}
+                        >
+                            <p>
+                                Your Game Has Been Successfully Updated! <br />
+                                To navigate to All Games, please press{' '}
+                                <Link to="/games">here</Link>.
+                            </p>
+                            <button onClick={() => setShowModal(false)}>
+                                Close
+                            </button>
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </div>
     )
 }

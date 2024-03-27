@@ -55,7 +55,7 @@ const SignupForm = () => {
         }
         register(accountData, `${apiHost}/user`)
         event.target.reset()
-        navigate('/profile/edit')
+        navigate('/profile/')
     }
     return (
         <div className="p-4 ml-64">

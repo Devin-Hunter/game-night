@@ -10,6 +10,8 @@ function AddToButton({ game }) {
     const [wishlistGames, setWishlistGames] = useState([])
     const [alertVisible, setAlertVisible] = useState(false)
     const [alertMessage, setAlertMessage] = useState('')
+    const [errorAlertVisible, setErrorAlertVisible] = useState(false)
+    const [errorAlertMessage, setErrorAlertMessage] = useState('')
     const { token } = useToken()
 
     useEffect(() => {
@@ -48,9 +50,11 @@ function AddToButton({ game }) {
                 setTimeout(() => setAlertVisible(false), 3000)
             }
         } else {
-            setAlertMessage('This game is already in your "Owned Games" list!')
-            setAlertVisible(true)
-            setTimeout(() => setAlertVisible(false), 3000)
+            setErrorAlertMessage(
+                'This game is already in your "Owned Games" list!'
+            )
+            setErrorAlertVisible(true)
+            setTimeout(() => setErrorAlertVisible(false), 3000)
         }
     }
 
@@ -92,11 +96,11 @@ function AddToButton({ game }) {
                 setTimeout(() => setAlertVisible(false), 3000)
             }
         } else {
-            setAlertMessage(
+            setErrorAlertMessage(
                 'This game is already in your "Want to Play" games list!'
             )
-            setAlertVisible(true)
-            setTimeout(() => setAlertVisible(false), 3000)
+            setErrorAlertVisible(true)
+            setTimeout(() => setErrorAlertVisible(false), 3000)
         }
     }
 
@@ -124,7 +128,14 @@ function AddToButton({ game }) {
                     Want to Play
                 </Dropdown.Item>
             </Dropdown>
-            {alertVisible && <div className="alert-popup">{alertMessage}</div>}
+            <div>
+                {alertVisible && (
+                    <div className="alert-popup">{alertMessage}</div>
+                )}
+                {errorAlertVisible && (
+                    <div className="alert-popup error">{errorAlertMessage}</div>
+                )}
+            </div>
         </>
     )
 }
