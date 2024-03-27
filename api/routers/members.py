@@ -76,6 +76,7 @@ def get_all_members(
         authenticator.try_get_current_account_data
     ),
 ):
+    print('TEST PRINT STATEMENT', account_data)
     if account_data and authenticator.cookie_name in request.cookies:
         return repo.get_all()
 
@@ -90,7 +91,7 @@ def member_details(
     ),
 ) -> MemberOut:
     if account_data and authenticator.cookie_name in request.cookies:
-        return repo.get(username)
+        return MemberOut(**repo.get(username))
 
 
 @router.post("/user", response_model=AccountToken | HttpError)

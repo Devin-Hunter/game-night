@@ -11,11 +11,11 @@ function MainPage() {
     const { token } = useToken()
 
     const handleLogin = (e) => {
-        e.preventDefault()
-        login(username, password)
-        e.target.reset()
-        if (token) {
-            navigate(`/profile/edit`)
+        e.preventDefault();
+        login(username, password);
+        e.target.reset();  
+        if(token){
+            navigate(`/profile`);
         }
     }
 

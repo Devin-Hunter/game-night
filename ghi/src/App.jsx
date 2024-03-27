@@ -5,11 +5,12 @@ import SignupForm from './signupForm'
 import ProfilePage from './profilePage'
 import Profile from './profileView'
 import NavBar from './Nav'
-import AddLocationForm from './AddLocation'
-import VenuesList from './VenuesList'
+import AddVenueForm from './AddVenue'
+import Video from './TestVideo'
 import EventList from './EventList'
 import CreateEvent from './CreateEvent'
 import EventDetails from './EventDetails'
+import AddLocationForm from './AddLocation'
 import { AuthProvider } from '@galvanize-inc/jwtdown-for-react'
 import { apiHost } from './constants'
 import MemberEventList from './MemberEventList'
@@ -34,10 +35,9 @@ function App() {
                     <Route path="/events/member" element={<MemberEventList />} />
                     <Route path="/events/new" element={<CreateEvent />} />
                     <Route path="/events/:eventId" element={<EventDetails />} />
-                    <Route path="/sign-up/" element={<SignupForm />} />
-                    <Route path="/profile/" element={<ProfilePage />} />
                     <Route path="/locations" element={<AddLocationForm />} />
-                    <Route path="/venues" element={<VenuesList />} />
+                    <Route path="/venues" element={<AddVenueForm />} />
+                    <Route path="/test" element={<Video />} />
                     <Route path="/sign-up/" element={<SignupForm />} />
                     <Route
                         path="/profile/edit"
