@@ -4,6 +4,14 @@ Please keep all of your individual journals in this directory.
 
 Each team member is required to keep a development journal, which should be a single markdown file with an entry for each day the project was worked on.
 
+## Week 17
+
+### 22 March 2024
+
+Merged all front-end changes into main.
+
+My Venues List page holds the online venues list, in person venues list, and the add a new venue form. The add a new venue form holds the add a new location form inside of it.
+
 ## Week 16
 
 ### 11 March 2024
