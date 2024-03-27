@@ -42,7 +42,7 @@ function GameList() {
             }
         }
         fetchData()
-    }, [token, getGames])
+    }, [token, getGames, fetchRandomGame])
 
     return (
         <div className="text-center py-8">

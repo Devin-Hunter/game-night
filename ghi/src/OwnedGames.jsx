@@ -135,7 +135,7 @@ function OwnedList() {
                                     Title
                                 </th>
                                 <th scope="col" className="px-8 py-3">
-                                    Your Rating
+                                    Contributor Rating
                                 </th>
                                 <th scope="col" className="px-8 py-3">
                                     Playing Time

@@ -501,7 +501,7 @@ function GameForm() {
                             style={{ color: '#000000' }}
                         >
                             <option value="">
-                                Choose your rating (optional)
+                                Choose your rating (required)
                             </option>
                             <option value="1">{`${emoji1}`}</option>
                             <option value="2">{`${emoji1}${emoji1}`}</option>
