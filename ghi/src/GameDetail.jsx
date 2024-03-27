@@ -6,6 +6,24 @@ import { apiHost } from './constants'
 import { useAuthContext } from '@galvanize-inc/jwtdown-for-react'
 ;('use client')
 
+function complexityToFire(complexity) {
+    const levels = {
+        'Easy Breezy': 1,
+        'Serene Enigma': 2,
+        'Brain Bender': 3,
+        'Mind Melter': 4,
+    }
+    const fireEmoji = '🔥'
+    const level = levels[complexity] || 0
+    const emojiString = Array(level).fill(fireEmoji).join('')
+    return `${emojiString} ${complexity}`
+}
+
+function ratingToStars(rating) {
+    const starEmoji = '⭐'
+    return rating ? Array(rating).fill(starEmoji).join('') : 'Not rated'
+}
+
 function GameDetail() {
     const [game, setGame] = useState(null)
     const { game_id } = useParams()
@@ -29,9 +47,34 @@ function GameDetail() {
     return (
         <div className="flex-grid">
             {game && (
-                <main className="flex-grid p-20 md:ml-64 h-auto pt-20">
+                <main className="flex-grid p-20 md:ml-64 h-auto pt-10">
+                    <NavLink
+                        to="/games"
+                        className="inline-block"
+                        style={{
+                            marginRight: '30px',
+                        }}
+                    >
+                        <svg
+                            className="w-8 h-8 text-gray-800 dark:text-white"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            fill="#04d5e3"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke="#04d5e3"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"
+                            />
+                        </svg>
+                    </NavLink>
                     <div
-                        className="border h-98 mb-10 bg-cover bg-center"
+                        className="border h-98 mb-10 bg-cover bg-center rounded-xl"
                         style={{ backgroundColor: '#ddf2f4', color: '#000000' }}
                     >
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-4">
@@ -224,11 +267,13 @@ function GameDetail() {
                                                     }}
                                                 >
                                                     Complexity:{' '}
-                                                    {game.complexity}
+                                                    {complexityToFire(
+                                                        game.complexity
+                                                    )}
                                                 </span>
                                             </div>
                                         </h1>
-                                        <h1 className="font-bold text-lg mb-2">
+                                        <h1 className="font-bold text-lg mb-8">
                                             <div
                                                 style={{
                                                     display: 'flex',
@@ -255,14 +300,15 @@ function GameDetail() {
                                                         marginLeft: '10px',
                                                     }}
                                                 >
-                                                    Your Rating: {game.rating}
+                                                    Contributor&rsquo;s Rating:{' '}
+                                                    {ratingToStars(game.rating)}
                                                 </span>
                                             </div>
                                         </h1>
                                         <NavLink
                                             to={`/games/update/${game.id}`}
                                             type="button"
-                                            className="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900"
+                                            className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-md px-5 py-4 text-center me-2 mb-2"
                                         >
                                             Update Game Details
                                         </NavLink>

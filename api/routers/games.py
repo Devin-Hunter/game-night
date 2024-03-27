@@ -12,6 +12,14 @@ from authenticator import authenticator
 router = APIRouter()
 
 
+@router.get("/api/games/random", response_model=GameOut)
+def get_random_game(repo: GameRepo = Depends()):
+    game = repo.get_random_game()
+    if game is None:
+        raise HTTPException(status_code=404, detail="Game not found")
+    return game
+
+
 @router.post("/api/games", response_model=Union[GameOut, Error])
 def create_game(
     game: GameIn,

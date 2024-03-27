@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 from typing import Optional, Union, List
 from queries.pool import pool
 
@@ -22,6 +22,10 @@ class GameIn(BaseModel):
     category: str
     rating: Optional[int]
 
+    @validator('rating', pre=True, always=True)
+    def empty_string_to_none(cls, v):
+        return v if v != "" else None
+
 
 class GameOut(BaseModel):
     id: int
@@ -41,6 +45,30 @@ class GameOut(BaseModel):
 
 
 class GameRepo:
+    def get_random_game(self):
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT id, title, year, min_players,
+                                max_players,
+                                play_time, age, description,
+                                rules, picture, video,
+                                complexity, category, rating
+                        FROM games
+                        ORDER BY RANDOM()
+                        LIMIT 1;
+                        """
+                    )
+                    record = result.fetchone()
+                    print(record)
+                    if record is None:
+                        return None
+                    return self.record_to_game_out(record)
+        except Exception as e:
+            print(e)
+
     def create_game(self, game: GameIn) -> Union[GameOut, Error]:
         try:
             with pool.connection() as conn:

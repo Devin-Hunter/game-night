@@ -95,12 +95,12 @@ function OwnedList() {
                         />
                         <NavLink to="/games" className="inline-block">
                             <svg
-                                className="w-6 h-6 text-gray-800 dark:text-white"
+                                className="w-7 h-7 text-gray-800 dark:text-white"
                                 aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
                                 height="24"
-                                fill="none"
+                                fill="#ffffff"
                                 viewBox="0 0 24 24"
                             >
                                 <path
@@ -161,13 +161,16 @@ function OwnedList() {
                                         className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                                     >
                                         <td className="p-4">
-                                            <img
-                                                src={game.picture}
-                                                style={{
-                                                    width: '100px',
-                                                    height: '100px',
-                                                }}
-                                            />
+                                            <NavLink to={`/games/${game.id}`}>
+                                                <img
+                                                    src={game.picture}
+                                                    style={{
+                                                        width: '100px',
+                                                        height: '100px',
+                                                        pointer: 'cursor',
+                                                    }}
+                                                />
+                                            </NavLink>
                                         </td>
                                         <td className="px-8 py-4">
                                             {game.title}

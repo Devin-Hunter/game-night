@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import AddToButton from './AddToButton'
 import LikeButton from './LikeButton'
 import { apiHost } from './constants'
@@ -8,6 +8,7 @@ import useToken from '@galvanize-inc/jwtdown-for-react'
 function GameList() {
     const [games, setGames] = useState([])
     const [search, setSearch] = useState('')
+    const navigate = useNavigate()
     const { token } = useToken()
 
     const getGames = useCallback(async () => {
@@ -22,6 +23,18 @@ function GameList() {
         }
     }, [token])
 
+    const fetchRandomGame = useCallback(async () => {
+        const response = await fetch(`${apiHost}/api/games/random`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        if (response.ok) {
+            const game = await response.json()
+            navigate(`/games/${game.id}`)
+        }
+    }, [token, navigate])
+
     useEffect(() => {
         const fetchData = async () => {
             if (token) {
@@ -34,7 +47,7 @@ function GameList() {
     return (
         <div className="text-center py-8">
             <h1
-                className="text-7xl font-bold text-green-300 mb-4"
+                className="text-7xl font-bold text-white mb-4"
                 style={{
                     textShadow: '1px 1px 3px #000000',
                 }}
@@ -80,17 +93,24 @@ function GameList() {
                     className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2text-red-700 hover:text-white border border-red-700 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                     style={{ marginLeft: '20px' }}
                 >
-                    Add Game
+                    ADD GAME
                 </NavLink>
+                <button
+                    onClick={fetchRandomGame}
+                    type="button"
+                    className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                >
+                    RANDOM GAME
+                </button>
             </form>
             <hr
                 className="w-full border-t-5 border-gray-100 my-8"
                 style={{
-                    maxWidth: '900px',
+                    maxWidth: '1000px',
                     margin: 'auto',
                 }}
             />
-            <div className="game-list">
+            <div className="game-list bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-4 dark:bg-gray-800 dark:border-gray-700">
                 {games
                     .filter((game) =>
                         game.title.toLowerCase().includes(search.toLowerCase())
