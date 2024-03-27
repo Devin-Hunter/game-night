@@ -1,6 +1,7 @@
 ## Week 17
 3/18/24
 -Completed functionality for the create member and login forms
+-Completed functionality for the create member and login forms
 -Continued implementing FE auth
 -Hit blocker with the auth token in browser
 
