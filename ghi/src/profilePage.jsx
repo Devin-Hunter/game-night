@@ -1,18 +1,20 @@
 /* eslint-disable */
 import { useState, useEffect, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import useToken from '@galvanize-inc/jwtdown-for-react'
 import { apiHost } from './constants'
 
 const ProfilePage = () => {
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [age, setAge] = useState(0)
-    const [skill, setSkill] = useState('')
-    const [about, setAbout] = useState('')
-    const [locations, setLocations] = useState([])
-    const [locationChoice, setLocationChoice] = useState('')
-    const { token, fetchWithCookie } = useToken()
-    const [username, setUsername] = useState('')
+    const navigate = useNavigate();
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [age, setAge] = useState(0);
+    const [skill, setSkill] = useState('');
+    const [about, setAbout] = useState('');
+    const [locations, setLocations] = useState([]);
+    const [locationChoice, setLocationChoice] = useState('');
+    const { token, fetchWithCookie } = useToken();
+    const [username, setUsername] = useState('');
 
     const getMemberData = useCallback(async () => {
         const memberData = await fetchWithCookie(`${apiHost}/token/`)
@@ -66,7 +68,7 @@ const ProfilePage = () => {
             throw new Error('Could not update user info')
         } else {
             console.log('user info updated!')
-            location.reload()
+            navigate(`/profile`)
         }
     }
 
