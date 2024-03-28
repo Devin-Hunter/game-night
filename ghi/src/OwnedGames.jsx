@@ -50,7 +50,7 @@ function OwnedList() {
     }, [token, getOwnedGames])
 
     return (
-        <>
+        <main className="flex-grid ml-60">
             <div className="flex flex-col items-center py-8">
                 <h1
                     className="text-7xl font-bold text-green-300 mb-4"
@@ -201,7 +201,7 @@ function OwnedList() {
                     </table>
                 </div>
             </div>
-        </>
+        </main>
     )
 }
 
