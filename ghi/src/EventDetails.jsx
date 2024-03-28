@@ -1,16 +1,73 @@
-import { useEffect, useState } from 'react'
+'use client'
+import { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import { Card } from 'flowbite-react'
+import { Card, Button } from 'flowbite-react'
 import { apiHost } from './constants'
 import useToken from '@galvanize-inc/jwtdown-for-react'
+/* eslint-disable */
 
-const EventDetails = ({ member_id, username, setAlertMessage }) => {
-    const { token } = useToken()
-
+const EventDetails = () => {
+    const { token, fetchWithCookie } = useToken()
     const { eventId } = useParams()
     const [event, setEvent] = useState(null)
+    const [alertMessage, setAlertMessage] = useState('')
+    const [username, setUsername] = useState('')
+    const [memberId, setMemberId] = useState('')
+    const [player, setPlayer] = useState(false)
+    const [spectator, setSpectator] = useState(false)
+
+    const getUserData = useCallback(async () => {
+        const userData = await fetchWithCookie(`${apiHost}/token`)
+        setUsername(userData.account.username)
+        setMemberId(userData.account.id)
+        return userData
+    }, [fetchWithCookie])
+
+
+    const fetchPlayingEvents = useCallback(async () => {
+        try {
+            const request = await fetch(
+                `${apiHost}/user/${memberId}/events/player`,
+                { credentials: 'include' },
+                { headers: { Authorization: `Bearer ${token}` } }
+            )
+            if (request.ok) {
+                const data = await request.json()
+                console.log(event.id)
+                setPlayer(data.some((p) => p.id === event.id))
+                console.log(player)
+            }
+        } catch (error) {
+            console.error('Error fetching playing events:', error)
+        }
+    }, [token, memberId])
+
+    const fetchSpectatorEvents = useCallback(async () => {
+        try {
+            const request = await fetch(
+                `${apiHost}/user/${memberId}/events/spectator`,
+                { credentials: 'include' },
+                { headers: { Authorization: `Bearer ${token}` } }
+            )
+            if (request.ok) {
+                const data = await request.json()
+                setSpectator(data.some((s) => s.id === event.id))
+            }
+        } catch (error) {
+            console.error('Error fetching spectator events:', error)
+        }
+    }, [token, memberId])
+
 
     useEffect(() => {
+        const fetchData = async () => {
+            if (token) {
+                await getUserData()
+                await fetchPlayingEvents()
+                await fetchSpectatorEvents()
+            }
+        }
+
         const fetchEventDetails = async () => {
             try {
                 const request = await fetch(`${apiHost}/events/${eventId}`)
@@ -26,8 +83,20 @@ const EventDetails = ({ member_id, username, setAlertMessage }) => {
             }
         }
 
+        fetchData()
         fetchEventDetails()
-    }, [eventId])
+    }, [token, eventId, fetchPlayingEvents, fetchSpectatorEvents])
+
+
+    // useEffect(() => {
+    //     fetch(`${apiHost}/events/${eventId}`)
+    //         .then((res) => res.json())
+    //         .then((data) => setEvent(data))
+    //         .catch((error) => {
+    //             console.error('Error fetching event details:', error)
+    //             setAlertMessage('Failed to fetch event details')
+    //         })
+    // }, [eventId])
 
     const formatDate = (dateString) => {
         const options = {
@@ -44,63 +113,78 @@ const EventDetails = ({ member_id, username, setAlertMessage }) => {
         return formattedDate
     }
 
+
+    const deleteAttendStatus = async () => {
+        const response = await fetch(
+            `${apiHost}/events/${eventId}/members_events/${memberId}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        )
+        if (response.ok) {
+            fetchPlayingEvents()
+        } else {
+            throw new Error('Could not delete attending status')
+        }
+    }
+
     const handlePlayClick = async () => {
-        const response = await fetch(
-            `${apiHost}/events/${eventId}/member_events/${member_id}/is_player`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify({ event_id: eventId, member_id }),
-            }
-        )
-
-        if (response.ok) {
-            setAlertMessage('You are now a player in this event!')
-        } else {
-            setAlertMessage('Failed to join as a player.')
-        }
-    }
-
-    const handleSpectateClick = async () => {
-        const response = await fetch(
-            `${apiHost}/events/${eventId}/member_events/${member_id}/is_spectator`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify({ event_id: eventId, member_id }),
-            }
-        )
-        if (response.ok) {
-            setAlertMessage('You are now a spectator in this event!')
-        } else {
-            setAlertMessage('Failed to join as a spectator.')
-        }
-    }
-
-    const handleDeleteClick = async () => {
-        try {
+        if (!player) {
+            deleteAttendStatus()
             const response = await fetch(
-                `${apiHost}/user/${username}/events/${eventId}`,
+                `${apiHost}/events/${eventId}/member_events/${memberId}/is_player`,
                 {
-                    method: 'DELETE',
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ event_id: eventId, memberId }),
                 }
             )
 
             if (response.ok) {
-                setAlertMessage('Event deleted successfully')
+                setAlertMessage('You are now a player in this event!')
+                setPlayer(true)
             } else {
-                setAlertMessage('Failed to delete event')
+                setAlertMessage('Failed to join as a player.')
             }
-        } catch (error) {
-            console.error('Error deleting event:', error)
-            setAlertMessage('Failed to delete event')
+        } else {
+            deleteAttendStatus()
+            setAlertMessage('You are no longer a player in this event!')
+            setPlayer(false)
         }
+    }
+
+    const handleSpectateClick = async () => {
+        if (!spectator) {
+            deleteAttendStatus()
+            const response = await fetch(
+                `${apiHost}/events/${eventId}/members_events/${memberId}/is_spectator`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ event_id: eventId, memberId }),
+                }
+            )
+            if (response.ok) {
+                setAlertMessage('You are now a spectator in this event!')
+                setSpectator(true)
+            } else {
+                setAlertMessage('Failed to join as a spectator.')
+            }
+        } else {
+            deleteAttendStatus()
+            setAlertMessage('You are no longer a spectator at this event!')
+            setPlayer(false)
+        }
+
     }
 
     return (
@@ -116,6 +200,9 @@ const EventDetails = ({ member_id, username, setAlertMessage }) => {
                 <h1 style={{ color: 'black' }}>Event Details</h1>
                 {event ? (
                     <Card style={{ padding: '20px' }}>
+                        {alertMessage && (
+                            <p style={{ color: '#32CD32' }}>{alertMessage}</p>
+                        )}
                         <Card>
                             <h2 style={{ color: 'black', fontWeight: 'bold' }}>
                                 {event.game}
@@ -165,7 +252,7 @@ const EventDetails = ({ member_id, username, setAlertMessage }) => {
                                         marginRight: '10px',
                                     }}
                                 >
-                                    <button
+                                    <Button
                                         style={{
                                             color: 'black',
                                             backgroundColor: '#3498db',
@@ -176,10 +263,10 @@ const EventDetails = ({ member_id, username, setAlertMessage }) => {
                                         onClick={handlePlayClick}
                                     >
                                         Play
-                                    </button>
+                                    </Button>
                                 </div>
                                 <div style={{ display: 'inline-block' }}>
-                                    <button
+                                    <Button
                                         style={{
                                             color: 'black',
                                             backgroundColor: '#2ecc71',
@@ -190,26 +277,7 @@ const EventDetails = ({ member_id, username, setAlertMessage }) => {
                                         onClick={handleSpectateClick}
                                     >
                                         Spectate
-                                    </button>
-                                    <div
-                                        style={{
-                                            display: 'inline-block',
-                                            marginLeft: '10px',
-                                        }}
-                                    >
-                                        <button
-                                            style={{
-                                                color: 'black',
-                                                backgroundColor: '#e74c3c',
-                                                padding: '5px 10px',
-                                                border: 'none',
-                                                borderRadius: '5px',
-                                            }}
-                                            onClick={handleDeleteClick}
-                                        >
-                                            Delete
-                                        </button>
-                                    </div>
+                                    </Button>
                                 </div>
                             </div>
                         </Card>

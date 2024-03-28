@@ -201,7 +201,7 @@ class EventRepo:
                         (member_id, event_id, attendee_type)
                         VALUES (%s, %s, 'player')
                         """,
-                        (member_id, event_id),
+                        [member_id, event_id],
                     )
                     conn.commit()
                     return True
@@ -221,7 +221,7 @@ class EventRepo:
                         (member_id, event_id, attendee_type)
                         VALUES (%s, %s, 'spectator')
                         """,
-                        (member_id, event_id),
+                        [member_id, event_id],
                     )
                     conn.commit()
                     return True
@@ -240,7 +240,26 @@ class EventRepo:
                         DELETE FROM members_events
                         WHERE member_id = %s AND event_id = %s
                         """,
-                        (member_id, event_id),
+                        [member_id, event_id],
+                    )
+                    conn.commit()
+                    return True
+        except Exception as e:
+            print(e)
+            return False
+
+    def delete_event(
+        self, event_id: int
+    ) -> Union[bool, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM members_events
+                        WHERE event_id = %s
+                        """,
+                        [event_id],
                     )
                     conn.commit()
                     return True

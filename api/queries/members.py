@@ -199,7 +199,7 @@ class MemberRepo:
             print(e)
             return {"message": "Could not create new member"}
 
-    def get_member_attending_events(self, id):
+    def get_member_attending_events(self, member_id: int):
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -209,10 +209,12 @@ class MemberRepo:
                         FROM members_events me
                         JOIN events e
                         ON me.event_id = e.id
+                        JOIN members m
+                        ON me.member_id = m.id
                         WHERE attendee_type = 'spectator'
                         AND me.member_id = %s;
                         """,
-                        [id],
+                        [member_id],
                     )
                     result = []
                     for record in db:
@@ -232,7 +234,7 @@ class MemberRepo:
             print(e)
             return {"error": "could not get member events"}
 
-    def get_member_player_events(self, id):
+    def get_member_player_events(self, member_id: int):
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -242,10 +244,12 @@ class MemberRepo:
                         FROM members_events me
                         JOIN events e
                         ON me.event_id = e.id
+                        JOIN members m
+                        ON me.member_id = m.id
                         WHERE attendee_type = 'player'
                         AND me.member_id = %s;
                         """,
-                        [id],
+                        [member_id],
                     )
                     result = []
                     for record in db:
