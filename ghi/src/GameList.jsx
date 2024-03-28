@@ -5,6 +5,7 @@ import LikeButton from './LikeButton'
 import { apiHost } from './constants'
 import useToken from '@galvanize-inc/jwtdown-for-react'
 
+
 function GameList() {
     const [games, setGames] = useState([])
     const [search, setSearch] = useState('')
