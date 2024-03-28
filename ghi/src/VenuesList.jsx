@@ -175,7 +175,15 @@ export default function VenuesList() {
                                             <List.Item>
                                                 {' '}
                                                 Website: {''}
-                                                {venueDetails.online_link}
+                                                <a
+                                                    href={
+                                                        venueDetails.online_link
+                                                    }
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                >
+                                                    {venueDetails.online_link}
+                                                </a>
                                             </List.Item>
                                             <List.Item>
                                                 {' '}
