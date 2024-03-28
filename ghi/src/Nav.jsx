@@ -14,7 +14,7 @@ function NavBar() {
             console.error(response.statusText)
             return false
         }
-        navigate('/')
+        navigate('/game-night/')
     }
 
     return (

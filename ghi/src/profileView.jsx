@@ -36,25 +36,26 @@ const Profile = () => {
         <div className="p-4 ml-64">
             <div className="grid">
                 <div className="grid-cols-3 gap-4 mb-4"></div>
-                <div className="mx-auto max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <div className="mx-auto w-full max-w-md p-6 bg-white border border-gray-200 rounded-lg shadow">
                     <h5 className=" mb-2 text-2xl font-bold text-center text-gray-900 dark:text-white">
                         Your Info
                     </h5>
 
                     <p className="mb-2 font-normal text-gray-700 dark:text-gray-400">
-                        Name: {firstName} {lastName}
+                        <span className="font-bold">Name:</span> {firstName}{' '}
+                        {lastName}
                     </p>
                     <p className="mb-2 font-normal text-gray-700 dark:text-gray-400">
-                        Username: {username}
+                        <span className="font-bold">Username:</span> {username}
                     </p>
                     <p className="mb-2 font-normal text-gray-700 dark:text-gray-400">
-                        Age: {age}
+                        <span className="font-bold">Age:</span> {age}
                     </p>
                     <p className="mb-2 font-normal text-gray-700 dark:text-gray-400">
-                        Skill Level: {skill}
+                        <span className="font-bold">Skill Level:</span> {skill}
                     </p>
                     <p className="mb-2 font-normal text-gray-700 dark:text-gray-400">
-                        About: {about}
+                        <span className="font-bold">About:</span> {about}
                     </p>
                     <button
                         onClick={handleClick}

@@ -61,7 +61,7 @@ const SignupForm = () => {
         <div className="p-4 ml-64">
             <div className="grid">
                 <div className="grid-cols-4 gap-4 mb-4">
-                    <div className="w-full max-w-sm mx-auto p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+                    <div className="mx-auto w-full max-w-md p-6 bg-white border border-gray-200 rounded-lg shadow">
                         <div
                             className="w-full
                             max-w-sm
@@ -79,12 +79,7 @@ const SignupForm = () => {
                                 className="space-y-6"
                                 onSubmit={(event) => handleRegistration(event)}
                             >
-                                <h5
-                                    className="text-xl
-                                font-medium
-                                text-gray-900
-                                dark:text-white"
-                                >
+                                <h5 className="mb-2 text-2xl font-bold text-center text-gray-900">
                                     Sign Up
                                 </h5>
                                 <div>

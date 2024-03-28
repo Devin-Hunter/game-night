@@ -28,7 +28,7 @@ function App() {
             <AuthProvider baseUrl={apiHost}>
                 <NavBar />
                 <Routes>
-                    <Route path="/" element={<MainPage />} />
+                    <Route path="/game-night/" element={<MainPage />} />
                     <Route path="/events" element={<EventList />} />
                     <Route path="/events/member" element={<MemberEventList />} />
                     <Route path="/events/new" element={<CreateEvent />} />

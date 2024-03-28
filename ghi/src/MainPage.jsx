@@ -1,14 +1,14 @@
-import useToken from '@galvanize-inc/jwtdown-for-react'
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+import useToken from '@galvanize-inc/jwtdown-for-react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function MainPage() {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const { login } = useToken()
-    const navigate = useNavigate()
-    const { token } = useToken()
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const { login } = useToken();
+    const navigate = useNavigate();
+    const { token } = useToken();
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -86,7 +86,7 @@ function MainPage() {
                         <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                             Not registered?{' '}
                             <Link
-                                to="./sign-up/"
+                                to="/sign-up/"
                                 className="text-blue-700 hover:underline dark:text-blue-500"
                             >
                                 Create account
