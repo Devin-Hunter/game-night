@@ -138,7 +138,7 @@ function FavoriteList() {
                                     Title
                                 </th>
                                 <th scope="col" className="px-8 py-3">
-                                    Contributor Rating
+                                    Contributor&rsquo;s Rating
                                 </th>
                                 <th scope="col" className="px-8 py-3">
                                     Playing Time

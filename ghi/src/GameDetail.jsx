@@ -65,10 +65,10 @@ function GameDetail() {
                             viewBox="0 0 24 24"
                         >
                             <path
-                                stroke="#04d5e3"
+                                stroke="#ffffff"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
-                                strokeWidth="2"
+                                strokeWidth="1"
                                 d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"
                             />
                         </svg>
@@ -354,7 +354,7 @@ function GameDetail() {
                                     style={{ textAlign: 'justify' }}
                                 >
                                     <h1 className="description-title">
-                                        Description
+                                        Description 📝
                                     </h1>
                                     <hr className="w-full border-t-3 border-gray-200 my-2" />
                                     <div
@@ -398,7 +398,9 @@ function GameDetail() {
                                     className="description-content"
                                     style={{ textAlign: 'justify' }}
                                 >
-                                    <h1 className="description-title">Rules</h1>
+                                    <h1 className="description-title">
+                                        Rules❗
+                                    </h1>
                                     <hr className="w-full border-t-3 border-gray-200 my-2" />
                                     <div
                                         className="description-text"
@@ -437,6 +439,11 @@ function GameDetail() {
                                     </>
                                 }
                             >
+                                <h1 className="description-title">
+                                    🎥 Watch this instructional video to learn
+                                    how to play this game!{' '}
+                                </h1>
+                                <hr className="w-full border-t-3 border-gray-200 my-2" />
                                 <ReactPlayer url={game.video} controls={true} />
                             </Tabs.Item>
                             <Tabs.Item

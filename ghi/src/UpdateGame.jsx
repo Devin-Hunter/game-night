@@ -172,7 +172,7 @@ function UpdateGame() {
                         textShadow: '1px 2px 2px #000000',
                     }}
                 >
-                    Update Game
+                    Update Game Details
                 </h1>
                 {game && (
                     <form onSubmit={handleSubmit} id="create-game-form">
@@ -499,7 +499,7 @@ function UpdateGame() {
                                 style={{ color: '#000000' }}
                             >
                                 <option value="">
-                                    Choose your rating (required)
+                                    Choose your rating (optional)
                                 </option>
                                 <option value="1">{`${emoji1}`}</option>
                                 <option value="2">{`${emoji1}${emoji1}`}</option>

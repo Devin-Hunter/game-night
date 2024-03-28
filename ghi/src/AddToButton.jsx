@@ -45,13 +45,13 @@ function AddToButton({ game }) {
             )
             if (result.ok) {
                 setOwnedGames((prev) => [...prev, game])
-                setAlertMessage('Game has been added to Owned Games!')
+                setAlertMessage('Game has been ADDED to Owned Games!')
                 setAlertVisible(true)
                 setTimeout(() => setAlertVisible(false), 3000)
             }
         } else {
             setErrorAlertMessage(
-                'This game is already in your "Owned Games" list!'
+                'This game is ALREADY in your "Owned Games" list!'
             )
             setErrorAlertVisible(true)
             setTimeout(() => setErrorAlertVisible(false), 3000)
@@ -90,14 +90,14 @@ function AddToButton({ game }) {
             if (result.ok) {
                 setWishlistGames((prev) => [...prev, game])
                 setAlertMessage(
-                    'Game has been added to "Want To Play Games" list!'
+                    'Game has been ADDED to "Want To Play Games" list!'
                 )
                 setAlertVisible(true)
                 setTimeout(() => setAlertVisible(false), 3000)
             }
         } else {
             setErrorAlertMessage(
-                'This game is already in your "Want to Play" games list!'
+                'This game is ALREADY in your "Want to Play" games list!'
             )
             setErrorAlertVisible(true)
             setTimeout(() => setErrorAlertVisible(false), 3000)
