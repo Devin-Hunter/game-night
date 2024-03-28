@@ -53,12 +53,12 @@ function FavoriteList() {
     }, [token, getFavoriteGames])
 
     return (
-        <>
+        <main className="flex-grid ml-60">
             <div className="flex flex-col items-center py-8">
                 <h1
                     className="text-7xl font-bold text-green-300 mb-4"
                     style={{
-                        textShadow: '1px 1px 3px #000000',
+                        textShadow: '2px 2px 3px #000000',
                     }}
                 >
                     Favorite Games
@@ -204,7 +204,7 @@ function FavoriteList() {
                     </table>
                 </div>
             </div>
-        </>
+        </main>
     )
 }
 
